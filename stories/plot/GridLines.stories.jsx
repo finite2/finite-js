@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SVGFill, XYPlot, PlotRegion, HorizontalGridLines, VerticalGridLines } from "../../plot";
+import { SVGFill, XYPlot, PlotRegion, HorizontalGridLines, VerticalGridLines } from "@finite/plot";
 
 export default {
   title: "Plot/GridLines",

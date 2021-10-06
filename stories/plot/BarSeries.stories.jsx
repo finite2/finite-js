@@ -1,7 +1,14 @@
 import React from "react";
 import { scaleLinear } from "d3-scale";
 
-import { SVGFill, XYPlot, VerticalBarSeries, HorizontalBarSeries, XAxis, YAxis } from "../../plot";
+import {
+  SVGFill,
+  XYPlot,
+  VerticalBarSeries,
+  HorizontalBarSeries,
+  XAxis,
+  YAxis,
+} from "@finite/plot";
 
 export default {
   title: "Plot/Series/BarSeries",

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SVG, XYPlot, PlotRegion } from "../../plot";
+import { SVG, XYPlot, PlotRegion } from "@finite/plot";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

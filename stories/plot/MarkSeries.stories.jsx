@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { scaleLinear } from "d3-scale";
 
-import { SVGFill, XYPlot, MarkSeries, XAxis, YAxis } from "../../plot";
+import { SVGFill, XYPlot, MarkSeries, XAxis, YAxis } from "@finite/plot";
 
 export default {
   title: "Plot/Series/MarkSeries",

@@ -1,7 +1,7 @@
 import React from "react";
 import { scaleLinear } from "d3-scale";
 
-import { SVGFill, XYPlot, PolygonSeries, XAxis, YAxis } from "../../plot";
+import { SVGFill, XYPlot, PolygonSeries, XAxis, YAxis } from "@finite/plot";
 
 export default {
   title: "Plot/Series/PolygonSeries",
