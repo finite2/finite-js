@@ -5,45 +5,40 @@ import { getFlavor } from "../utils/getFlavor";
 
 export const flavorColors = {
   default: {
+    background: "var(--color-default)",
+    hover: "var(--color-default-dark)",
+  },
+  primary: {
     background: "var(--color-primary)",
     hover: "var(--color-primary-dark)",
-    border: 0,
   },
-  light: {
-    background: "#9ad7f3",
-    hover: "#b8e2f5",
-    border: 0,
+  secondary: {
+    background: "var(--color-secondary)",
+    hover: "var(--color-secondary-dark)",
   },
   success: {
-    background: "#4fdb6d",
-    hover: "#31ac4b",
-    border: 0,
+    background: "var(--color-success)",
+    hover: "var(--color-success-dark)",
+  },
+  warning: {
+    background: "var(--color-warning)",
+    hover: "var(--color-warning-dark)",
   },
   danger: {
-    background: "#daa240",
-    hover: "#a87a28",
-    border: 0,
-  },
-  white: {
-    background: "white",
-    hover: "#ddddff",
-    border: "2px solid black",
-  },
-  defaultBorder: {
-    background: "#45bedf",
-    hover: "#2aadd1",
-    border: "2px solid black",
+    background: "var(--color-danger)",
+    hover: "var(--color-danger-dark)",
   },
 };
 
 export const Button = styled.button.attrs((p) => {
-  let type = getFlavor(p);
+  let type = getFlavor(p, p.fallbackFlavor);
   return {
     style: {
-      "--color": p.active ? "#3300AA" : "#000",
-      "--border": flavorColors[type].border,
-      "--background": flavorColors[type].background,
+      "--color": p.disabled ? "var(--color-font-disabled)" : "var(--color-font)",
+      "--background":
+        p.inactive || p.disabled ? "var(--color-background-alt)" : flavorColors[type].background,
       "--background-hover": flavorColors[type].hover,
+      "--border": p.bordered ? "var(--button-bordered)" : 0,
       ...p.style,
     },
   };
@@ -53,7 +48,7 @@ export const Button = styled.button.attrs((p) => {
   align-items: center;
   width: 100%;
   height: 100%;
-  border-radius: 5px;
+  border-radius: var(--button-radius);
   border: var(--border);
   cursor: pointer;
   pointer-events: auto;
@@ -62,8 +57,12 @@ export const Button = styled.button.attrs((p) => {
   padding: 0;
   color: var(--color);
   user-select: none;
+  box-sizing: border-box;
 
-  :hover {
+  transition: background 0.5s;
+
+  :enabled:hover,
+  :enabled:focus {
     background: var(--background-hover);
     color: var(--color);
   }
@@ -71,6 +70,10 @@ export const Button = styled.button.attrs((p) => {
   :focus {
     border-color: none;
     outline: 0;
+  }
+
+  :disabled {
+    cursor: not-allowed;
   }
 `;
 

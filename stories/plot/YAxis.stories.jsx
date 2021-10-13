@@ -36,8 +36,8 @@ const ExampleTemplate = (args) => {
 
 const BaseTemplate = (args) => {
   return (
-    <SVG width={50} height={400}>
-      <XYPlot margin={{ left: 0, top: 10, bottom: 10 }}>
+    <SVG width={60} height={400}>
+      <XYPlot margin={{ left: 50, top: 15, bottom: 15, right: 0 }}>
         <YAxis {...args} />
       </XYPlot>
     </SVG>

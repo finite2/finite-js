@@ -5,9 +5,17 @@ export const GlobalStyle = createGlobalStyle(
 
   /* css avaiable variables */
   :root {
+    
+    --color-default: ${theme.colors.default};
+    --color-default-dark:  ${theme.colors.defaultDark};
+
     --color-primary: ${theme.colors.primary};
     --color-primary-dark: ${theme.colors.primaryDark};
     --color-primary-light: ${theme.colors.primaryLight};
+
+    --color-secondary: ${theme.colors.secondary};
+    --color-secondary-dark: ${theme.colors.secondaryDark};
+    --color-secondary-light: ${theme.colors.secondaryLight};
 
     --color-background: ${theme.colors.background};
     --color-background-alt: ${theme.colors.backgroundAlt};
@@ -15,6 +23,19 @@ export const GlobalStyle = createGlobalStyle(
     --color-font: ${theme.colors.fontMain}; 
     --color-font-alt: ${theme.colors.fontAlt};
     --color-font-selected: ${theme.colors.fontSelected};
+    --color-font-disabled: ${theme.colors.fontDisabled};
+
+    --color-success: ${theme.colors.success};
+    --color-success-dark:  ${theme.colors.successDark};
+
+    --color-warning: ${theme.colors.warning};
+    --color-warning-dark:  ${theme.colors.warningDark};
+
+    --color-danger: ${theme.colors.danger};
+    --color-danger-dark:  ${theme.colors.dangerDark};
+
+    --button-radius: ${theme.button.radius};
+    --button-bordered: ${theme.button.bordered};
   }
 
   body {

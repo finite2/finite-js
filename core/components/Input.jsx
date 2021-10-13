@@ -1,34 +1,21 @@
-import React, { useRef } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import { Button } from "./Button";
-import { getFlavor } from "../utils/getFlavor";
 
-export const InputBase = styled.input`
-  width: 100%;
-  height: 100%;
-  background: none;
-  border: none;
+export const InputBase = styled(Button)`
   text-align: center;
 
-  :focus {
-    border-color: none;
-    outline: 0;
+  & {
+    cursor: text;
   }
 `;
 
 export const Input = (props) => {
-  const { style, options, flavor, ...rest } = props;
-  const ref = useRef(null);
+  return <InputBase as="input" {...props} />;
+};
 
-  return (
-    <Button
-      title={props.title}
-      flavor={getFlavor(props)}
-      onClick={() => ref.current.focus()}
-      style={style}
-    >
-      <InputBase ref={ref} {...rest} />
-    </Button>
-  );
+Input.propTypes = {
+  type: PropTypes.string,
+  onChange: PropTypes.func,
 };
