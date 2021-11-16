@@ -8,16 +8,20 @@ const ratiosToColumnWidths = (ratios) => {
   }
 };
 
-export const Grid = styled.div.attrs(({ columns, rowHeight, gridGap, style, dense, ...rest }) => ({
-  ...rest,
-  style: {
-    gridTemplateColumns: ratiosToColumnWidths(columns),
-    gridAutoRows: rowHeight,
-    gridAutoFlow: `row${dense ? " dense" : ""}`,
-    gridGap,
-    ...style,
-  },
-}))`
+export const Grid = styled.div.attrs(
+  ({ columns, rowHeight, gridGap, gapTop, gapBottom, style, dense, ...rest }) => ({
+    ...rest,
+    style: {
+      gridTemplateColumns: ratiosToColumnWidths(columns),
+      gridAutoRows: rowHeight,
+      gridAutoFlow: `row${dense ? " dense" : ""}`,
+      marginTop: gapTop ? gridGap : null,
+      marginBottom: gapBottom ? gridGap : null,
+      gridGap,
+      ...style,
+    },
+  })
+)`
   display: grid;
   text-align: center;
   align-items: center;
@@ -29,4 +33,6 @@ Grid.defaultProps = {
   gridGap: 10,
   rowHeight: 40,
   dense: false,
+  gapTop: false,
+  gapBottom: false,
 };

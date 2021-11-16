@@ -1,20 +1,22 @@
 import styled from "styled-components";
 
-export const HorizontalLine = styled.div.attrs(({ shorten, width, style, ...rest }) => {
+export const HorizontalLine = styled.div.attrs(({ shorten, spacing, style, ...rest }) => {
   return {
     style: {
       ...style,
-      width: width ? `calc(${width} - ${shorten * 2}px)` : `calc(100% - ${shorten * 2}px)`,
+      "--margin": `${spacing}px ${shorten}px`,
     },
     ...rest,
   };
 })`
-  margin: 20px auto;
+  margin: var(--margin);
   height: 4px;
   background: black;
+  box-sizing: bounding-box;
 `;
 
 HorizontalLine.defaultProps = {
+  spacing: 0,
   shorten: 0,
   width: "",
 };

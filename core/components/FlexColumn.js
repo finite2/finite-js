@@ -7,18 +7,19 @@ export const FlexColumn = styled.div(
   justify-content: ${p.justify};
   height: 100%;
 
-  > div {
-    margin-top: 3px;
+  > ${FlexChild} {
+    margin-top: ${p.spaceBetween}px;
   }
 
   > :last-child {
-    margin-bottom: 3px;
+    margin-bottom: ${p.spaceBetween}px;
   }
 `
 );
 
 FlexColumn.defaultProps = {
   justify: "space-between",
+  spaceBetween: 0,
 };
 
 export const FlexChild = styled.div(

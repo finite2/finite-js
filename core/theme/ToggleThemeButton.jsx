@@ -2,7 +2,7 @@ import { Button } from "../components/Button";
 import { Icon } from "../components/Icon";
 import { useSelectThemeContext } from "./CustomThemeProvider";
 
-export const ToggleTheme = (props) => {
+export const ToggleThemeButton = (props) => {
   const { theme, setTheme } = useSelectThemeContext();
 
   return (

@@ -11,6 +11,7 @@ export { ClipPath, ClipPlotRegion } from "./plot/ClipPath";
 export { AxisTitle } from "./plot/AxisTitle";
 
 export { LineSeries } from "./plot/series/LineSeries";
+export { LineAreaSeries } from "./plot/series/LineAreaSeries";
 export { MarkSeries } from "./plot/series/MarkSeries";
 export { PolygonSeries } from "./plot/series/PolygonSeries";
 export { VerticalBarSeries, HorizontalBarSeries } from "./plot/series/BarSeries";

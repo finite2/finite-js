@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export const useObject = (init, update = []) => {
   const [object, setObject] = useState({});
 
-  const updateObject = partialObject => {
+  const updateObject = (partialObject) => {
     if (typeof partialObject === "function") {
       setObject(partialObject);
     } else {
-      setObject(o => ({ ...o, ...partialObject }));
+      setObject((o) => ({ ...o, ...partialObject }));
     }
   };
 

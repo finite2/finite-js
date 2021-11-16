@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 
-import { PlotContext, getScale, useSVGContext } from "./plot-utils";
+import { PlotContext, getScale, useSVGContext, classes } from "./plot-utils";
 
 import { useZoomablePlot } from "./useZoomablePlot";
 
@@ -44,6 +44,7 @@ export const XYPlot = ({
   yType,
   yDomain,
   yValues,
+  className,
   preserveRatio,
   children,
 }) => {
@@ -71,12 +72,12 @@ export const XYPlot = ({
   const innerHeight = outerBottom - margin.bottom - outerTop - margin.top;
   const [top, bottom] = [outerTop + margin.top, outerBottom - margin.bottom];
 
-  if (innerWidth <= 0) {
-    throw "plot region width too small";
-  }
-  if (innerHeight <= 0) {
-    throw "plot region height too small";
-  }
+  // if (innerWidth <= 0) {
+  //   throw "plot region width too small";
+  // }
+  // if (innerHeight <= 0) {
+  //   throw "plot region height too small";
+  // }
 
   const xRange = useMemo(() => [0, innerWidth], [innerWidth]);
   const yRange = useMemo(() => [innerHeight, 0], [innerHeight]);
@@ -114,19 +115,20 @@ export const XYPlot = ({
         events,
       }}
     >
-      {children}
+      <g className={classes("plot__xyplot", className)}>{children}</g>
     </PlotContext.Provider>
   );
 };
 
 XYPlot.defaultProps = {
   grid: { left: 0, right: 0, top: 0, bottom: 0, width: 1, height: 1 },
-  margin: { left: 45, right: 10, top: 10, bottom: 45 },
+  margin: { left: 50, right: 10, top: 10, bottom: 40 },
   xDomain: [0, 1],
   xType: "linear",
   yDomain: [0, 1],
   yType: "linear",
   preserveRatio: false,
+  className: null,
 };
 
 XYPlot.propTypes = {
@@ -149,4 +151,5 @@ XYPlot.propTypes = {
   yDomain: PropTypes.arrayOf(PropTypes.number),
   yType: PropTypes.oneOf(["linear", "log", "ordinal"]),
   preserveRatio: PropTypes.bool,
+  className: PropTypes.string,
 };

@@ -61,26 +61,18 @@ export const Button = styled.button.attrs((p) => {
 
   transition: background 0.5s;
 
-  :enabled:hover,
-  :enabled:focus {
+  :enabled:hover {
     background: var(--background-hover);
     color: var(--color);
   }
 
-  :focus {
+  :focus,
+  :enabled:focus {
     border-color: none;
     outline: 0;
   }
 
   :disabled {
     cursor: not-allowed;
-  }
-`;
-
-export const ButtonLink = styled(Button).attrs(() => ({ as: Link }))`
-  text-decoration: none;
-
-  :hover {
-    text-decoration: none;
   }
 `;

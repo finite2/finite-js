@@ -10,8 +10,6 @@ const Div = styled.div`
 export const SVGFill = ({ children, ...rest }) => {
   const [elementRef, { innerWidth, innerHeight }] = useElementSize({ width: 100, height: 200 });
 
-  console.log(innerWidth, innerHeight);
-
   return (
     <Div ref={elementRef}>
       <SVG width={innerWidth} height={innerHeight} {...rest}>
