@@ -1,8 +1,10 @@
-export const prettyNumber = (number, sf = 4) => {
-  return toEngineering(number, sf);
+export const prettyNumber = (number, options = {}) => {
+  const { sf = 4, prefix = "" } = options;
+  return toEngineering(number, { sf, prefix });
 };
 
-const toEngineering = (value, sf = 4) => {
+const toEngineering = (value, options = {}) => {
+  const { sf = 4, prefix = "" } = options;
   if (value === undefined || value === null) {
     return "-";
   }
@@ -19,7 +21,7 @@ const toEngineering = (value, sf = 4) => {
   let signif = Math.floor(tenLog / 3) * 3;
   let powSuffix = Math.pow(10, signif);
 
-  return `${sign ? "" : "-"}${(value / powSuffix).toFixed(
+  return `${sign ? "" : "-"}${prefix}${(value / powSuffix).toFixed(
     Math.max(0, sf - (tenLog - signif + 1))
   )}${suffix}`;
 };
