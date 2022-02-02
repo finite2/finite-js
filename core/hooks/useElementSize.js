@@ -12,7 +12,7 @@ class ElementSize {
   }
 }
 
-export const useElementSize = (init = { width: 600, height: 600 }) => {
+export const useElementSize = (init = { width: 0, height: 0 }) => {
   const elementRef = useRef();
   const [elementSize, setState] = useState(new ElementSize(init.width, init.height));
 
