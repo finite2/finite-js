@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -116,31 +116,43 @@ const AxisTicks = (props) => {
   const x = orientation === RIGHT ? innerWidth : 0;
   const y = orientation === BOTTOM ? innerHeight : 0;
 
-  const tickFormatFn = getTickFormatFn(scale, ordinalValues, tickTotal, tickFormat);
-
-  const values = getTickValues(scale, ordinalValues, tickTotal, tickValues);
-
-  const translateFn = getTickContainerPropsGetterFn(orientation);
-  const pathProps = getTickLineProps(orientation, tickSize, tickSizeInner, tickSizeOuter);
-  const textProps = getTickLabelProps(
-    orientation,
-    tickLabelAngle,
-    tickSize,
-    tickSizeOuter,
-    tickPadding
+  const tickFormatFn = useMemo(
+    () => getTickFormatFn(scale, ordinalValues, tickTotal, tickFormat),
+    [scale, ordinalValues, tickTotal, tickFormat]
   );
 
-  const ticks = values.map((v, i) => {
-    const pos = scale(v);
-    const labelNode = tickFormatFn(v, i, scale, tickTotal);
+  const values = useMemo(
+    () => getTickValues(scale, ordinalValues, tickTotal, tickValues),
+    [scale, ordinalValues, tickTotal, tickValues]
+  );
 
-    return (
-      <g key={i} {...translateFn(pos)}>
-        {tickSize !== 0 ? <AxisTick {...pathProps} /> : null}
-        <AxisTickLabel {...textProps}>{labelNode}</AxisTickLabel>
-      </g>
-    );
-  });
+  const translateFn = useMemo(() => getTickContainerPropsGetterFn(orientation), [orientation]);
+
+  const pathProps = useMemo(
+    () => getTickLineProps(orientation, tickSize, tickSizeInner, tickSizeOuter),
+    [orientation, tickSize, tickSizeInner, tickSizeOuter]
+  );
+
+  const textProps = useMemo(
+    () => getTickLabelProps(orientation, tickLabelAngle, tickSize, tickSizeOuter, tickPadding),
+    [orientation, tickLabelAngle, tickSize, tickSizeOuter, tickPadding]
+  );
+
+  const ticks = useMemo(
+    () =>
+      values.map((v, i) => {
+        const pos = scale(v);
+        const labelNode = tickFormatFn(v, i, scale, tickTotal);
+
+        return (
+          <g key={i} {...translateFn(pos)}>
+            {tickSize !== 0 ? <AxisTick {...pathProps} /> : null}
+            <AxisTickLabel {...textProps}>{labelNode}</AxisTickLabel>
+          </g>
+        );
+      }),
+    [scale, tickFormatFn, translateFn, pathProps, textProps, tickTotal, tickSize]
+  );
 
   return <g transform={`translate(${x}, ${y})`}>{ticks}</g>;
 };

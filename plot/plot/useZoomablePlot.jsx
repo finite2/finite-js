@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { DIRECTION } from "./plot-utils";
 
 const domainMatch = (curX, curY, prev) => {
@@ -31,7 +31,7 @@ const scaleLoc = (location, multiplier, direction = null) => {
     left: centerX - distX * multiplierX,
     right: centerX + distX * multiplierX,
     bottom: centerY - distY * multiplierY,
-    top: centerY + distY * multiplierY
+    top: centerY + distY * multiplierY,
   };
 };
 
@@ -43,17 +43,11 @@ const transformFixRatio = (xDomain, yDomain, xRange, yRange, preserveRatio) => {
     if (xr > yr) {
       let xDomainMu = (xDomain[1] + xDomain[0]) / 2;
       let xDomainDiff = (xDomain[1] - xDomain[0]) / 2;
-      xDomain = [
-        xDomainMu - (xDomainDiff * yr) / xr,
-        xDomainMu + (xDomainDiff * yr) / xr
-      ];
+      xDomain = [xDomainMu - (xDomainDiff * yr) / xr, xDomainMu + (xDomainDiff * yr) / xr];
     } else if (yr > xr) {
       let yDomainMu = (yDomain[1] + yDomain[0]) / 2;
       let yDomainDiff = (yDomain[1] - yDomain[0]) / 2;
-      yDomain = [
-        yDomainMu - (yDomainDiff * xr) / yr,
-        yDomainMu + (yDomainDiff * xr) / yr
-      ];
+      yDomain = [yDomainMu - (yDomainDiff * xr) / yr, yDomainMu + (yDomainDiff * xr) / yr];
     }
   }
 
@@ -65,45 +59,31 @@ const locationFromDomain = ([xDomain, yDomain]) => {
     left: xDomain[0],
     right: xDomain[1],
     bottom: yDomain[0],
-    top: yDomain[1]
+    top: yDomain[1],
   };
 };
 
-export const useZoomablePlot = (
-  xDomain,
-  yDomain,
-  xRange,
-  yRange,
-  preserveRatio
-) => {
+export const useZoomablePlot = (xDomain, yDomain, xRange, yRange, preserveRatio) => {
   const [lastLocation, setLastLocation] = useState(
-    locationFromDomain(
-      transformFixRatio(xDomain, yDomain, xRange, yRange, preserveRatio)
-    )
+    locationFromDomain(transformFixRatio(xDomain, yDomain, xRange, yRange, preserveRatio))
   );
 
   const dragging = useRef(false);
   const scrollEnabled = useRef({
     enabled: true,
     counter: 0,
-    preventDefault: e => {
+    preventDefault: (e) => {
       e = e || window.event;
       if (e.preventDefault) {
         e.preventDefault();
       }
       e.returnValue = false;
-    }
+    },
   });
   const lastDomains = useRef(null);
 
   useEffect(() => {
-    let [xD, yD] = transformFixRatio(
-      xDomain,
-      yDomain,
-      xRange,
-      yRange,
-      preserveRatio
-    );
+    let [xD, yD] = transformFixRatio(xDomain, yDomain, xRange, yRange, preserveRatio);
 
     if (!domainMatch(xD, yD, lastDomains.current)) {
       setLastLocation(locationFromDomain([xD, yD]));
@@ -111,25 +91,19 @@ export const useZoomablePlot = (
 
     lastDomains.current = {
       xDomain: xD,
-      yDomain: yD
+      yDomain: yD,
     };
   }, [xDomain, yDomain]);
 
   useEffect(() => {
-    let [xD, yD] = transformFixRatio(
-      xDomain,
-      yDomain,
-      xRange,
-      yRange,
-      preserveRatio
-    );
+    let [xD, yD] = transformFixRatio(xDomain, yDomain, xRange, yRange, preserveRatio);
 
     if (!domainMatch(xD, yD, lastDomains.current)) {
       setLastLocation(locationFromDomain([xD, yD]));
 
       lastDomains.current = {
         xDomain: xD,
-        yDomain: yD
+        yDomain: yD,
       };
     }
   }, [xRange, yRange, preserveRatio]);
@@ -154,16 +128,14 @@ export const useZoomablePlot = (
         movementY = 0;
       }
 
-      const xUnitPixel =
-        (lastLocation.right - lastLocation.left) / (xRange[1] - xRange[0]);
-      const yUnitPixel =
-        (lastLocation.top - lastLocation.bottom) / (yRange[1] - yRange[0]);
+      const xUnitPixel = (lastLocation.right - lastLocation.left) / (xRange[1] - xRange[0]);
+      const yUnitPixel = (lastLocation.top - lastLocation.bottom) / (yRange[1] - yRange[0]);
 
       const newLoc = {
         left: lastLocation.left - xUnitPixel * movementX,
         right: lastLocation.right - xUnitPixel * movementX,
         bottom: lastLocation.bottom - yUnitPixel * movementY,
-        top: lastLocation.top - yUnitPixel * movementY
+        top: lastLocation.top - yUnitPixel * movementY,
       };
 
       setLastLocation(newLoc);
@@ -175,13 +147,9 @@ export const useZoomablePlot = (
     direction = preserveRatio ? null : direction;
 
     if (e.deltaY > 0) {
-      setLastLocation(location =>
-        scaleLoc(location || fallbackLocation, 1.1, direction)
-      );
+      setLastLocation((location) => scaleLoc(location || fallbackLocation, 1.1, direction));
     } else {
-      setLastLocation(location =>
-        scaleLoc(location || fallbackLocation, 1 / 1.1, direction)
-      );
+      setLastLocation((location) => scaleLoc(location || fallbackLocation, 1 / 1.1, direction));
     }
   };
 
@@ -192,11 +160,9 @@ export const useZoomablePlot = (
     scrollEnabled.current.counter--;
     if (scrollEnabled.current.counter === 0) {
       scrollEnabled.current.enabled = true;
-      document.removeEventListener(
-        "wheel",
-        scrollEnabled.current.preventDefault,
-        { passive: false }
-      );
+      document.removeEventListener("wheel", scrollEnabled.current.preventDefault, {
+        passive: false,
+      });
     }
   };
 
@@ -207,7 +173,7 @@ export const useZoomablePlot = (
     if (scrollEnabled.current.enabled) {
       scrollEnabled.current.enabled = false;
       document.addEventListener("wheel", scrollEnabled.current.preventDefault, {
-        passive: false
+        passive: false,
       });
     }
   };
@@ -217,14 +183,17 @@ export const useZoomablePlot = (
       left: xDomain[0],
       right: xDomain[1],
       bottom: yDomain[0],
-      top: yDomain[1]
+      top: yDomain[1],
     });
   };
 
-  const domains = {
-    xDomain: [lastLocation.left, lastLocation.right],
-    yDomain: [lastLocation.bottom, lastLocation.top]
-  };
+  const domains = useMemo(
+    () => ({
+      xDomain: [lastLocation.left, lastLocation.right],
+      yDomain: [lastLocation.bottom, lastLocation.top],
+    }),
+    [lastLocation]
+  );
 
   return [
     domains,
@@ -235,7 +204,7 @@ export const useZoomablePlot = (
       onPointerLeave,
       onPointerMove,
       onWheel,
-      onReset
-    }
+      onReset,
+    },
   ];
 };

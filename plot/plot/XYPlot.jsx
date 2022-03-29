@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 
 import { PlotContext, getScale, useSVGContext, classes } from "./plot-utils";
@@ -84,8 +84,20 @@ export const XYPlot = ({
 
   const [domains, events] = useZoomablePlot(xDomain, yDomain, xRange, yRange, preserveRatio);
 
-  const xScale = getScale(domains.xDomain, xRange, xType);
-  const yScale = getScale(domains.yDomain, yRange, yType);
+  useEffect(() => {
+    console.log("domains");
+  }, [domains.xDomain]);
+
+  const xScale = useCallback(getScale(domains.xDomain, xRange, xType), [
+    domains.xDomain,
+    xRange,
+    xType,
+  ]);
+  const yScale = useCallback(getScale(domains.yDomain, yRange, yType), [
+    domains.yDomain,
+    yRange,
+    yType,
+  ]);
 
   return (
     <PlotContext.Provider
