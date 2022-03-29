@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useMemo, useRef, useCallback } from "react";
 import styled from "styled-components";
 
 import { usePlotContext } from "./plot-utils";
@@ -9,7 +9,9 @@ export const PlotRegion = ({ fill, draggable, children, ...rest }) => {
   const { left, innerWidth, top, innerHeight, events } = usePlotContext();
   const ref = useRef();
 
-  const { onEvents } = usePlotRegionEvents();
+  const onEvents = usePlotRegionEvents();
+
+  const regionEvents = useMemo(() => onEvents({ ...rest }, ref), [ref, rest]);
 
   let draggableEvents = {};
   if (draggable) {
@@ -23,13 +25,9 @@ export const PlotRegion = ({ fill, draggable, children, ...rest }) => {
   }
 
   return (
-    <g
-      ref={ref}
-      {...draggableEvents}
-      {...onEvents({ ...rest }, ref)}
-      style={{ cursor: draggable ? "move" : "auto" }}
-    >
+    <g {...draggableEvents} {...regionEvents} style={{ cursor: draggable ? "move" : "auto" }}>
       <PlotRegionRect
+        ref={ref}
         className="plot__region-dragcatcher"
         x={left}
         y={top}
@@ -45,26 +43,31 @@ export const PlotRegion = ({ fill, draggable, children, ...rest }) => {
 const usePlotRegionEvents = () => {
   const { xScale, yScale } = usePlotContext();
 
-  const addData = (e, ref) => {
-    const { top, left } = ref.current.getBoundingClientRect();
-    e.xAbsPosition = e.clientX - left;
-    e.xPosition = xScale.invert(e.xAbsPosition);
-    e.yAbsPosition = e.clientY - top;
-    e.yPosition = yScale.invert(e.yAbsPosition);
-    return e;
-  };
+  const addData = useCallback(
+    (e, ref) => {
+      const { top, left } = ref.current.getBoundingClientRect();
 
-  const onEvents = (props, ref) => {
-    let eventHandlerKeys = Object.keys(props).filter((k) => k.startsWith("on"));
-    let p = {};
-    for (var i = 0; i < eventHandlerKeys.length; i++) {
-      let key = eventHandlerKeys[i];
-      p[key] = (e) => props[key](addData(e, ref));
-    }
-    return p;
-  };
+      e.xAbsPosition = e.clientX - left;
+      e.xPosition = xScale.invert(e.xAbsPosition);
+      e.yAbsPosition = e.clientY - top;
+      e.yPosition = yScale.invert(e.yAbsPosition);
+      return e;
+    },
+    [xScale, yScale]
+  );
 
-  return { onEvents };
+  return useCallback(
+    (props, ref) => {
+      let eventHandlerKeys = props ? Object.keys(props).filter((k) => k.startsWith("on")) : [];
+      let p = {};
+      for (var i = 0; i < eventHandlerKeys.length; i++) {
+        let key = eventHandlerKeys[i];
+        p[key] = (e) => props[key](addData(e, ref));
+      }
+      return p;
+    },
+    [addData]
+  );
 };
 
 PlotRegion.defaultProps = {
