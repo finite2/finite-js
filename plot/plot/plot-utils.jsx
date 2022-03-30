@@ -4,7 +4,7 @@ import { scaleLinear, scaleLog } from "d3-scale";
 
 export const SVGContext = createContext({
   width: 900,
-  height: 600
+  height: 600,
 });
 
 export const useSVGContext = () => useContext(SVGContext);
@@ -33,7 +33,7 @@ export const usePlotContext = () => useContext(PlotContext);
 
 export const getTickValues = (scale, ordinalValues, tickTotal, tickValues) => {
   if (tickValues) {
-    return tickValues;
+    return Array.isArray(tickValues) ? tickValues : [tickValues];
   } else if (ordinalValues) {
     return ordinalValues.map((d, i) => i);
   }
@@ -50,12 +50,12 @@ export const ORIENTATION = {
   RIGHT: "right",
   BOTTOM: "bottom",
   VERTICAL: "vertical",
-  HORIZONTAL: "horizontal"
+  HORIZONTAL: "horizontal",
 };
 
 export const DIRECTION = {
   VERTICAL: "vertical",
-  HORIZONTAL: "horizontal"
+  HORIZONTAL: "horizontal",
 };
 
 export const GPlotRegion = ({ className, children }) => {
@@ -69,26 +69,22 @@ export const GPlotRegion = ({ className, children }) => {
 };
 
 export const onDataEvents = (props, data, index) => {
-  let eventHandlerKeys = Object.keys(props).filter(k => k.startsWith("on"));
+  let eventHandlerKeys = Object.keys(props).filter((k) => k.startsWith("on"));
   let p = {};
   for (var i = 0; i < eventHandlerKeys.length; i++) {
     let key = eventHandlerKeys[i];
-    p[key] = e => props[key](e, data, index);
+    p[key] = (e) => props[key](e, data, index);
   }
   return p;
 };
 
 export const getScale = (domain, range, type = "linear") => {
   if (type === "linear" || type === "ordinal") {
-    return scaleLinear()
-      .domain(domain)
-      .range(range);
+    return scaleLinear().domain(domain).range(range);
   } else if (type === "log") {
     if (domain[0] <= 0) {
       console.warn("log scale cannot be less than or equal to zero");
     }
-    return scaleLog()
-      .domain(domain)
-      .range(range);
+    return scaleLog().domain(domain).range(range);
   }
 };

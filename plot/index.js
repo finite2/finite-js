@@ -4,7 +4,7 @@ export { XYPlot } from "./plot/XYPlot";
 
 export { PlotRegion } from "./plot/PlotRegion";
 export { XAxis, YAxis, XDraggableAxis, YDraggableAxis } from "./plot/Axis";
-export { HorizontalGridLines, VerticalGridLines } from "./plot/GridLines";
+export { HorizontalGridLines, VerticalGridLines, CrosshairGridLines } from "./plot/GridLines";
 export { ChartTitle } from "./plot/ChartTitle";
 export { Offset } from "./plot/Offset";
 export { ClipPath, ClipPlotRegion } from "./plot/ClipPath";
