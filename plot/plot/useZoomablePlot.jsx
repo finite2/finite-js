@@ -68,6 +68,8 @@ export const useZoomablePlot = (xDomain, yDomain, xRange, yRange, preserveRatio)
     locationFromDomain(transformFixRatio(xDomain, yDomain, xRange, yRange, preserveRatio))
   );
 
+  const lastLocRef = useRef(lastLocation);
+  const lastDomains = useRef(null);
   const dragging = useRef(false);
   const scrollEnabled = useRef({
     enabled: true,
@@ -80,7 +82,8 @@ export const useZoomablePlot = (xDomain, yDomain, xRange, yRange, preserveRatio)
       e.returnValue = false;
     },
   });
-  const lastDomains = useRef(null);
+
+  lastLocRef.current = lastLocation;
 
   useEffect(() => {
     let [xD, yD] = transformFixRatio(xDomain, yDomain, xRange, yRange, preserveRatio);
@@ -108,84 +111,85 @@ export const useZoomablePlot = (xDomain, yDomain, xRange, yRange, preserveRatio)
     }
   }, [xRange, yRange, preserveRatio]);
 
-  const onPointerDown = (e, ref) => {
-    dragging.current = true;
-  };
+  const events = useMemo(
+    () => ({
+      onPointerDown: () => {
+        dragging.current = true;
+      },
+      onPointerUp: (e, ref) => {
+        ref.current.releasePointerCapture(e.pointerId);
+        dragging.current = false;
+      },
+      onPointerMove: (e, ref, direction = null) => {
+        if (dragging.current) {
+          const lastLoc = lastLocRef.current;
 
-  const onPointerUp = (e, ref) => {
-    ref.current.releasePointerCapture(e.pointerId);
-    dragging.current = false;
-  };
+          ref.current.setPointerCapture(e.pointerId);
+          let { movementX, movementY } = e;
 
-  const onPointerMove = (e, ref, direction = null) => {
-    if (dragging.current) {
-      ref.current.setPointerCapture(e.pointerId);
-      let { movementX, movementY } = e;
+          if (direction === DIRECTION.VERTICAL) {
+            movementX = 0;
+          } else if (direction === DIRECTION.HORIZONTAL) {
+            movementY = 0;
+          }
 
-      if (direction === DIRECTION.VERTICAL) {
-        movementX = 0;
-      } else if (direction === DIRECTION.HORIZONTAL) {
-        movementY = 0;
-      }
+          const xUnitPixel = (lastLoc.right - lastLoc.left) / (xRange[1] - xRange[0]);
+          const yUnitPixel = (lastLoc.top - lastLoc.bottom) / (yRange[1] - yRange[0]);
 
-      const xUnitPixel = (lastLocation.right - lastLocation.left) / (xRange[1] - xRange[0]);
-      const yUnitPixel = (lastLocation.top - lastLocation.bottom) / (yRange[1] - yRange[0]);
+          const newLoc = {
+            left: lastLoc.left - xUnitPixel * movementX,
+            right: lastLoc.right - xUnitPixel * movementX,
+            bottom: lastLoc.bottom - yUnitPixel * movementY,
+            top: lastLoc.top - yUnitPixel * movementY,
+          };
 
-      const newLoc = {
-        left: lastLocation.left - xUnitPixel * movementX,
-        right: lastLocation.right - xUnitPixel * movementX,
-        bottom: lastLocation.bottom - yUnitPixel * movementY,
-        top: lastLocation.top - yUnitPixel * movementY,
-      };
+          setLastLocation(newLoc);
+        }
+      },
+      onWheel: (e, direction = null) => {
+        const fallbackLocation = { ...lastLocRef.current };
+        direction = preserveRatio ? null : direction;
 
-      setLastLocation(newLoc);
-    }
-  };
+        if (e.deltaY > 0) {
+          setLastLocation((location) => scaleLoc(location || fallbackLocation, 1.1, direction));
+        } else {
+          setLastLocation((location) => scaleLoc(location || fallbackLocation, 1 / 1.1, direction));
+        }
+      },
+      onPointerLeave: () => {
+        dragging.current = false;
 
-  const onWheel = (e, direction = null) => {
-    const fallbackLocation = { ...lastLocation };
-    direction = preserveRatio ? null : direction;
+        // enable document scroll
+        scrollEnabled.current.counter--;
+        if (scrollEnabled.current.counter === 0) {
+          scrollEnabled.current.enabled = true;
+          document.removeEventListener("wheel", scrollEnabled.current.preventDefault, {
+            passive: false,
+          });
+        }
+      },
+      onPointerEnter: () => {
+        // disable document scroll
 
-    if (e.deltaY > 0) {
-      setLastLocation((location) => scaleLoc(location || fallbackLocation, 1.1, direction));
-    } else {
-      setLastLocation((location) => scaleLoc(location || fallbackLocation, 1 / 1.1, direction));
-    }
-  };
-
-  const onPointerLeave = () => {
-    dragging.current = false;
-
-    // enable document scroll
-    scrollEnabled.current.counter--;
-    if (scrollEnabled.current.counter === 0) {
-      scrollEnabled.current.enabled = true;
-      document.removeEventListener("wheel", scrollEnabled.current.preventDefault, {
-        passive: false,
-      });
-    }
-  };
-
-  const onPointerEnter = () => {
-    // disable document scroll
-
-    scrollEnabled.current.counter++;
-    if (scrollEnabled.current.enabled) {
-      scrollEnabled.current.enabled = false;
-      document.addEventListener("wheel", scrollEnabled.current.preventDefault, {
-        passive: false,
-      });
-    }
-  };
-
-  const onReset = () => {
-    setLastLocation({
-      left: xDomain[0],
-      right: xDomain[1],
-      bottom: yDomain[0],
-      top: yDomain[1],
-    });
-  };
+        scrollEnabled.current.counter++;
+        if (scrollEnabled.current.enabled) {
+          scrollEnabled.current.enabled = false;
+          document.addEventListener("wheel", scrollEnabled.current.preventDefault, {
+            passive: false,
+          });
+        }
+      },
+      onReset: () => {
+        setLastLocation({
+          left: xDomain[0],
+          right: xDomain[1],
+          bottom: yDomain[0],
+          top: yDomain[1],
+        });
+      },
+    }),
+    [xRange, yRange, preserveRatio, setLastLocation, dragging]
+  );
 
   const domains = useMemo(
     () => ({
@@ -195,16 +199,5 @@ export const useZoomablePlot = (xDomain, yDomain, xRange, yRange, preserveRatio)
     [lastLocation]
   );
 
-  return [
-    domains,
-    {
-      onPointerDown,
-      onPointerUp,
-      onPointerEnter,
-      onPointerLeave,
-      onPointerMove,
-      onWheel,
-      onReset,
-    },
-  ];
+  return [domains, events];
 };

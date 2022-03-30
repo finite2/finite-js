@@ -84,10 +84,6 @@ export const XYPlot = ({
 
   const [domains, events] = useZoomablePlot(xDomain, yDomain, xRange, yRange, preserveRatio);
 
-  useEffect(() => {
-    console.log("domains");
-  }, [domains.xDomain]);
-
   const xScale = useCallback(getScale(domains.xDomain, xRange, xType), [
     domains.xDomain,
     xRange,

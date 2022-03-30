@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 import styled from "styled-components";
 
 import squarify from "squarify";
@@ -45,21 +45,29 @@ export const AreaSeries = ({
     return null;
   }
 
-  const transformedData = data.map((d) => ({
-    ...d,
-    value: getArea(d),
-    label: getLabel(d),
-    color: getColor(d),
-    stroke: getStroke ? getStroke(d) : stroke,
-    characters: getCharacters ? getCharacters(d) : 4,
-  }));
+  const transformedData = useMemo(
+    () =>
+      data.map((d) => ({
+        ...d,
+        value: getArea(d),
+        label: getLabel(d),
+        color: getColor(d),
+        stroke: getStroke ? getStroke(d) : stroke,
+        characters: getCharacters ? getCharacters(d) : 4,
+      })),
+    [getArea, getLabel, getColor, getStroke, stroke, getCharacters, data]
+  );
 
-  const rectData = squarify(transformedData, {
-    x0: xRange[0],
-    x1: xRange[1],
-    y0: yRange[1],
-    y1: yRange[0],
-  });
+  const rectData = useMemo(
+    () =>
+      squarify(transformedData, {
+        x0: xRange[0],
+        x1: xRange[1],
+        y0: yRange[1],
+        y1: yRange[0],
+      }),
+    [transformedData, xRange, yRange]
+  );
 
   return (
     <GPlotRegion className={classes("plot__series--area", className)}>

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 
 import { usePlotContext, GPlotRegion, classes } from "../plot-utils";
@@ -48,9 +48,11 @@ export const LineAreaSeries = ({
     [data, xScale, yScale, getX, getY, getY0]
   );
 
+  const style = useMemo(() => ({ stroke: color, strokeWidth: width, fill }));
+
   return (
     <GPlotRegion className={classes("plot__series--line-area", className)}>
-      <path d={areaD} style={{ stroke: color, strokeWidth: width, fill }} {...rest} />
+      <path d={areaD} style={style} {...rest} />
     </GPlotRegion>
   );
 };

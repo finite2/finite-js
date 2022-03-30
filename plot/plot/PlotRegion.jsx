@@ -1,11 +1,11 @@
-import React, { useMemo, useRef, useCallback } from "react";
+import React, { useMemo, useRef, useCallback, memo } from "react";
 import styled from "styled-components";
 
 import { usePlotContext } from "./plot-utils";
 
 const PlotRegionRect = styled.rect``;
 
-export const PlotRegion = ({ fill, draggable, children, ...rest }) => {
+export const PlotRegion = memo(({ fill, draggable, children, cursor, ...rest }) => {
   const { left, innerWidth, top, innerHeight, events } = usePlotContext();
   const ref = useRef();
 
@@ -13,19 +13,23 @@ export const PlotRegion = ({ fill, draggable, children, ...rest }) => {
 
   const regionEvents = useMemo(() => onEvents({ ...rest }, ref), [ref, rest]);
 
-  let draggableEvents = {};
-  if (draggable) {
-    const { onPointerDown, onPointerUp, onPointerMove } = events;
+  const draggableEvents = useMemo(() => {
+    if (draggable) {
+      const { onPointerDown, onPointerUp, onPointerMove } = events;
 
-    draggableEvents = {
-      onPointerDown: (e) => onPointerDown(e, ref),
-      onPointerUp: (e) => onPointerUp(e, ref),
-      onPointerMove: (e) => onPointerMove(e, ref),
-    };
-  }
+      return {
+        onPointerDown: (e) => onPointerDown(e, ref),
+        onPointerUp: (e) => onPointerUp(e, ref),
+        onPointerMove: (e) => onPointerMove(e, ref),
+      };
+    }
+    return null;
+  }, [events, draggable]);
+
+  const style = useMemo(() => ({ cursor: draggable ? "move" : cursor }), [cursor, draggable]);
 
   return (
-    <g {...draggableEvents} {...regionEvents} style={{ cursor: draggable ? "move" : "auto" }}>
+    <g {...draggableEvents} {...regionEvents} style={style}>
       <PlotRegionRect
         ref={ref}
         className="plot__region-dragcatcher"
@@ -38,7 +42,7 @@ export const PlotRegion = ({ fill, draggable, children, ...rest }) => {
       {children}
     </g>
   );
-};
+});
 
 const usePlotRegionEvents = () => {
   const { xScale, yScale } = usePlotContext();
@@ -73,4 +77,5 @@ const usePlotRegionEvents = () => {
 PlotRegion.defaultProps = {
   fill: "var(--color-background-alt)",
   draggable: false,
+  cursor: "auto",
 };

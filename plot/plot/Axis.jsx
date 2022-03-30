@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -313,27 +313,23 @@ export const DraggableAxis = ({ orientation, fill }) => {
   const direction = isVertical ? DIRECTION.VERTICAL : DIRECTION.HORIZONTAL;
   const draggableProps = getDraggableProps(orientation);
 
-  const { onPointerMove, onPointerDown, onPointerUp, onWheel, ...rest } = events;
+  const reffedEvents = useMemo(() => {
+    const { onPointerMove, onPointerDown, onPointerUp, onWheel, ...rest } = events;
 
-  return (
-    <AxisRect
-      ref={ref}
-      vertical={isVertical}
-      fill={fill}
-      {...draggableProps}
-      onPointerDown={(e) => {
-        onPointerDown(e, ref);
-      }}
-      onPointerUp={(e) => {
-        onPointerUp(e, ref);
-      }}
-      onPointerMove={(e) => {
+    return {
+      onPointerDown: (e) => onPointerDown(e, ref),
+      onPointerUp: (e) => onPointerUp(e, ref),
+      onPointerMove: (e) => {
         e.stopPropagation();
         onPointerMove(e, ref, direction);
-      }}
-      onWheel={(e) => onWheel(e, direction)}
-      {...rest}
-    />
+      },
+      onWheel: (e) => onWheel(e, direction),
+      ...rest,
+    };
+  }, [events, ref]);
+
+  return (
+    <AxisRect ref={ref} vertical={isVertical} fill={fill} {...draggableProps} {...reffedEvents} />
   );
 };
 
