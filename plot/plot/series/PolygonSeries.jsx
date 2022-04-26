@@ -8,7 +8,6 @@ const generatePath = (data, getX, getY) =>
 
 const PolygonPath = styled.path`
   stroke-width: 0;
-  pointer-events: auto;
 `;
 
 export const PolygonSeries = ({

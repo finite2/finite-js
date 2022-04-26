@@ -16,8 +16,6 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const ExampleTemplate = (args) => {
-  console.log(args);
-
   const margin =
     args.orientation === ORIENTATION.LEFT
       ? { left: 40, right: 10, top: 10, bottom: 40 }

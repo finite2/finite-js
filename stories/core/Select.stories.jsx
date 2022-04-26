@@ -31,7 +31,6 @@ const TemplateWithState = (args) => {
         {...args}
         value={value}
         onChange={(e) => {
-          console.log(e);
           args.onChange(e);
           setValue(e.target.value);
         }}

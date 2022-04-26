@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
+import * as d3Shape from "d3-shape";
+import styled from "styled-components";
 
 import { usePlotContext, GPlotRegion, classes } from "../plot-utils";
-
-import * as d3Shape from "d3-shape";
 
 const renderLine = (data, x, y, curve) => {
   let line = d3Shape.line().x(x).y(y);
@@ -16,6 +16,10 @@ const renderLine = (data, x, y, curve) => {
   }
   return line(data);
 };
+
+const LinePath = styled.path`
+  fill: #0000;
+`;
 
 export const LineSeries = ({ data, getX, getY, curve, color, width, className, ...rest }) => {
   const { xScale, yScale } = usePlotContext();
@@ -31,9 +35,11 @@ export const LineSeries = ({ data, getX, getY, curve, color, width, className, .
     [data, xScale, yScale, getX, getY]
   );
 
+  const style = useMemo(() => ({ stroke: color, strokeWidth: width }), [color, width]);
+
   return (
     <GPlotRegion className={classes("plot__series--line", className)}>
-      <path d={d} style={{ stroke: color, strokeWidth: width, fill: "none" }} {...rest} />
+      <LinePath d={d} style={style} {...rest} />
     </GPlotRegion>
   );
 };
