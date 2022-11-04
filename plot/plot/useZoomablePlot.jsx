@@ -69,7 +69,9 @@ export const useZoomablePlot = (xDomain, yDomain, xRange, yRange, preserveRatio)
   );
 
   const lastLocRef = useRef(lastLocation);
+  const initalLocRef = useRef(null);
   const lastDomains = useRef(null);
+  const lastRange = useRef(null);
   const dragging = useRef(false);
   const scrollEnabled = useRef({
     enabled: true,
@@ -84,6 +86,7 @@ export const useZoomablePlot = (xDomain, yDomain, xRange, yRange, preserveRatio)
   });
 
   lastLocRef.current = lastLocation;
+  lastRange.current = { xRange, yRange };
 
   useEffect(() => {
     let [xD, yD] = transformFixRatio(xDomain, yDomain, xRange, yRange, preserveRatio);
@@ -113,34 +116,43 @@ export const useZoomablePlot = (xDomain, yDomain, xRange, yRange, preserveRatio)
 
   const events = useMemo(
     () => ({
-      onPointerDown: () => {
+      onPointerDown: (e) => {
         dragging.current = true;
+        initalLocRef.current = { x: e.screenX, y: e.screenY, ...lastLocRef.current };
       },
       onPointerUp: (e, ref) => {
         ref.current.releasePointerCapture(e.pointerId);
         dragging.current = false;
       },
       onPointerMove: (e, ref, direction = null) => {
+        const lastLoc = lastLocRef.current;
+
         if (dragging.current) {
-          const lastLoc = lastLocRef.current;
-
-          ref.current.setPointerCapture(e.pointerId);
-          let { movementX, movementY } = e;
-
-          if (direction === DIRECTION.VERTICAL) {
-            movementX = 0;
-          } else if (direction === DIRECTION.HORIZONTAL) {
-            movementY = 0;
+          if (!ref.current) {
+            ref.current.setPointerCapture(e.pointerId);
           }
 
-          const xUnitPixel = (lastLoc.right - lastLoc.left) / (xRange[1] - xRange[0]);
-          const yUnitPixel = (lastLoc.top - lastLoc.bottom) / (yRange[1] - yRange[0]);
+          let screenDeltaX = e.screenX - initalLocRef.current.x;
+          let screenDeltaY = e.screenY - initalLocRef.current.y;
+
+          if (direction === DIRECTION.VERTICAL) {
+            screenDeltaX = 0;
+          } else if (direction === DIRECTION.HORIZONTAL) {
+            screenDeltaY = 0;
+          }
+
+          const xUnitPixel =
+            (lastLoc.right - lastLoc.left) /
+            (lastRange.current.xRange[1] - lastRange.current.xRange[0]);
+          const yUnitPixel =
+            (lastLoc.top - lastLoc.bottom) /
+            (lastRange.current.yRange[1] - lastRange.current.yRange[0]);
 
           const newLoc = {
-            left: lastLoc.left - xUnitPixel * movementX,
-            right: lastLoc.right - xUnitPixel * movementX,
-            bottom: lastLoc.bottom - yUnitPixel * movementY,
-            top: lastLoc.top - yUnitPixel * movementY,
+            left: initalLocRef.current.left - xUnitPixel * screenDeltaX,
+            right: initalLocRef.current.right - xUnitPixel * screenDeltaX,
+            bottom: initalLocRef.current.bottom - yUnitPixel * screenDeltaY,
+            top: initalLocRef.current.top - yUnitPixel * screenDeltaY,
           };
 
           setLastLocation(newLoc);
@@ -188,7 +200,7 @@ export const useZoomablePlot = (xDomain, yDomain, xRange, yRange, preserveRatio)
         });
       },
     }),
-    [xRange, yRange, preserveRatio, setLastLocation, dragging]
+    [preserveRatio, setLastLocation, dragging]
   );
 
   const domains = useMemo(

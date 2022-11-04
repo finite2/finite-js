@@ -52,7 +52,7 @@ export const PolygonSeries = ({
         strokeWidth: strokeWidth || null,
         ...style,
       },
-      onClick: (e) => onClick(e, d.points, scaledGetX, scaledGetY),
+      onClick: (e) => onClick(e, d, scaledGetX, scaledGetY),
       onMouseEnter: onMouseEnter ? (e) => onMouseEnter(e, d) : null,
     };
 
@@ -63,8 +63,7 @@ export const PolygonSeries = ({
     <GPlotRegion
       id={id}
       className={classes("plot__series--polygon", className)}
-      style={{ fill: color }}
-    >
+      style={{ fill: color }}>
       {polygons}
     </GPlotRegion>
   );

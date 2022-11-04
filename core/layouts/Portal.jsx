@@ -29,5 +29,5 @@ export const Portal = ({ children, target, order, zIndex }) => {
 Portal.defaultProps = {
   target: "codi-portal",
   order: null,
-  zIndex: null
+  zIndex: null,
 };

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { Portal } from "./Portal";
 
-const SubPageHolder = styled.div`
+export const SubPageHolder = styled.div`
   padding: 20px;
   background: var(--color-background-alt);
   width: 190px;

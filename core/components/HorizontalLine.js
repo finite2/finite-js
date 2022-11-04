@@ -11,7 +11,7 @@ export const HorizontalLine = styled.div.attrs(({ shorten, spacing, style, ...re
 })`
   margin: var(--margin);
   height: 4px;
-  background: black;
+  background: var(--color-font);
   box-sizing: bounding-box;
 `;
 

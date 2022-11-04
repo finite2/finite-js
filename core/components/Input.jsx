@@ -3,17 +3,13 @@ import PropTypes from "prop-types";
 
 import { Button } from "./Button";
 
-export const InputBase = styled(Button)`
+export const Input = styled(Button).attrs({ as: "input" })`
   text-align: center;
 
   & {
     cursor: text;
   }
 `;
-
-export const Input = (props) => {
-  return <InputBase as="input" {...props} />;
-};
 
 Input.propTypes = {
   type: PropTypes.string,

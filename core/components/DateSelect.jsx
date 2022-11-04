@@ -16,12 +16,14 @@ const DateSelectBase = styled(Button)`
 `;
 
 export const DateSelect = ({ defaultValue, value, onChange, ...rest }) => {
+  value = typeof value === "string" ? new Date(value) : value;
+
   return (
     <DateSelectBase
       as="input"
       type="date"
       defaultValue={defaultValue ? defaultValue.toLocaleDateString("en-CA") : null}
-      value={value ? value.toLocaleDateString("en-CA") : null}
+      value={value?.toLocaleDateString("en-CA") ?? null}
       onChange={(e) => onChange(new Date(e.target.value))}
       {...rest}
     ></DateSelectBase>

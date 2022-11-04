@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
+import { config } from "@fortawesome/fontawesome-svg-core";
+// import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false;
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as faIcons from "@fortawesome/free-solid-svg-icons";
 

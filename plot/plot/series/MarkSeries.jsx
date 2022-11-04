@@ -99,8 +99,9 @@ export const MarkSeries = ({
 
   const points = useMemo(() => {
     const fn = (d, i) => {
+      let MarkComponent = Mark;
       if (getMark) {
-        Mark = markLibrary[getMark(d, i)];
+        MarkComponent = markLibrary[getMark(d, i)];
         if (!Mark) {
           console.error(`Error in markSeries mark named "${getMark(d, i)}" not found`);
           return null;
@@ -126,7 +127,7 @@ export const MarkSeries = ({
 
       return (
         <g transform={`translate(${x},${y})`}>
-          <Mark {...attrs} />
+          <MarkComponent {...attrs} />
         </g>
       );
     };

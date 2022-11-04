@@ -22,7 +22,8 @@ export const GridLines = ({ tickTotal, direction, tickValues, stroke }) => {
 
   const lines = useMemo(() => {
     const values = getTickValues(scale, ordinalValues, tickTotal, tickValues);
-    return values.map((v, i) => {
+
+    return values.map((v, key) => {
       const pos = scale(v);
       const pathProps = {
         [`${tickYAttr}1`]: pos,
@@ -32,7 +33,7 @@ export const GridLines = ({ tickTotal, direction, tickValues, stroke }) => {
         stroke,
       };
 
-      return <GLine className="plot__grid-lines__line" {...pathProps} key={i} />;
+      return <GLine className="plot__grid-lines__line" {...pathProps} key={key} />;
     });
   }, [scale, ordinalValues, tickTotal, tickValues, length, stroke]);
 

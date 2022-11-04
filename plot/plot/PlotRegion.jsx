@@ -11,16 +11,17 @@ export const PlotRegion = memo(({ fill, draggable, children, cursor, ...rest }) 
 
   const onEvents = usePlotRegionEvents();
 
-  const regionEvents = useMemo(() => onEvents({ ...rest }, ref), [ref, rest]);
+  const regionEvents = {}; //useMemo(() => onEvents({ ...rest }, ref), [ref, rest]);
 
   const draggableEvents = useMemo(() => {
     if (draggable) {
-      const { onPointerDown, onPointerUp, onPointerMove } = events;
+      const { onPointerDown, onPointerUp, onPointerMove, onWheel } = events;
 
       return {
         onPointerDown: (e) => onPointerDown(e, ref),
         onPointerUp: (e) => onPointerUp(e, ref),
         onPointerMove: (e) => onPointerMove(e, ref),
+        onWheel: (e) => onWheel(e, ref),
       };
     }
     return null;

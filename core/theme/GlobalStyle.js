@@ -36,6 +36,12 @@ export const GlobalStyle = createGlobalStyle(
 
     --button-radius: ${theme.button.radius};
     --button-bordered: ${theme.button.bordered};
+
+    --figure-padding: 20px;
+    --figure-padding-inner: 10px;
+    --figure-border-radius: 25px;
+    --figure-border-radius-inner: 5px;
+
   }
 
   body {

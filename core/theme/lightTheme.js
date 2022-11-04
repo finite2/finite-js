@@ -25,8 +25,8 @@ export const lightTheme = {
     danger: "#e24c4c",
     dangerDark: "#c51b1b",
 
-    default: "white",
-    defaultDark: "#ddddff",
+    default: "#d5effc",
+    defaultDark: "#c4dddd",
   },
   button: {
     radius: "5px",

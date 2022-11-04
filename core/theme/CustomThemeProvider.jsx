@@ -1,4 +1,6 @@
-import { createContext, useCallback, useState, useContext, useEffect } from "react";
+"use client";
+
+import { createContext, useCallback, useState, useContext } from "react";
 import { ThemeProvider } from "styled-components";
 import { darkTheme } from "./darkTheme";
 import { lightTheme } from "./lightTheme";
@@ -23,12 +25,6 @@ export const useSelectThemeContext = () => useContext(SelectTheme);
 
 export const CustomThemeProvider = ({ children, initTheme, themes }) => {
   const [theme, _setTheme] = useState(initTheme);
-
-  useEffect(() => {
-    if (themes[initTheme] && theme !== initTheme) {
-      _setTheme(initTheme);
-    }
-  }, [initTheme]);
 
   const setTheme = useCallback(
     (_theme) => {
