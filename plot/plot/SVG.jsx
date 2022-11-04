@@ -9,6 +9,7 @@ import { PlotContainer } from "./menu/PlotContainer";
 
 const SVGstyled = styled.svg`
   user-select: none;
+  position: relative;
 
   fill: var(--color-font);
 
@@ -37,7 +38,14 @@ const useSVGsize = (width, height) => {
   return [size, setSize, resetSize];
 };
 
-export const SVG = ({ width: propWidth, height: propHeight, children, ...rest }) => {
+export const SVG = ({
+  width: propWidth,
+  height: propHeight,
+  children,
+  className,
+  style,
+  onClick,
+}) => {
   const svgRef = useRef();
   const containerRef = useRef();
   const idRef = useRef(getId());
@@ -46,8 +54,8 @@ export const SVG = ({ width: propWidth, height: propHeight, children, ...rest })
 
   return (
     <SVGContext.Provider value={{ width, height, svgRef, containerRef, setSize, resetSize }}>
-      <PlotContainer ref={containerRef} id={idRef.current} style={{ width, height }}>
-        <SVGstyled ref={svgRef} width={width} height={height} {...rest}>
+      <PlotContainer ref={containerRef} id={idRef.current} className={className} style={style}>
+        <SVGstyled ref={svgRef} onClick={onClick} viewBox={`0 0 ${width} ${height}`}>
           {children}
         </SVGstyled>
         <PlotMenu />
