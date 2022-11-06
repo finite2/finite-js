@@ -40,6 +40,7 @@ const scaleLoc = (
     top: centerY + distY * multiplierY,
   };
 
+  // handle user defined limits
   if (multiplierX === multiplierY) {
     let newMultiplier = multiplierX;
 
@@ -84,7 +85,7 @@ const scaleLoc = (
       }
     }
   }
-  if (multiplierX !== 1) {
+  if (multiplierY !== 1) {
     if (yDomainLimit) {
       const delta = newLoc.top - newLoc.bottom;
       if (delta > yDomainLimit[1] - yDomainLimit[0]) {
@@ -236,28 +237,26 @@ export const useZoomablePlot = (
 
           // handle user defined limits
           if (xDomainLimit) {
+            const delta = newLoc.right - newLoc.left;
             if (newLoc.left < xDomainLimit[0]) {
-              const delta = newLoc.right - newLoc.left;
               newLoc.left = xDomainLimit[0];
               newLoc.right = newLoc.left + delta;
             }
 
             if (newLoc.right > xDomainLimit[1]) {
-              const delta = newLoc.right - newLoc.left;
               newLoc.right = xDomainLimit[1];
               newLoc.left = newLoc.right - delta;
             }
           }
 
           if (yDomainLimit) {
+            const delta = newLoc.top - newLoc.bottom;
             if (newLoc.bottom < yDomainLimit[0]) {
-              const delta = newLoc.top - newLoc.bottom;
               newLoc.bottom = xDomainLimit[0];
               newLoc.top = newLoc.bottom + delta;
             }
 
             if (newLoc.top > yDomainLimit[1]) {
-              const delta = newLoc.top - newLoc.bottom;
               newLoc.top = yDomainLimit[1];
               newLoc.bottom = newLoc.top - delta;
             }
