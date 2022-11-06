@@ -1,13 +1,7 @@
 import React from "react";
 // import styled from "styled-components";
 
-import {
-  usePlotContext,
-  GPlotRegion,
-  classes,
-  onDataEvents,
-  DIRECTION,
-} from "../plot-utils";
+import { usePlotContext, GPlotRegion, classes, onDataEvents, DIRECTION } from "../plot-utils";
 
 const getPosition = (direction, x0, y0, y1, halfWidth) => {
   if (direction === DIRECTION.VERTICAL) {
@@ -42,10 +36,6 @@ export const BarSeries = ({
 
   const categoryScale = direction === DIRECTION.VERTICAL ? xScale : yScale;
   const heightScale = direction === DIRECTION.VERTICAL ? yScale : xScale;
-
-  if (type !== "ordinal") {
-    console.error("BarSeries requires ordinal scale for category axes");
-  }
 
   if (getColor) {
     if (!getFill) {
@@ -85,10 +75,7 @@ export const BarSeries = ({
   });
 
   return (
-    <GPlotRegion
-      className={classes("plot__series--bars", className)}
-      style={{ fill: color }}
-    >
+    <GPlotRegion className={classes("plot__series--bars", className)} style={{ fill: color }}>
       {points}
     </GPlotRegion>
   );

@@ -48,7 +48,7 @@ export const XYPlot = ({
   preserveRatio,
   children,
 }) => {
-  const { width, height } = useSVGContext();
+  const { width, height, containerRef } = useSVGContext();
 
   if (xValues) {
     xType = "ordinal";
@@ -72,13 +72,6 @@ export const XYPlot = ({
   const innerHeight = outerBottom - margin.bottom - outerTop - margin.top;
   const [top, bottom] = [outerTop + margin.top, outerBottom - margin.bottom];
 
-  // if (innerWidth <= 0) {
-  //   throw "plot region width too small";
-  // }
-  // if (innerHeight <= 0) {
-  //   throw "plot region height too small";
-  // }
-
   const xRange = useMemo(() => [0, innerWidth], [innerWidth]);
   const yRange = useMemo(() => [innerHeight, 0], [innerHeight]);
 
@@ -94,6 +87,26 @@ export const XYPlot = ({
     yRange,
     yType,
   ]);
+
+  // available from useSVGContext().containerRef.current.getBoundingClientRect().width;
+  const xScaleEvent = useCallback(
+    (containerWidth) => {
+      const scaleRatio = containerWidth / width;
+
+      return getScale(domains.xDomain, [xRange[0] * scaleRatio, xRange[1] * scaleRatio], xType);
+    },
+    [domains.xDomain, xRange, xType, width]
+  );
+
+  // available from useSVGContext().containerRef.current.getBoundingClientRect().width;
+  const yScaleEvent = useCallback(
+    (containerHeight) => {
+      const scaleRatio = containerHeight / height;
+
+      return getScale(domains.yDomain, [yRange[0] * scaleRatio, yRange[1] * scaleRatio], yType);
+    },
+    [domains.yDomain, yRange, yType, height]
+  );
 
   return (
     <PlotContext.Provider
@@ -113,16 +126,17 @@ export const XYPlot = ({
         xDomain,
         xRange,
         xScale,
+        xScaleEvent,
         xValues,
         yType,
         yScale,
+        yScaleEvent,
         yDomain,
         yRange,
         yValues,
         ...domains,
         events,
-      }}
-    >
+      }}>
       <g className={classes("plot__xyplot", className)}>{children}</g>
     </PlotContext.Provider>
   );

@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useCallback, memo } from "react";
 import styled from "styled-components";
 
-import { usePlotContext } from "./plot-utils";
+import { usePlotContext, useSVGContext } from "./plot-utils";
 
 const PlotRegionRect = styled.rect``;
 
@@ -11,7 +11,7 @@ export const PlotRegion = memo(({ fill, draggable, children, cursor, ...rest }) 
 
   const onEvents = usePlotRegionEvents();
 
-  const regionEvents = {}; //useMemo(() => onEvents({ ...rest }, ref), [ref, rest]);
+  const regionEvents = useMemo(() => onEvents({ ...rest }, ref), [ref, rest]);
 
   const draggableEvents = useMemo(() => {
     if (draggable) {
@@ -46,19 +46,21 @@ export const PlotRegion = memo(({ fill, draggable, children, cursor, ...rest }) 
 });
 
 const usePlotRegionEvents = () => {
-  const { xScale, yScale } = usePlotContext();
+  const { xScaleEvent, yScaleEvent } = usePlotContext();
+  const { containerRef } = useSVGContext();
 
   const addData = useCallback(
     (e, ref) => {
       const { top, left } = ref.current.getBoundingClientRect();
+      const { width, height } = containerRef.current.getBoundingClientRect();
 
       e.xAbsPosition = e.clientX - left;
-      e.xPosition = xScale.invert(e.xAbsPosition);
+      e.xPosition = xScaleEvent(width).invert(e.xAbsPosition);
       e.yAbsPosition = e.clientY - top;
-      e.yPosition = yScale.invert(e.yAbsPosition);
+      e.yPosition = yScaleEvent(height).invert(e.yAbsPosition);
       return e;
     },
-    [xScale, yScale]
+    [xScaleEvent, yScaleEvent]
   );
 
   return useCallback(

@@ -39,8 +39,8 @@ const useSVGsize = (width, height) => {
 };
 
 export const SVG = ({
-  width: propWidth,
-  height: propHeight,
+  width: propWidth = 900,
+  height: propHeight = 600,
   children,
   className,
   style,
@@ -62,9 +62,4 @@ export const SVG = ({
       </PlotContainer>
     </SVGContext.Provider>
   );
-};
-
-SVG.defaultProps = {
-  width: 900,
-  height: 600,
 };
