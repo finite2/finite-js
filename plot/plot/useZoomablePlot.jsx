@@ -13,7 +13,13 @@ const domainMatch = (curX, curY, prev) => {
   );
 };
 
-const scaleLoc = (location, multiplier, direction = null) => {
+const scaleLoc = (
+  location,
+  multiplier,
+  direction = null,
+  xDomainLimit = null,
+  yDomainLimit = null
+) => {
   const centerX = (location.right + location.left) / 2;
   const centerY = (location.bottom + location.top) / 2;
   let distX = (location.right - location.left) / 2;
@@ -27,12 +33,77 @@ const scaleLoc = (location, multiplier, direction = null) => {
     multiplierX = 1;
   }
 
-  return {
+  let newLoc = {
     left: centerX - distX * multiplierX,
     right: centerX + distX * multiplierX,
     bottom: centerY - distY * multiplierY,
     top: centerY + distY * multiplierY,
   };
+
+  if (multiplierX === multiplierY) {
+    let newMultiplier = multiplierX;
+
+    if (xDomainLimit) {
+      const delta = newLoc.right - newLoc.left;
+
+      if (delta > xDomainLimit[1] - xDomainLimit[0]) {
+        newMultiplier = xDomainLimit[1] - xDomainLimit[0] / delta;
+      }
+    }
+    if (yDomainLimit) {
+      const delta = newLoc.top - newLoc.bottom;
+
+      if (delta > yDomainLimit[1] - yDomainLimit[0]) {
+        newMultiplier = Math.min(newMultiplier, xDomainLimit[1] - xDomainLimit[0] / delta);
+      }
+    }
+
+    if (newMultiplier !== multiplierX) {
+      newLoc.left = centerX - distX * newMultiplier;
+      newLoc.right = centerX + distX * newMultiplier;
+      newLoc.bottom = centerY - distY * newMultiplier;
+      newLoc.top = centerY + distY * newMultiplier;
+    }
+  }
+  if (multiplierX !== 1) {
+    if (xDomainLimit) {
+      const delta = newLoc.right - newLoc.left;
+
+      if (delta > xDomainLimit[1] - xDomainLimit[0]) {
+        newLoc.left = xDomainLimit[0];
+        newLoc.right = xDomainLimit[1];
+      }
+      if (newLoc.left < xDomainLimit[0]) {
+        newLoc.left = xDomainLimit[0];
+        newLoc.right = newLoc.left + delta;
+      }
+
+      if (newLoc.right > xDomainLimit[1]) {
+        newLoc.right = xDomainLimit[1];
+        newLoc.left = newLoc.right - delta;
+      }
+    }
+  }
+  if (multiplierX !== 1) {
+    if (yDomainLimit) {
+      const delta = newLoc.top - newLoc.bottom;
+      if (delta > yDomainLimit[1] - yDomainLimit[0]) {
+        newLoc.bottom = yDomainLimit[0];
+        newLoc.top = yDomainLimit[1];
+      }
+      if (newLoc.bottom < yDomainLimit[0]) {
+        newLoc.bottom = xDomainLimit[0];
+        newLoc.top = newLoc.bottom + delta;
+      }
+
+      if (newLoc.top > yDomainLimit[1]) {
+        newLoc.top = yDomainLimit[1];
+        newLoc.bottom = newLoc.top - delta;
+      }
+    }
+  }
+
+  return newLoc;
 };
 
 const transformFixRatio = (xDomain, yDomain, xRange, yRange, preserveRatio) => {
@@ -63,7 +134,15 @@ const locationFromDomain = ([xDomain, yDomain]) => {
   };
 };
 
-export const useZoomablePlot = (xDomain, yDomain, xRange, yRange, preserveRatio) => {
+export const useZoomablePlot = (
+  xDomain,
+  yDomain,
+  xRange,
+  yRange,
+  xDomainLimit,
+  yDomainLimit,
+  preserveRatio
+) => {
   const [lastLocation, setLastLocation] = useState(
     locationFromDomain(transformFixRatio(xDomain, yDomain, xRange, yRange, preserveRatio))
   );
@@ -155,6 +234,36 @@ export const useZoomablePlot = (xDomain, yDomain, xRange, yRange, preserveRatio)
             top: initalLocRef.current.top - yUnitPixel * screenDeltaY,
           };
 
+          // handle user defined limits
+          if (xDomainLimit) {
+            if (newLoc.left < xDomainLimit[0]) {
+              const delta = newLoc.right - newLoc.left;
+              newLoc.left = xDomainLimit[0];
+              newLoc.right = newLoc.left + delta;
+            }
+
+            if (newLoc.right > xDomainLimit[1]) {
+              const delta = newLoc.right - newLoc.left;
+              newLoc.right = xDomainLimit[1];
+              newLoc.left = newLoc.right - delta;
+            }
+          }
+
+          if (yDomainLimit) {
+            if (newLoc.bottom < yDomainLimit[0]) {
+              const delta = newLoc.top - newLoc.bottom;
+              newLoc.bottom = xDomainLimit[0];
+              newLoc.top = newLoc.bottom + delta;
+            }
+
+            if (newLoc.top > yDomainLimit[1]) {
+              const delta = newLoc.top - newLoc.bottom;
+              newLoc.top = yDomainLimit[1];
+              newLoc.bottom = newLoc.top - delta;
+            }
+          }
+          console.log(newLoc);
+
           setLastLocation(newLoc);
         }
       },
@@ -163,9 +272,13 @@ export const useZoomablePlot = (xDomain, yDomain, xRange, yRange, preserveRatio)
         direction = preserveRatio ? null : direction;
 
         if (e.deltaY > 0) {
-          setLastLocation((location) => scaleLoc(location || fallbackLocation, 1.1, direction));
+          setLastLocation((location) =>
+            scaleLoc(location || fallbackLocation, 1.1, direction, xDomainLimit, yDomainLimit)
+          );
         } else {
-          setLastLocation((location) => scaleLoc(location || fallbackLocation, 1 / 1.1, direction));
+          setLastLocation((location) =>
+            scaleLoc(location || fallbackLocation, 1 / 1.1, direction, xDomainLimit, yDomainLimit)
+          );
         }
       },
       onPointerLeave: () => {
@@ -200,7 +313,7 @@ export const useZoomablePlot = (xDomain, yDomain, xRange, yRange, preserveRatio)
         });
       },
     }),
-    [preserveRatio, setLastLocation, dragging]
+    [preserveRatio, setLastLocation, dragging, xDomainLimit, yDomainLimit]
   );
 
   const domains = useMemo(

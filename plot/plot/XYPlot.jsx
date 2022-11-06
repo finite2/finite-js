@@ -40,15 +40,17 @@ export const XYPlot = ({
   margin,
   xType,
   xDomain,
+  xDomainLimit,
   xValues,
   yType,
   yDomain,
+  yDomainLimit,
   yValues,
   className,
   preserveRatio,
   children,
 }) => {
-  const { width, height, containerRef } = useSVGContext();
+  const { width, height } = useSVGContext();
 
   if (xValues) {
     xType = "ordinal";
@@ -75,7 +77,15 @@ export const XYPlot = ({
   const xRange = useMemo(() => [0, innerWidth], [innerWidth]);
   const yRange = useMemo(() => [innerHeight, 0], [innerHeight]);
 
-  const [domains, events] = useZoomablePlot(xDomain, yDomain, xRange, yRange, preserveRatio);
+  const [domains, events] = useZoomablePlot(
+    xDomain,
+    yDomain,
+    xRange,
+    yRange,
+    xDomainLimit,
+    yDomainLimit,
+    preserveRatio
+  );
 
   const xScale = useCallback(getScale(domains.xDomain, xRange, xType), [
     domains.xDomain,
