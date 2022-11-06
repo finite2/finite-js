@@ -1,6 +1,6 @@
 {
   "name": "@finite/core",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "peerDependencies": {
     "react": "^17.0.2",
