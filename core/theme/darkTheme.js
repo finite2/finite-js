@@ -4,7 +4,7 @@ export const darkTheme = {
     backgroundAlt: "#445357",
 
     fontMain: "#ffffff",
-    fontAlt: "#dee2e3",
+    fontAlt: "#ced2d3",
     fontSelected: "#5399af",
     fontDisabled: "#aaa",
 
