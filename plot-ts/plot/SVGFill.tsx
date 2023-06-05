@@ -1,6 +1,6 @@
 import { useElementSize } from "@finite/core/hooks/useElementSize";
 import { SVG } from "./SVG";
-
+import React from "react";
 
 export const SVGFill = ({ children, ...rest }) => {
   const [elementRef, { innerWidth, innerHeight }] = useElementSize({ width: 100, height: 200 });
@@ -10,6 +10,6 @@ export const SVGFill = ({ children, ...rest }) => {
       <SVG width={innerWidth} height={innerHeight} {...rest}>
         {children}
       </SVG>
-    </Div>
+    </div>
   );
 };

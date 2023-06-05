@@ -1,13 +1,20 @@
-import React, { useMemo } from "react";
-import styled from "styled-components";
+import React, { ReactNode, useMemo } from "react";
 
 import { usePlotContext } from "./plot-utils";
 
-export const ClipPath = ({ id, margin }) => {
+export const ClipPath = ({
+  id = "content-area",
+  className,
+  margin = 0,
+}: {
+  id: string;
+  className: string;
+  margin: number;
+}) => {
   const { left, top, innerWidth, innerHeight } = usePlotContext();
 
   return (
-    <clipPath id={id}>
+    <clipPath id={id} className={className}>
       <rect
         x={left - margin}
         y={top - margin}
@@ -18,24 +25,24 @@ export const ClipPath = ({ id, margin }) => {
   );
 };
 
-ClipPath.defaultProps = {
-  id: "content-area",
-  margin: 0,
-};
-
-const ClipG = styled.g.attrs((p) => ({
-  style: { clipPath: `url(#${p.regionID})` },
-}))``;
-
-export const ClipPlotRegion = ({ id, margin, children }) => {
+export const ClipPlotRegion = ({
+  id = "",
+  margin = 0,
+  children,
+}: {
+  id?: string;
+  margin?: number;
+  children: ReactNode;
+}) => {
   const idMemo = useMemo(() => (id ? id : `clip-path-${Math.random()}`), [id]);
+  const style = useMemo(() => ({ clipPath: `url(#${idMemo})` }), [idMemo]);
 
   return (
     <>
       <ClipPath className="plot__clippath" id={idMemo} margin={margin} />
-      <ClipG className="plot__g-clippath" regionID={idMemo}>
+      <g className="plot__g-clippath" style={style}>
         {children}
-      </ClipG>
+      </g>
     </>
   );
 };

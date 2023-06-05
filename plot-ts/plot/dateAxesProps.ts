@@ -2,12 +2,12 @@ import dayjs from "dayjs";
 
 const SECS_IN_DAY = 86400000;
 
-export const dateAxesProps = (xDomain) => {
+export const dateAxesProps = (xDomain: [number, number]) => {
   const range = xDomain[1] - xDomain[0];
 
   const days = range / SECS_IN_DAY;
 
-  let values = [];
+  let values: number[] = [];
 
   let d = dayjs(xDomain[0]);
 
@@ -22,7 +22,7 @@ export const dateAxesProps = (xDomain) => {
 
     return {
       tickValues: values,
-      tickFormat: (t) => {
+      tickFormat: (t: number) => {
         const d = dayjs(t);
         if (d.get("month") === 1) {
           return d.format("YYYY");
@@ -42,7 +42,7 @@ export const dateAxesProps = (xDomain) => {
 
     return {
       tickValues: values,
-      tickFormat: (t) => {
+      tickFormat: (t: number) => {
         const d = dayjs(t);
         if (d.get("date") < 8) {
           return d.format("MMM");
@@ -62,7 +62,7 @@ export const dateAxesProps = (xDomain) => {
 
     return {
       tickValues: values,
-      tickFormat: (t) => {
+      tickFormat: (t: number) => {
         const d = dayjs(t);
         if (d.get("date") === 1) {
           return d.format("MMM");

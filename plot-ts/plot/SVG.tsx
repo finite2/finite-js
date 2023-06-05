@@ -1,4 +1,4 @@
-import {
+import React, {
   useRef,
   useState,
   useEffect,
@@ -6,6 +6,8 @@ import {
   SVGProps,
   Dispatch,
   SetStateAction,
+  CSSProperties,
+  ReactNode,
 } from "react";
 
 import { getId } from "@finite/core/utils/getId";
@@ -61,16 +63,23 @@ export const SVG = ({
   className,
   style,
   onClick,
+}: {
+  width: number;
+  height: number;
+  className?: string;
+  style?: CSSProperties;
+  onClick?: (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
+  children: ReactNode;
 }) => {
-  const svgRef = useRef<SVGSVGElement>();
-  const containerRef = useRef<HTMLDivElement>();
+  const svgRef = useRef<SVGSVGElement>(null!);
+  const containerRef = useRef<HTMLDivElement>(null!);
   const idRef = useRef<string>(getId());
 
   const [{ width, height }, setSize, resetSize] = useSVGsize(propWidth, propHeight);
 
   return (
     <SVGContext.Provider value={{ width, height, svgRef, containerRef, setSize, resetSize }}>
-      <PlotContainer ref={containerRef} id={idRef.current} className={className} style={style}>
+      <PlotContainer fRef={containerRef} id={idRef.current} className={className} style={style}>
         <SVGstyled ref={svgRef} onClick={onClick} viewBox={`0 0 ${width} ${height}`}>
           {children}
         </SVGstyled>

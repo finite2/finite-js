@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -9,19 +9,12 @@ import {
   GPlotRegion,
   usePlotContext,
   classes,
+  Orientation,
 } from "./plot-utils";
 
 const AxisLine = styled.line`
   stroke: var(--color-font);
   fill: var(--color-font);
-`;
-
-const AxisTick = styled.line`
-  stroke: var(--color-font);
-`;
-
-const AxisTickLabel = styled.text`
-  user-select: none;
 `;
 
 const { TOP, LEFT, RIGHT, BOTTOM } = ORIENTATION;
@@ -96,19 +89,28 @@ const getTickContainerPropsGetterFn = (orientation) => {
   };
 };
 
-const AxisTicks = (props) => {
+const AxisTicks = ({
+  orientation,
+  tickValues,
+  tickTotal = 5,
+  tickFormat,
+  tickSize = 6,
+  tickSizeInner = tickSize,
+  tickSizeOuter = tickSize,
+  tickPadding = tickSize + 2,
+  tickLabelAngle,
+}: {
+  orientation: Orientation;
+  tickValues?: any[];
+  tickTotal?: number;
+  tickFormat?: (v: any, i: number, scale: any, tickTotal: number) => any;
+  tickSize?: number;
+  tickSizeInner?: number;
+  tickSizeOuter?: number;
+  tickPadding?: number;
+  tickLabelAngle?: number;
+}) => {
   const { innerWidth, xScale, xValues, innerHeight, yScale, yValues } = usePlotContext();
-  const {
-    orientation,
-    tickValues,
-    tickTotal,
-    tickFormat,
-    tickSize,
-    tickSizeInner = tickSize,
-    tickSizeOuter = tickSize,
-    tickPadding = tickSize,
-    tickLabelAngle,
-  } = props;
 
   const scale = isAxisVertical(orientation) ? yScale : xScale;
   const ordinalValues = isAxisVertical(orientation) ? yValues : xValues;
@@ -116,15 +118,19 @@ const AxisTicks = (props) => {
   const x = orientation === RIGHT ? innerWidth : 0;
   const y = orientation === BOTTOM ? innerHeight : 0;
 
-  const tickFormatFn = useMemo(
-    () => getTickFormatFn(scale, ordinalValues, tickTotal, tickFormat),
-    [scale, ordinalValues, tickTotal, tickFormat]
-  );
+  const tickFormatFn = useMemo(() => getTickFormatFn(scale, ordinalValues, tickTotal, tickFormat), [
+    scale,
+    ordinalValues,
+    tickTotal,
+    tickFormat,
+  ]);
 
-  const values = useMemo(
-    () => getTickValues(scale, ordinalValues, tickTotal, tickValues),
-    [scale, ordinalValues, tickTotal, tickValues]
-  );
+  const values = useMemo(() => getTickValues(scale, ordinalValues, tickTotal, tickValues), [
+    scale,
+    ordinalValues,
+    tickTotal,
+    tickValues,
+  ]);
 
   const translateFn = useMemo(() => getTickContainerPropsGetterFn(orientation), [orientation]);
 
@@ -146,8 +152,10 @@ const AxisTicks = (props) => {
 
         return (
           <g key={i} {...translateFn(pos)}>
-            {tickSize !== 0 ? <AxisTick {...pathProps} /> : null}
-            <AxisTickLabel {...textProps}>{labelNode}</AxisTickLabel>
+            {tickSize !== 0 ? <line stroke="var(--color-font)" {...pathProps} /> : null}
+            <text {...textProps} className={"plot__tick-label select-none"}>
+              {labelNode}
+            </text>
           </g>
         );
       }),
@@ -155,12 +163,6 @@ const AxisTicks = (props) => {
   );
 
   return <g transform={`translate(${x}, ${y})`}>{ticks}</g>;
-};
-
-AxisTicks.defaultProps = {
-  tickSize: 6,
-  tickPadding: 8,
-  tickTotal: 5,
 };
 
 export const XAxis = (props) => {
@@ -189,7 +191,15 @@ export const XAxis = (props) => {
         className={classes("plot__x-axis", className)}
         transform={`translate(${leftPos}, ${topPos})`}
       >
-        <AxisLine x1={0} x2={innerWidth} y1={linePosition} y2={linePosition} />
+        <line
+          className="plot__axis-line"
+          stroke="var(--color-font)"
+          fill="var(--color-font)"
+          x1={0}
+          x2={innerWidth}
+          y1={linePosition}
+          y2={linePosition}
+        />
         <AxisTicks {...props} />
       </GPlotRegion>
       {draggable ? <XDraggableAxis orientation={orientation} /> : null}

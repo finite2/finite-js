@@ -1,14 +1,8 @@
-import { useMemo } from "react";
-import styled from "styled-components";
+import React, { CSSProperties, useMemo } from "react";
 
 import { getTickValues, DIRECTION, usePlotContext, GPlotRegion } from "./plot-utils";
 
 const { VERTICAL } = DIRECTION;
-
-const GLine = styled.line`
-  stroke: ${(p) => p.stroke || `#c8d6dd`};
-  pointer-events: none;
-`;
 
 export const GridLines = ({ tickTotal, direction, tickValues, stroke }) => {
   const { innerHeight, innerWidth, xScale, xValues, yScale, yValues } = usePlotContext();
@@ -30,10 +24,11 @@ export const GridLines = ({ tickTotal, direction, tickValues, stroke }) => {
         [`${tickYAttr}2`]: pos,
         [`${tickXAttr}1`]: 0,
         [`${tickXAttr}2`]: length,
-        stroke,
+        stroke: stroke || `#c8d6dd`,
+        style: { pointerEvents: "none" } as CSSProperties,
       };
 
-      return <GLine className="plot__grid-lines__line" {...pathProps} key={key} />;
+      return <line className="plot__grid-lines__line" {...pathProps} key={key} />;
     });
   }, [scale, ordinalValues, tickTotal, tickValues, length, stroke]);
 

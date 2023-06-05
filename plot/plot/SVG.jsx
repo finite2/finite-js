@@ -54,7 +54,7 @@ export const SVG = ({
 
   return (
     <SVGContext.Provider value={{ width, height, svgRef, containerRef, setSize, resetSize }}>
-      <PlotContainer ref={containerRef} id={idRef.current} className={className} style={style}>
+      <PlotContainer fRef={containerRef} id={idRef.current} className={className} style={style}>
         <SVGstyled ref={svgRef} onClick={onClick} viewBox={`0 0 ${width} ${height}`}>
           {children}
         </SVGstyled>

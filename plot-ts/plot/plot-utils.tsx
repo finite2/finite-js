@@ -1,12 +1,38 @@
-import { SVGProps, createContext, useContext } from "react";
+import React, {
+  Dispatch,
+  RefObject,
+  SVGProps,
+  SetStateAction,
+  createContext,
+  useContext,
+} from "react";
 import { scaleLinear, scaleLog } from "d3-scale";
 
-export const SVGContext = createContext({
-  width: 900,
-  height: 600,
-});
+type SVGContext = {
+  width: number;
+  height: number;
+  svgRef: RefObject<SVGSVGElement>;
+  containerRef: RefObject<HTMLDivElement>;
+  setSize: Dispatch<
+    SetStateAction<{
+      width: number;
+      height: number;
+    }>
+  >;
+  resetSize: () => void;
+};
 
-export const useSVGContext = () => useContext(SVGContext);
+export const SVGContext = createContext<SVGContext | null>(null);
+
+export const useSVGContext = () => {
+  const context = useContext(SVGContext);
+
+  if (!context) {
+    throw new Error("useSVGContext must be used within a SVGContextProvider");
+  }
+
+  return context;
+};
 
 // innerWidth, data plot region width
 // innerHeight, data plot region height
@@ -67,7 +93,7 @@ export const usePlotContext = () => {
 
 export const getTickValues = (
   scale,
-  ordinalValues: string[],
+  ordinalValues?: string[],
   tickTotal?: number,
   tickValues?: number | number[]
 ): number[] => {
@@ -105,11 +131,7 @@ export const DIRECTION = {
 
 export type Direction = ValueOf<typeof DIRECTION>;
 
-export const GPlotRegion = ({
-  className,
-  children,
-  ...rest
-}: Omit<SVGProps<SVGGElement>, "transform">) => {
+export const GPlotRegion = ({ className, children, ...rest }: SVGProps<SVGGElement>) => {
   const { left, top } = usePlotContext();
 
   return (

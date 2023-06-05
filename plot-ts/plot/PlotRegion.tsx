@@ -1,10 +1,16 @@
-import { useMemo, useRef, useCallback, memo } from "react";
+import React, { useMemo, useRef, useCallback, memo, RefObject } from "react";
 
 import { usePlotContext, useSVGContext } from "./plot-utils";
 
-export const PlotRegion = memo(({ fill, draggable, children, cursor, ...rest }) => {
+export const PlotRegionUnmemorised = ({
+  fill = "var(--color-background-alt)",
+  draggable = false,
+  children,
+  cursor = "auto",
+  ...rest
+}) => {
   const { left, innerWidth, top, innerHeight, events } = usePlotContext();
-  const ref = useRef<SVGRectElement>();
+  const ref = useRef<SVGRectElement>(null);
 
   const onEvents = usePlotRegionEvents();
 
@@ -40,14 +46,17 @@ export const PlotRegion = memo(({ fill, draggable, children, cursor, ...rest }) 
       {children}
     </g>
   );
-});
+};
+
+export const PlotRegion = memo(PlotRegionUnmemorised);
 
 const usePlotRegionEvents = () => {
   const { xScaleEvent, yScaleEvent } = usePlotContext();
   const { containerRef } = useSVGContext();
 
   const addData = useCallback(
-    (e, ref) => {
+    (e, ref: RefObject<SVGRectElement>) => {
+      if (!ref.current || !containerRef.current) return e;
       const { top, left } = ref.current.getBoundingClientRect();
       const { width, height } = containerRef.current.getBoundingClientRect();
 
@@ -72,10 +81,4 @@ const usePlotRegionEvents = () => {
     },
     [addData]
   );
-};
-
-PlotRegion.defaultProps = {
-  fill: "var(--color-background-alt)",
-  draggable: false,
-  cursor: "auto",
 };

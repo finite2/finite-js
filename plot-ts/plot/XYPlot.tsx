@@ -23,10 +23,10 @@ type PartialGrid = {
 };
 
 const constructGridObject = (grid: PartialGrid) => {
-  if (!("right" in grid)) {
+  if (grid.right === undefined) {
     grid.right = grid.left;
   }
-  if (!("bottom" in grid)) {
+  if (grid.bottom === undefined) {
     grid.bottom = grid.top;
   }
   return grid as Grid;
@@ -73,7 +73,7 @@ type XYPlotProps = {
 };
 
 export const XYPlot = ({
-  grid: initialGrid,
+  grid: initialGrid = { left: 0, right: 0, top: 0, bottom: 0, width: 1, height: 1 },
   margin: initialMargin = { left: 50, right: 10, top: 10, bottom: 40 },
   xType = "linear",
   xDomain = [0, 1],
