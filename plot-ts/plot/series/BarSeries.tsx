@@ -1,9 +1,22 @@
 import React from "react";
 // import styled from "styled-components";
 
-import { usePlotContext, GPlotRegion, classes, onDataEvents, DIRECTION } from "../plot-utils";
+import {
+  usePlotContext,
+  GPlotRegion,
+  classes,
+  onDataEvents,
+  DIRECTION,
+  Direction,
+} from "../plot-utils";
 
-const getPosition = (direction, x0, y0, y1, halfWidth) => {
+const getPosition = (
+  direction: Direction,
+  x0: number,
+  y0: number,
+  y1: number,
+  halfWidth: number
+) => {
   if (direction === DIRECTION.VERTICAL) {
     return { x: x0, y: y0, width: halfWidth * 2, height: y1 - y0 };
   } else {
@@ -14,37 +27,26 @@ const getPosition = (direction, x0, y0, y1, halfWidth) => {
 export const BarSeries = ({
   direction,
   data,
-  getCategory,
-  getHeight,
+  getCategory = (d, i) => i,
+  getHeight = (d) => d.y,
   getHeight0,
   getColor,
-  getStroke,
+  getStroke = getColor,
   getOpacity,
-  getFill,
+  getFill = getColor,
   strokeWidth,
-  color,
-  width,
-  offset,
+  color = "blue",
+  width = 0.5,
+  offset = 0,
   className,
   style,
   ...rest
 }) => {
   const extraProps = { ...rest };
-  const { xScale, yScale, xType, yType } = usePlotContext();
-
-  const type = direction === DIRECTION.VERTICAL ? xType : yType;
+  const { xScale, yScale /* xType, yType */ } = usePlotContext();
 
   const categoryScale = direction === DIRECTION.VERTICAL ? xScale : yScale;
   const heightScale = direction === DIRECTION.VERTICAL ? yScale : xScale;
-
-  if (getColor) {
-    if (!getFill) {
-      getFill = getColor;
-    }
-    if (!getStroke) {
-      getStroke = getColor;
-    }
-  }
 
   const distance = Math.abs(categoryScale(1) - categoryScale(0));
   const halfWidth = (distance * width) / 2;
@@ -74,19 +76,7 @@ export const BarSeries = ({
     return <rect {...attrs} />;
   });
 
-  return (
-    <GPlotRegion className={classes("plot__series--bars", className)} style={{ fill: color }}>
-      {points}
-    </GPlotRegion>
-  );
-};
-
-BarSeries.defaultProps = {
-  getCategory: (d, i) => i,
-  getHeight: (d) => d.y,
-  color: "blue",
-  width: 0.5,
-  offset: 0,
+  return <GPlotRegion className={classes("plot__series--bars", className)}>{points}</GPlotRegion>;
 };
 
 export const VerticalBarSeries = ({ ...props }) => {

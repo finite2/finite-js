@@ -1,12 +1,11 @@
-import React, { useEffect, useMemo } from "react";
-import PropTypes from "prop-types";
+import React, { CSSProperties, HTMLAttributes, useMemo } from "react";
 
 import { usePlotContext, GPlotRegion, classes } from "../plot-utils";
 
 import * as d3Shape from "d3-shape";
 
-const renderArea = (data, x, y, y0, curve) => {
-  let area = d3Shape.area().x(x).y1(y);
+const renderArea = (data, getX, getY, getY0, curve) => {
+  let area = d3Shape.area().x(getX).y1(getY);
 
   if (curve !== null) {
     if (typeof curve === "string" && d3Shape[curve]) {
@@ -15,25 +14,34 @@ const renderArea = (data, x, y, y0, curve) => {
       area.curve(curve);
     }
   }
-  if (y0) {
-    area.y0(y0);
+  if (getY0) {
+    area.y0(getY0);
   }
   return area([...data]);
 };
 
-export const LineAreaSeries = ({
+export const LineAreaSeries = <T,>({
   data,
   getX,
   getY,
-  getY0,
-  baseline,
+  getY0 = () => 0,
   curve,
-  color,
-  fill,
-  width,
+  color = "var(--color-primary)",
+  fill = "var(--color-primary)",
+  width = 0,
   className,
   ...rest
-}) => {
+}: {
+  data: T[];
+  getX: (d: T, i: number) => number;
+  getY: (d: T, i: number) => number;
+  getY0?: (d: T, i: number) => number;
+  curve?: any;
+  color?: string;
+  fill?: string;
+  width?: number;
+  className?: string;
+} & HTMLAttributes<SVGPathElement>) => {
   const { xScale, yScale } = usePlotContext();
 
   const areaD = useMemo(
@@ -48,32 +56,15 @@ export const LineAreaSeries = ({
     [data, xScale, yScale, getX, getY, getY0]
   );
 
-  const style = useMemo(() => ({ stroke: color, strokeWidth: width, fill }));
+  const style: CSSProperties = useMemo(() => ({ stroke: color, strokeWidth: width, fill }), [
+    color,
+    width,
+    fill,
+  ]);
 
   return (
     <GPlotRegion className={classes("plot__series--line-area", className)}>
       <path d={areaD} style={style} {...rest} />
     </GPlotRegion>
   );
-};
-
-LineAreaSeries.defaultProps = {
-  getX: (d) => d.x,
-  getY: (d) => d.y,
-  getY0: () => 0,
-  curve: null,
-  color: "var(--color-primary)",
-  fill: "var(--color-primary)",
-  width: 0,
-};
-
-LineAreaSeries.propTypes = {
-  className: PropTypes.string,
-  data: PropTypes.array.isRequired,
-  getX: PropTypes.func,
-  getY: PropTypes.func,
-  getY0: PropTypes.func,
-  curve: PropTypes.func,
-  color: PropTypes.string,
-  width: PropTypes.number,
 };

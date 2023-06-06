@@ -1,29 +1,24 @@
 import React from "react";
-import styled from "styled-components";
 
 import { usePlotContext, GPlotRegion, classes } from "../plot-utils";
 
 const generatePath = (data, getX, getY) =>
   `${data.reduce((res, row, i) => `${res} ${i ? "L" : "M"}${getX(row)} ${getY(row)}`, "")} Z`;
 
-const PolygonPath = styled.path`
-  stroke-width: 0;
-`;
-
 export const PolygonSeries = ({
   id,
   className,
   style,
   data,
-  getX,
-  getY,
+  getX = (d) => d.x,
+  getY = (d) => d.y,
   getColor,
   getStroke,
   getOpacity,
   getFill,
   strokeWidth,
   stroke,
-  color,
+  color = "blue",
   onClick,
   onMouseEnter,
 }) => {
@@ -49,29 +44,19 @@ export const PolygonSeries = ({
         opacity: getOpacity && getOpacity(d),
         stroke: strokeWidth ? (getStroke ? getStroke(d) : stroke ? stroke : color) : null,
         fill: getFill ? getFill(d) : color,
-        strokeWidth: strokeWidth || null,
+        strokeWidth: strokeWidth || 0,
         ...style,
       },
-      onClick: (e) => onClick(e, d, scaledGetX, scaledGetY),
-      onMouseEnter: onMouseEnter ? (e) => onMouseEnter(e, d) : null,
+      onClick: onClick ? (e) => onClick(e, d, scaledGetX, scaledGetY) : undefined,
+      onMouseEnter: onMouseEnter ? (e) => onMouseEnter(e, d) : undefined,
     };
 
-    return <PolygonPath {...attrs} />;
+    return <path {...attrs} />;
   });
 
   return (
-    <GPlotRegion
-      id={id}
-      className={classes("plot__series--polygon", className)}
-      style={{ fill: color }}>
+    <GPlotRegion id={id} className={classes("plot__series--polygon", className)}>
       {polygons}
     </GPlotRegion>
   );
-};
-
-PolygonSeries.defaultProps = {
-  getX: (d) => d.x,
-  getY: (d) => d.y,
-  color: "blue",
-  onClick: () => null,
 };

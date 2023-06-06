@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import * as d3Shape from "d3-shape";
-import styled from "styled-components";
 
 import { usePlotContext, GPlotRegion, classes } from "../plot-utils";
 
@@ -17,11 +16,16 @@ const renderLine = (data, x, y, curve) => {
   return line(data);
 };
 
-const LinePath = styled.path`
-  fill: #0000;
-`;
-
-export const LineSeries = ({ data, getX, getY, curve, color, width, className, ...rest }) => {
+export const LineSeries = ({
+  data,
+  getX = (d) => d.x,
+  getY = (d) => d.y,
+  curve,
+  color = "var(--color-primary)",
+  width = 2,
+  className,
+  ...rest
+}) => {
   const { xScale, yScale } = usePlotContext();
 
   const d = useMemo(
@@ -39,17 +43,9 @@ export const LineSeries = ({ data, getX, getY, curve, color, width, className, .
 
   return (
     <GPlotRegion className={classes("plot__series--line", className)}>
-      <LinePath d={d} style={style} {...rest} />
+      <path d={d} style={style} fill="#0000" {...rest} />
     </GPlotRegion>
   );
-};
-
-LineSeries.defaultProps = {
-  getX: (d) => d.x,
-  getY: (d) => d.y,
-  curve: null,
-  color: "var(--color-primary)",
-  width: 2,
 };
 
 LineSeries.propTypes = {

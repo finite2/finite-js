@@ -1,14 +1,13 @@
-import React, { useMemo } from "react";
-import styled from "styled-components";
+import React, { CSSProperties, useMemo } from "react";
 
 import { usePlotContext, GPlotRegion, classes, onDataEvents } from "../plot-utils";
 
-const TextMark = styled.text`
-  alignment-baseline: middle;
-  text-anchor: middle;
-`;
+const textMarkStyle: CSSProperties = {
+  alignmentBaseline: "middle",
+  textAnchor: "middle",
+};
 
-const starPoints = (size) => {
+const starPoints = (size: number): string => {
   return [...new Array(5)]
     .map((c, index) => {
       const angle = (index / 5) * Math.PI * 2;
@@ -37,22 +36,22 @@ const marks = {
     />
   ),
   text: ({ size, content, ...rest }) => (
-    <TextMark fontSize={size} {...rest}>
+    <text fontSize={size} style={textMarkStyle} {...rest}>
       {content}
-    </TextMark>
+    </text>
   ),
   error: ({ size, content, ...rest }) => (
-    <TextMark fontSize={size} {...rest}>
+    <text fontSize={size} style={textMarkStyle} {...rest}>
       Error in MarkSeries mark type not found
-    </TextMark>
+    </text>
   ),
 };
 
 export const MarkSeries = ({
-  mark,
+  mark = "circle",
   data,
-  getX,
-  getY,
+  getX = (d) => d.x,
+  getY = (d) => d.y,
   getMark,
   getContent,
   getSize,
@@ -61,8 +60,8 @@ export const MarkSeries = ({
   getOpacity,
   getFill,
   strokeWidth,
-  color,
-  size,
+  color = "blue",
+  size = 10,
   markTemplates,
   className,
   style,
@@ -84,7 +83,9 @@ export const MarkSeries = ({
         return [markLibrary.error, markLibrary];
       }
     } else if (mark instanceof Function) {
-      return mark, markLibrary;
+      return [mark, markLibrary];
+    } else {
+      throw new Error("Error in MarkSeries mark must be a string or function");
     }
   }, [marks, markTemplates]);
 
@@ -119,7 +120,7 @@ export const MarkSeries = ({
           opacity: getOpacity && getOpacity(d, i),
           stroke: getStroke ? getStroke(d, i) : color,
           fill: getFill ? getFill(d, i) : color,
-          strokeWidth: strokeWidth || 1 * (mark !== "text"),
+          strokeWidth: strokeWidth || 1 * Number(mark !== "text"),
           ...style,
         },
         ...onDataEvents(extraProps, d, i),
@@ -162,12 +163,4 @@ export const MarkSeries = ({
       {points}
     </GPlotRegion>
   );
-};
-
-MarkSeries.defaultProps = {
-  mark: "circle",
-  getX: (d) => d.x,
-  getY: (d) => d.y,
-  color: "blue",
-  size: 10,
 };

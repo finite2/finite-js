@@ -1,30 +1,30 @@
-import React, { Fragment, useMemo } from "react";
-import styled from "styled-components";
+import React, { CSSProperties, Fragment, useMemo } from "react";
 
 import squarify from "squarify";
 
 import { classes, GPlotRegion, usePlotContext } from "../plot-utils";
 
-const ForeignObject = styled.foreignObject`
-  user-select: none;
-  pointer-events: none;
-`;
+const foreignObjectStyle: CSSProperties = {
+  userSelect: "none",
+  pointerEvents: "none",
+};
 
-const AreaTextContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-`;
+const areaTextContainerStyle: CSSProperties = {
+  position: "relative",
+  width: "100%",
+  height: "100%",
+};
 
-const TextDiv = styled.div`
-  position: absolute;
-  width: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  font-weight: 600;
-  text-align: center;
-`;
+const textStyle: CSSProperties = {
+  position: "absolute",
+  width: "100%",
+  top: "50%",
+  transform: "translateY(-50%)",
+  fontWeight: 600,
+  textAlign: "center",
+};
 
+// TODO: this needs a bit of tidying up
 export const AreaSeries = ({
   data,
   className,
@@ -84,8 +84,8 @@ export const AreaSeries = ({
           title: `$${value.toFixed(0)}`,
           stroke: getStroke ? getStroke(d) : stroke,
           strokeWidth: strokeW,
-          onMouseEnter: onMouseEnter ? () => onMouseEnter(d) : null,
-          onClick: onClick ? () => onClick(d) : null,
+          onMouseEnter: onMouseEnter ? () => onMouseEnter(d) : undefined,
+          onClick: onClick ? () => onClick(d) : undefined,
         };
 
         if (label) {
@@ -97,17 +97,18 @@ export const AreaSeries = ({
           };
 
           const style = {
+            ...textStyle,
             fontSize: Math.max(6, Math.min(26, (x1 - x0) / characters)),
           };
 
           return (
             <Fragment key={i}>
               <rect {...rectProps} />
-              <ForeignObject {...textProps}>
-                <AreaTextContainer>
-                  <TextDiv style={style}>{label}</TextDiv>
-                </AreaTextContainer>
-              </ForeignObject>
+              <foreignObject className="plot_area-text" style={foreignObjectStyle} {...textProps}>
+                <div style={areaTextContainerStyle}>
+                  <div style={style}>{label}</div>
+                </div>
+              </foreignObject>
             </Fragment>
           );
         } else {
