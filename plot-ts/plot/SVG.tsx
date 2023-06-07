@@ -64,8 +64,8 @@ export const SVG = ({
   style,
   onClick,
 }: {
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   className?: string;
   style?: CSSProperties;
   onClick?: (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;

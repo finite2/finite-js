@@ -141,12 +141,12 @@ export const GPlotRegion = ({ className, children, ...rest }: SVGProps<SVGGEleme
   );
 };
 
-export function onDataEvents<T>(props: any, data: T[], index: number) {
+export function onDataEvents<T>(props: any, d: T, index: number) {
   let eventHandlerKeys = Object.keys(props).filter((k) => k.startsWith("on"));
   let p = {};
   for (var i = 0; i < eventHandlerKeys.length; i++) {
     let key = eventHandlerKeys[i];
-    p[key] = (e) => props[key](e, data, index);
+    p[key] = (e) => props[key](e, d, index);
   }
   return p;
 }

@@ -47,11 +47,31 @@ const marks = {
   ),
 };
 
-export const MarkSeries = ({
+type MarkSeriesProps<T> = {
+  mark?: string | ((d: T, index: number) => string);
+  data: T[];
+  getX: (d: T, index: number) => number;
+  getY: (d: T, index: number) => number;
+  getMark?: (d: T, index: number) => string;
+  getContent?: (d: T, index: number) => string;
+  getSize?: (d: T, index: number) => number;
+  getColor?: (d: T, index: number) => string;
+  getStroke?: (d: T, index: number) => string;
+  getOpacity?: (d: T, index: number) => number;
+  getFill?: (d: T, index: number) => string;
+  strokeWidth?: number;
+  color?: string;
+  size?: number;
+  markTemplates?: { [key: string]: React.FC<any> };
+  className?: string;
+  style?: CSSProperties;
+};
+
+export const MarkSeries = <T,>({
   mark = "circle",
   data,
-  getX = (d) => d.x,
-  getY = (d) => d.y,
+  getX,
+  getY,
   getMark,
   getContent,
   getSize,
@@ -66,7 +86,7 @@ export const MarkSeries = ({
   className,
   style,
   ...rest
-}) => {
+}: MarkSeriesProps<T>) => {
   const { xScale, yScale } = usePlotContext();
 
   // warning extraProps is heading into useMemo and won't trigger updates there
@@ -99,31 +119,31 @@ export const MarkSeries = ({
   }
 
   const points = useMemo(() => {
-    const fn = (d, i) => {
+    const fn = (d: T, index: number) => {
       let MarkComponent = Mark;
       if (getMark) {
-        MarkComponent = markLibrary[getMark(d, i)];
+        MarkComponent = markLibrary[getMark(d, index)];
         if (!Mark) {
-          console.error(`Error in markSeries mark named "${getMark(d, i)}" not found`);
+          console.error(`Error in markSeries mark named "${getMark(d, index)}" not found`);
           return null;
         }
       }
 
-      const x = xScale(getX(d, i));
-      const y = yScale(getY(d, i));
+      const x = xScale(getX(d, index));
+      const y = yScale(getY(d, index));
       const attrs = {
-        key: i,
-        size: getSize ? getSize(d, i) : size,
-        content: getContent && getContent(d, i),
-        color: getColor ? getColor(d, i) : color,
+        key: index,
+        size: getSize ? getSize(d, index) : size,
+        content: getContent && getContent(d, index),
+        color: getColor ? getColor(d, index) : color,
         style: {
-          opacity: getOpacity && getOpacity(d, i),
-          stroke: getStroke ? getStroke(d, i) : color,
-          fill: getFill ? getFill(d, i) : color,
+          opacity: getOpacity && getOpacity(d, index),
+          stroke: getStroke ? getStroke(d, index) : color,
+          fill: getFill ? getFill(d, index) : color,
           strokeWidth: strokeWidth || 1 * Number(mark !== "text"),
           ...style,
         },
-        ...onDataEvents(extraProps, d, i),
+        ...onDataEvents(extraProps, d, index),
       };
 
       return (
@@ -133,11 +153,7 @@ export const MarkSeries = ({
       );
     };
 
-    if (Array.isArray(data)) {
-      return data.map(fn);
-    }
-
-    return fn(data, 0);
+    return data.map(fn);
   }, [
     data,
     getX,
@@ -158,9 +174,5 @@ export const MarkSeries = ({
     yScale,
   ]);
 
-  return (
-    <GPlotRegion className={classes("plot__series--mark", className)} style={{ fill: color }}>
-      {points}
-    </GPlotRegion>
-  );
+  return <GPlotRegion className={classes("plot__series--mark", className)}>{points}</GPlotRegion>;
 };

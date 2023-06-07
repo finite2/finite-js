@@ -1,6 +1,6 @@
-import React, { CSSProperties, HTMLAttributes, useMemo } from "react";
+import React, { HTMLAttributes, useMemo } from "react";
 
-import { usePlotContext, GPlotRegion, classes } from "../plot-utils";
+import { usePlotContext, GPlotRegion } from "../plot-utils";
 
 import * as d3Shape from "d3-shape";
 
@@ -29,7 +29,6 @@ export const LineAreaSeries = <T,>({
   color = "var(--color-primary)",
   fill = "var(--color-primary)",
   width = 0,
-  className,
   ...rest
 }: {
   data: T[];
@@ -56,15 +55,9 @@ export const LineAreaSeries = <T,>({
     [data, xScale, yScale, getX, getY, getY0]
   );
 
-  const style: CSSProperties = useMemo(() => ({ stroke: color, strokeWidth: width, fill }), [
-    color,
-    width,
-    fill,
-  ]);
-
   return (
-    <GPlotRegion className={classes("plot__series--line-area", className)}>
-      <path d={areaD} style={style} {...rest} />
+    <GPlotRegion className="plot__series--line-area">
+      <path d={areaD} {...rest} stroke={color} strokeWidth={width} fill={fill} />
     </GPlotRegion>
   );
 };

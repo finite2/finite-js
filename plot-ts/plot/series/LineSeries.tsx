@@ -2,9 +2,15 @@ import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import * as d3Shape from "d3-shape";
 
-import { usePlotContext, GPlotRegion, classes } from "../plot-utils";
+import { usePlotContext, GPlotRegion } from "../plot-utils";
 
-const renderLine = (data, x, y, curve) => {
+//TODO add curve type
+const renderLine = <T,>(
+  data: T[],
+  x: (d: T, index: number) => number,
+  y: (d: T, index: number) => number,
+  curve
+) => {
   let line = d3Shape.line().x(x).y(y);
   if (curve !== null) {
     if (typeof curve === "string" && d3Shape[curve]) {
@@ -16,34 +22,41 @@ const renderLine = (data, x, y, curve) => {
   return line(data);
 };
 
-export const LineSeries = ({
+type LineSeriesProps<T> = {
+  data: T[];
+  getX: (d: T, index: number) => number;
+  getY: (d: T, index: number) => number;
+  curve?: any;
+  color?: string;
+  width?: number;
+  className?: string;
+} & React.SVGProps<SVGPathElement>;
+
+export const LineSeries = <T,>({
   data,
-  getX = (d) => d.x,
-  getY = (d) => d.y,
+  getX,
+  getY,
   curve,
   color = "var(--color-primary)",
   width = 2,
-  className,
   ...rest
-}) => {
+}: LineSeriesProps<T>) => {
   const { xScale, yScale } = usePlotContext();
 
-  const d = useMemo(
+  const dPath = useMemo(
     () =>
       renderLine(
         data,
-        (d, i) => xScale(getX(d, i)),
-        (d, i) => yScale(getY(d, i)),
+        (d, index) => xScale(getX(d, index)),
+        (d, index) => yScale(getY(d, index)),
         curve
       ),
     [data, xScale, yScale, getX, getY]
   );
 
-  const style = useMemo(() => ({ stroke: color, strokeWidth: width }), [color, width]);
-
   return (
-    <GPlotRegion className={classes("plot__series--line", className)}>
-      <path d={d} style={style} fill="#0000" {...rest} />
+    <GPlotRegion className="plot__series--line">
+      <path d={dPath} fill="#0000" stroke={color} strokeWidth={width} {...rest} />
     </GPlotRegion>
   );
 };

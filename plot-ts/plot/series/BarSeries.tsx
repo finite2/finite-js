@@ -24,11 +24,29 @@ const getPosition = (
   }
 };
 
-export const BarSeries = ({
+type BarSeriesProps<T> = {
+  direction: Direction;
+  data: T[];
+  getCategory?: (d: T, index: number) => number;
+  getHeight: (d: T, index: number) => number;
+  getHeight0?: (d: T, index: number) => number;
+  getColor?: (d: T, index: number) => string;
+  getStroke?: (d: T, index: number) => string;
+  getOpacity?: (d: T, index: number) => number;
+  getFill?: (d: T, index: number) => string;
+  strokeWidth?: number;
+  color?: string;
+  width?: number;
+  offset?: number;
+  className?: string;
+  style?: React.CSSProperties;
+};
+
+export const BarSeries = <T,>({
   direction,
   data,
-  getCategory = (d, i) => i,
-  getHeight = (d) => d.y,
+  getCategory = (d: T, index: number) => index,
+  getHeight,
   getHeight0,
   getColor,
   getStroke = getColor,
@@ -41,7 +59,7 @@ export const BarSeries = ({
   className,
   style,
   ...rest
-}) => {
+}: BarSeriesProps<T>) => {
   const extraProps = { ...rest };
   const { xScale, yScale /* xType, yType */ } = usePlotContext();
 
@@ -54,23 +72,23 @@ export const BarSeries = ({
 
   // debugger;
 
-  const points = data.map((d, i) => {
-    const x0 = categoryScale(getCategory(d, i)) - halfWidth + offsetDist;
-    const y0 = heightScale(getHeight(d, i));
-    const y1 = heightScale(getHeight0 ? getHeight0(d, i) : 0);
+  const points = data.map((d, index) => {
+    const x0 = categoryScale(getCategory(d, index)) - halfWidth + offsetDist;
+    const y0 = heightScale(getHeight(d, index));
+    const y1 = heightScale(getHeight0 ? getHeight0(d, index) : 0);
 
     const attrs = {
       ...getPosition(direction, x0, y0, y1, halfWidth),
-      key: i,
-      color: getColor ? getColor(d, i) : color,
+      key: index,
+      color: getColor ? getColor(d, index) : color,
       style: {
-        opacity: getOpacity && getOpacity(d, i),
-        stroke: getStroke ? getStroke(d, i) : color,
-        fill: getFill ? getFill(d, i) : color,
+        opacity: getOpacity && getOpacity(d, index),
+        stroke: getStroke ? getStroke(d, index) : color,
+        fill: getFill ? getFill(d, index) : color,
         strokeWidth: strokeWidth || 1,
         ...style,
       },
-      ...onDataEvents(extraProps, d, i),
+      ...onDataEvents<T>(extraProps, d, index),
     };
 
     return <rect {...attrs} />;
@@ -79,9 +97,11 @@ export const BarSeries = ({
   return <GPlotRegion className={classes("plot__series--bars", className)}>{points}</GPlotRegion>;
 };
 
-export const VerticalBarSeries = ({ ...props }) => {
-  return <BarSeries direction={DIRECTION.VERTICAL} {...props} />;
+export const VerticalBarSeries = ({ data, getHeight, ...props }) => {
+  return <BarSeries direction={DIRECTION.VERTICAL} data={data} getHeight={getHeight} {...props} />;
 };
-export const HorizontalBarSeries = ({ ...props }) => {
-  return <BarSeries direction={DIRECTION.HORIZONTAL} {...props} />;
+export const HorizontalBarSeries = ({ data, getHeight, ...props }) => {
+  return (
+    <BarSeries direction={DIRECTION.HORIZONTAL} data={data} getHeight={getHeight} {...props} />
+  );
 };

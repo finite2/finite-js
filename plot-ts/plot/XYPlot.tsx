@@ -57,7 +57,7 @@ const constructMargin = (margin: MarginInput) => {
 };
 
 type XYPlotProps = {
-  grid: PartialGrid;
+  grid?: PartialGrid;
   margin?: MarginInput;
   xType?: "linear" | "log" | "ordinal";
   xDomain?: [number, number];

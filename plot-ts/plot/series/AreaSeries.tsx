@@ -1,3 +1,6 @@
+// ! LO doesn't need this one.
+// There is a beautiful example here: https://atlas.cid.harvard.edu/explore/
+
 import React, { CSSProperties, Fragment, useMemo } from "react";
 
 import squarify from "squarify";
