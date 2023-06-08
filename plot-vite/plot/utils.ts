@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect, useState } from "react";
+import { useRef, useLayoutEffect, useState, RefObject } from "react";
 
 export const getId = (head = "", dash = true) =>
   head +
@@ -25,8 +25,10 @@ class ElementSize {
   }
 }
 
-export const useElementSize = (init = { width: 0, height: 0 }) => {
-  const elementRef = useRef();
+export const useElementSize = <T extends Element>(
+  init = { width: 0, height: 0 }
+): [RefObject<T>, ElementSize] => {
+  const elementRef = useRef<T>(null);
   const [elementSize, setState] = useState(new ElementSize(init.width, init.height));
 
   useLayoutEffect(() => {

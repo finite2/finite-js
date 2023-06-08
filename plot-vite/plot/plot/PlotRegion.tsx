@@ -24,24 +24,28 @@ export const PlotRegionUnmemorised = ({
 
   const regionEvents = useMemo(() => onEvents({ ...rest }, ref), [ref, rest, onEvents]);
 
+  const { onPointerDown, onPointerUp, onPointerMove, onWheel } = events;
+
   const draggableEvents = useMemo(() => {
     if (draggable) {
-      const { onPointerDown, onPointerUp, onPointerMove, onWheel } = events;
-
       return {
-        onPointerDown: (e) => onPointerDown(e, ref),
-        onPointerUp: (e) => onPointerUp(e, ref),
-        onPointerMove: (e) => onPointerMove(e, ref),
-        onWheel: (e) => onWheel(e, ref),
+        onPointerUp: (e: PointerEvent) => onPointerUp(e, ref),
+        onPointerMove: (e: PointerEvent) => onPointerMove(e, ref),
       };
     }
     return null;
-  }, [events, draggable]);
+  }, [onPointerUp, onPointerMove, draggable]);
 
   const style = useMemo(() => ({ cursor: draggable ? "move" : cursor }), [cursor, draggable]);
 
   return (
-    <g {...draggableEvents} {...regionEvents} style={style}>
+    <g
+      className="plot__region"
+      {...draggableEvents}
+      {...regionEvents}
+      onPointerDown={onPointerDown}
+      onWheel={onWheel}
+      style={style}>
       <rect
         ref={ref}
         className="plot__region-dragcatcher"
@@ -74,11 +78,11 @@ const usePlotRegionEvents = () => {
       e.yPosition = yScaleEvent(height).invert(e.yAbsPosition);
       return e;
     },
-    [xScaleEvent, yScaleEvent]
+    [containerRef, xScaleEvent, yScaleEvent]
   );
 
   return useCallback(
-    (props, ref) => {
+    (props, ref: RefObject<SVGRectElement>) => {
       const eventHandlerKeys = props ? Object.keys(props).filter((k) => k.startsWith("on")) : [];
       const p: any = {};
       for (let i = 0; i < eventHandlerKeys.length; i++) {

@@ -1,8 +1,11 @@
 import { useElementSize } from "plot/utils";
-import { SVG } from "./SVG";
+import { MySVGProps, SVG } from "./SVG";
 
-export const SVGFill = ({ children, ...rest }) => {
-  const [elementRef, { innerWidth, innerHeight }] = useElementSize({ width: 100, height: 200 });
+export const SVGFill = ({ children, ...rest }: Omit<MySVGProps, "width" | "height">) => {
+  const [elementRef, { innerWidth, innerHeight }] = useElementSize<HTMLDivElement>({
+    width: 100,
+    height: 200,
+  });
 
   return (
     <div className="w-full h-inherit" ref={elementRef}>

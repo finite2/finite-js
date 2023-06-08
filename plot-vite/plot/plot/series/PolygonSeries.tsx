@@ -2,6 +2,7 @@ import React from "react";
 
 import { usePlotContext, GPlotRegion } from "../plot-utils";
 
+// TODO use the d3Shape.area method instead of points.reduce
 const generatePath = <P,>(
   points: P[],
   getX: (d: P, index: number) => number,
@@ -62,8 +63,8 @@ export const PolygonSeries = <T extends { points: P[] }, P>({
       fill: getFill ? getFill(d, index) : color,
       strokeWidth: strokeWidth || 0,
       opacity: getOpacity ? getOpacity(d, index) : undefined,
-      onClick: onClick ? (e) => onClick(e, d, scaledGetX, scaledGetY) : undefined,
-      onMouseEnter: onMouseEnter ? (e) => onMouseEnter(e, d) : undefined,
+      onClick: onClick ? (e: any) => onClick(e, d, scaledGetX, scaledGetY) : undefined,
+      onMouseEnter: onMouseEnter ? (e: any) => onMouseEnter(e, d) : undefined,
     };
 
     return <path {...attrs} {...rest} />;

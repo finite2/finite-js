@@ -1,11 +1,36 @@
-import React, { HTMLAttributes, useMemo } from "react";
+import { HTMLAttributes, useMemo } from "react";
 
 import { usePlotContext, GPlotRegion } from "../plot-utils";
 
 import * as d3Shape from "d3-shape";
 
-const renderArea = (data, getX, getY, getY0, curve) => {
-  let area = d3Shape.area().x(getX).y1(getY);
+type CurveType =
+  | "curveBasis"
+  | "curveBasisClosed"
+  | "curveBasisOpen"
+  | "curveCardinal"
+  | "curveCardinalClosed"
+  | "curveCardinalOpen"
+  | "curveCatmullRom"
+  | "curveCatmullRomClosed"
+  | "curveCatmullRomOpen"
+  | "curveMonotoneX"
+  | "curveMonotoneY"
+  | "curveNatural"
+  | "curveLinear"
+  | "curveLinearClosed"
+  | "curveStep"
+  | "curveStepAfter"
+  | "curveStepBefore";
+
+const renderArea = <T,>(
+  data: T[],
+  x: (d: T, index: number) => number,
+  y1: (d: T, index: number) => number,
+  y0?: (d: T, index: number) => number,
+  curve?: CurveType
+) => {
+  const area = d3Shape.area<T>().x(x).y1(y1);
 
   if (curve !== null) {
     if (typeof curve === "string" && d3Shape[curve]) {
@@ -14,11 +39,25 @@ const renderArea = (data, getX, getY, getY0, curve) => {
       area.curve(curve);
     }
   }
-  if (getY0) {
-    area.y0(getY0);
+  if (y0) {
+    area.y0(y0);
   }
-  return area([...data]);
+
+  const d = area(data);
+  return d ?? undefined;
 };
+
+type LineAreaSeriesProps<T> = {
+  data: T[];
+  getX: (d: T, i: number) => number;
+  getY: (d: T, i: number) => number;
+  getY0?: (d: T, i: number) => number;
+  curve?: any;
+  color?: string;
+  fill?: string;
+  width?: number;
+  className?: string;
+} & HTMLAttributes<SVGPathElement>;
 
 export const LineAreaSeries = <T,>({
   data,
@@ -30,26 +69,16 @@ export const LineAreaSeries = <T,>({
   fill = "var(--color-primary)",
   width = 0,
   ...rest
-}: {
-  data: T[];
-  getX: (d: T, i: number) => number;
-  getY: (d: T, i: number) => number;
-  getY0?: (d: T, i: number) => number;
-  curve?: any;
-  color?: string;
-  fill?: string;
-  width?: number;
-  className?: string;
-} & HTMLAttributes<SVGPathElement>) => {
+}: LineAreaSeriesProps<T>) => {
   const { xScale, yScale } = usePlotContext();
 
   const areaD = useMemo(
     () =>
       renderArea(
         data,
-        (d, i) => xScale(getX(d, i)),
-        (d, i) => yScale(getY(d, i)),
-        (d, i) => yScale(getY0(d, i)),
+        (d, index) => xScale(getX(d, index)),
+        (d, index) => yScale(getY(d, index)),
+        (d, index) => yScale(getY0(d, index)),
         curve
       ),
     [data, xScale, yScale, getX, getY, getY0]

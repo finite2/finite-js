@@ -4,7 +4,7 @@ export const AxisExample0 = () => {
   return (
     <SVG>
       <XYPlot>
-        <PlotRegion />
+        <PlotRegion draggable={true} />
         <XAxis />
         <YAxis />
       </XYPlot>

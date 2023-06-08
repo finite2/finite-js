@@ -1,16 +1,14 @@
-import React, { ReactNode, useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 
 import { usePlotContext } from "./plot-utils";
 
-export const ClipPath = ({
-  id = "content-area",
-  className,
-  margin = 0,
-}: {
+type ClipPathProps = {
   id: string;
   className: string;
   margin: number;
-}) => {
+};
+
+export const ClipPath = ({ id = "content-area", className, margin = 0 }: ClipPathProps) => {
   const { left, top, innerWidth, innerHeight } = usePlotContext();
 
   return (
@@ -25,15 +23,13 @@ export const ClipPath = ({
   );
 };
 
-export const ClipPlotRegion = ({
-  id = "",
-  margin = 0,
-  children,
-}: {
+type ClipPlotRegionProps = {
   id?: string;
   margin?: number;
   children: ReactNode;
-}) => {
+};
+
+export const ClipPlotRegion = ({ id = "", margin = 0, children }: ClipPlotRegionProps) => {
   const idMemo = useMemo(() => (id ? id : `clip-path-${Math.random()}`), [id]);
   const style = useMemo(() => ({ clipPath: `url(#${idMemo})` }), [idMemo]);
 
@@ -45,9 +41,4 @@ export const ClipPlotRegion = ({
       </g>
     </>
   );
-};
-
-ClipPlotRegion.defaultProps = {
-  id: "",
-  margin: 0,
 };

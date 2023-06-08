@@ -3,7 +3,7 @@ export { SVGFill } from "./plot/SVGFill";
 export { XYPlot } from "./plot/XYPlot";
 
 export { PlotRegion } from "./plot/PlotRegion";
-export { XAxis, YAxis, XDraggableAxis, YDraggableAxis } from "./plot/Axis";
+export { XAxis, YAxis } from "./plot/Axis";
 export { HorizontalGridLines, VerticalGridLines, CrosshairGridLines } from "./plot/GridLines";
 export { ChartTitle } from "./plot/ChartTitle";
 export { Offset } from "./plot/Offset";
@@ -18,4 +18,4 @@ export { VerticalBarSeries, HorizontalBarSeries } from "./plot/series/BarSeries"
 // export { AreaSeries } from "./plot/series/AreaSeries";
 
 // build your own components
-export { usePlotContext, useSVGContext, ORIENTATION, DIRECTION } from "./plot/plot-utils";
+export { usePlotContext, useSVGContext } from "./plot/plot-utils";

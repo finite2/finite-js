@@ -6,8 +6,7 @@ export const dateAxesProps = (xDomain: [number, number]) => {
   const range = xDomain[1] - xDomain[0];
 
   const days = range / SECS_IN_DAY;
-
-  let values: number[] = [];
+  const values: number[] = [];
 
   let d = dayjs(xDomain[0]);
 

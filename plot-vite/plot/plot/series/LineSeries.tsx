@@ -1,16 +1,14 @@
 import React, { useMemo } from "react";
 import * as d3Shape from "d3-shape";
+import { usePlotContext, GPlotRegion, CurveType } from "../plot-utils";
 
-import { usePlotContext, GPlotRegion } from "../plot-utils";
-
-//TODO add curve type
 const renderLine = <T,>(
   data: T[],
   x: (d: T, index: number) => number,
   y: (d: T, index: number) => number,
-  curve
+  curve?: CurveType
 ) => {
-  let line = d3Shape.line().x(x).y(y);
+  const line = d3Shape.line<T>().x(x).y(y);
   if (curve !== null) {
     if (typeof curve === "string" && d3Shape[curve]) {
       line.curve(d3Shape[curve]);
@@ -18,14 +16,17 @@ const renderLine = <T,>(
       line.curve(curve);
     }
   }
-  return line(data);
+
+  const d = line(data);
+
+  return d ?? undefined;
 };
 
 type LineSeriesProps<T> = {
   data: T[];
   getX: (d: T, index: number) => number;
   getY: (d: T, index: number) => number;
-  curve?: any;
+  curve?: CurveType;
   color?: string;
   width?: number;
   className?: string;
@@ -50,7 +51,7 @@ export const LineSeries = <T,>({
         (d, index) => yScale(getY(d, index)),
         curve
       ),
-    [data, xScale, yScale, getX, getY]
+    [data, xScale, yScale, getX, getY, curve]
   );
 
   return (

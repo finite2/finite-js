@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    --color-primary: #45bedf;
     --color-font: black;
     --color-background-alt: #d5effc;
   }

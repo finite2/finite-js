@@ -8,15 +8,20 @@ import {
   SetStateAction,
   CSSProperties,
   ReactNode,
+  RefObject,
 } from "react";
 
 import { SVGContext } from "./plot-utils";
 import { PlotContainer } from "./menu/PlotContainer";
 import { getId } from "../utils";
 
-const SVGstyled = ({ children, ...rest }: SVGProps<SVGSVGElement>) => {
+const SVGstyled = ({
+  children,
+  fRef,
+  ...rest
+}: SVGProps<SVGSVGElement> & { fRef: RefObject<SVGSVGElement> }) => {
   return (
-    <svg {...rest} className="user-select-none relative">
+    <svg ref={fRef} {...rest} className="user-select-none relative">
       {children}
     </svg>
   );
@@ -54,6 +59,16 @@ const useSVGsize = (
   return [size, setSize, resetSize];
 };
 
+export type MySVGProps = {
+  width?: number;
+  height?: number;
+  className?: string;
+  style?: CSSProperties;
+  onClick?: (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
+  children: ReactNode;
+  overlay?: ReactNode;
+};
+
 export const SVG = ({
   width: propWidth = 900,
   height: propHeight = 600,
@@ -62,15 +77,7 @@ export const SVG = ({
   className,
   style,
   onClick,
-}: {
-  width?: number;
-  height?: number;
-  className?: string;
-  style?: CSSProperties;
-  onClick?: (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
-  children: ReactNode;
-  overlay?: ReactNode;
-}) => {
+}: MySVGProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const idRef = useRef<string>(getId());
@@ -80,7 +87,7 @@ export const SVG = ({
   return (
     <SVGContext.Provider value={{ width, height, svgRef, containerRef, setSize, resetSize }}>
       <PlotContainer fRef={containerRef} id={idRef.current} className={className} style={style}>
-        <SVGstyled ref={svgRef} onClick={onClick} viewBox={`0 0 ${width} ${height}`}>
+        <SVGstyled fRef={svgRef} onClick={onClick} viewBox={`0 0 ${width} ${height}`}>
           {children}
         </SVGstyled>
         {overlay}

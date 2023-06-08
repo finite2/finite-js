@@ -1,18 +1,23 @@
-import React, { CSSProperties, useMemo } from "react";
+import { CSSProperties, useMemo } from "react";
 
-import { getTickValues, DIRECTION, usePlotContext, GPlotRegion } from "./plot-utils";
+import { getTickValues, usePlotContext, GPlotRegion } from "./plot-utils";
 
-const { VERTICAL } = DIRECTION;
+type GridLinesProps = {
+  tickTotal?: number;
+  direction?: "horizontal" | "vertical";
+  tickValues?: number[];
+  stroke?: string;
+};
 
-export const GridLines = ({ tickTotal, direction, tickValues, stroke }) => {
+export const GridLines = ({ tickTotal, direction, tickValues, stroke }: GridLinesProps) => {
   const { innerHeight, innerWidth, xScale, xValues, yScale, yValues } = usePlotContext();
 
-  const isVertical = direction === VERTICAL;
+  const isVertical = direction === "vertical";
   const tickXAttr = isVertical ? "y" : "x";
   const tickYAttr = isVertical ? "x" : "y";
   const scale = isVertical ? xScale : yScale;
   const length = isVertical ? innerHeight : innerWidth;
-  const ordinalValues = direction === VERTICAL ? xValues : yValues;
+  const ordinalValues = direction === "vertical" ? xValues : yValues;
 
   const lines = useMemo(() => {
     const values = getTickValues(scale, ordinalValues, tickTotal, tickValues);
@@ -30,7 +35,7 @@ export const GridLines = ({ tickTotal, direction, tickValues, stroke }) => {
 
       return <line className="plot__grid-lines__line" {...pathProps} key={key} />;
     });
-  }, [scale, ordinalValues, tickTotal, tickValues, length, stroke]);
+  }, [scale, ordinalValues, tickTotal, tickValues, length, stroke, tickYAttr, tickXAttr]);
 
   return <GPlotRegion className="plot__grid-lines">{lines}</GPlotRegion>;
 };
@@ -39,23 +44,24 @@ GridLines.defaultProps = {
   tickTotal: 5,
 };
 
-export const HorizontalGridLines = (props) => <GridLines {...props} />;
+export const HorizontalGridLines = (props: Omit<GridLinesProps, "direction">) => (
+  <GridLines direction="horizontal" {...props} />
+);
 
-HorizontalGridLines.defaultProps = {
-  direction: DIRECTION.HORIZONTAL,
-};
+export const VerticalGridLines = (props: Omit<GridLinesProps, "direction">) => (
+  <GridLines direction="vertical" {...props} />
+);
 
-export const VerticalGridLines = (props) => <GridLines {...props} />;
-
-VerticalGridLines.defaultProps = {
-  direction: DIRECTION.VERTICAL,
-};
-
-export const CrosshairGridLines = ({ position, ...rest }) => {
+export const CrosshairGridLines = ({
+  position,
+  ...rest
+}: Omit<GridLinesProps, "direction"> & { position: { x: number; y: number } }) => {
+  const x = useMemo(() => [position.x], [position.x]);
+  const y = useMemo(() => [position.y], [position.y]);
   return (
     <>
-      {position && <HorizontalGridLines tickValues={position.y} {...rest} />}
-      {position && <VerticalGridLines tickValues={position.x} {...rest} />}
+      {position && <HorizontalGridLines tickValues={y} {...rest} />}
+      {position && <VerticalGridLines tickValues={x} {...rest} />}
     </>
   );
 };

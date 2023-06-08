@@ -1,12 +1,6 @@
-import React, {
-  Dispatch,
-  RefObject,
-  SVGProps,
-  SetStateAction,
-  createContext,
-  useContext,
-} from "react";
-import { scaleLinear, scaleLog } from "d3-scale";
+import { Dispatch, RefObject, SVGProps, SetStateAction, createContext, useContext } from "react";
+import { ScaleLinear, scaleLinear, scaleLog } from "d3-scale";
+import { PlotContextEvents } from "./useZoomablePlot";
 
 type SVGContext = {
   width: number;
@@ -65,18 +59,17 @@ type PlotContext = {
   xDomain: [number, number];
   xRange: [number, number];
   xValues?: string[];
-  xScale: any;
-  xScaleEvent: (containerWidth: number) => any; // returns d3 scale object
+  xScale: ScaleLinear<number, number, never>;
+  xScaleEvent: (containerWidth: number) => ScaleLinear<number, number, never>; // returns d3 scale object
   yType: "linear" | "log" | "ordinal";
   yDomain: [number, number];
   yRange: [number, number];
   yValues?: string[];
-  yScale: any;
-  yScaleEvent: (containerHeight: number) => any; // returns d3 scale object
+  yScale: ScaleLinear<number, number, never>;
+  yScaleEvent: (containerHeight: number) => ScaleLinear<number, number, never>; // returns d3 scale object
   preserveRatio: boolean;
-  events: any;
+  events: PlotContextEvents;
 };
-// TODO d3 scale types
 // TODO xType, yType as literal types
 
 export const PlotContext = createContext<PlotContext | null>(null);
@@ -92,7 +85,7 @@ export const usePlotContext = () => {
 };
 
 export const getTickValues = (
-  scale,
+  scale: ScaleLinear<number, number, never>,
   ordinalValues?: string[],
   tickTotal?: number,
   tickValues?: number | number[]
@@ -102,7 +95,7 @@ export const getTickValues = (
   } else if (Array.isArray(tickValues)) {
     return tickValues;
   } else if (ordinalValues) {
-    return ordinalValues.map((d, i) => i);
+    return ordinalValues.map((_, i) => i);
   }
   return scale.ticks ? scale.ticks(tickTotal) : scale.domain();
 };
@@ -111,25 +104,29 @@ export function classes(...args: any[]) {
   return [...args].filter(Boolean).join(" ");
 }
 
-type ValueOf<T> = T[keyof T];
+export type Orientation = "top" | "left" | "right" | "bottom";
 
-export const ORIENTATION = {
-  TOP: "top",
-  LEFT: "left",
-  RIGHT: "right",
-  BOTTOM: "bottom",
-  VERTICAL: "vertical",
-  HORIZONTAL: "horizontal",
-} as const;
+export type Direction = "vertical" | "horizontal";
 
-export type Orientation = ValueOf<typeof ORIENTATION>;
-
-export const DIRECTION = {
-  VERTICAL: "vertical",
-  HORIZONTAL: "horizontal",
-} as const;
-
-export type Direction = ValueOf<typeof DIRECTION>;
+export type CurveType =
+  | "curveBasis"
+  | "curveBasisClosed"
+  | "curveBasisOpen"
+  | "curveBundle"
+  | "curveCardinal"
+  | "curveCardinalClosed"
+  | "curveCardinalOpen"
+  | "curveCatmullRom"
+  | "curveCatmullRomClosed"
+  | "curveCatmullRomOpen"
+  | "curveLinear"
+  | "curveLinearClosed"
+  | "curveMonotoneX"
+  | "curveMonotoneY"
+  | "curveNatural"
+  | "curveStep"
+  | "curveStepAfter"
+  | "curveStepBefore";
 
 export const GPlotRegion = ({ className, children, ...rest }: SVGProps<SVGGElement>) => {
   const { left, top } = usePlotContext();
@@ -142,10 +139,10 @@ export const GPlotRegion = ({ className, children, ...rest }: SVGProps<SVGGEleme
 };
 
 export function onDataEvents<T>(props: any, d: T, index: number) {
-  let eventHandlerKeys = Object.keys(props).filter((k) => k.startsWith("on"));
-  let p = {};
-  for (var i = 0; i < eventHandlerKeys.length; i++) {
-    let key = eventHandlerKeys[i];
+  const eventHandlerKeys = Object.keys(props).filter((k) => k.startsWith("on"));
+  const p = {};
+  for (let i = 0; i < eventHandlerKeys.length; i++) {
+    const key = eventHandlerKeys[i];
     p[key] = (e) => props[key](e, d, index);
   }
   return p;
@@ -163,5 +160,7 @@ export const getScale = (
       console.warn("log scale cannot be less than or equal to zero");
     }
     return scaleLog().domain(domain).range(range);
+  } else {
+    throw new Error("unknown scale type");
   }
 };

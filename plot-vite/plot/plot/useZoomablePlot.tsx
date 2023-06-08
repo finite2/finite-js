@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from "react";
-import { DIRECTION, Direction } from "./plot-utils";
+import { Direction } from "./plot-utils";
 
 const domainMatch = (
   curX?: [number, number],
@@ -26,18 +26,18 @@ const scaleLoc = (
 ) => {
   const centerX = (location.right + location.left) / 2;
   const centerY = (location.bottom + location.top) / 2;
-  let distX = (location.right - location.left) / 2;
-  let distY = (location.top - location.bottom) / 2;
+  const distX = (location.right - location.left) / 2;
+  const distY = (location.top - location.bottom) / 2;
 
   let multiplierX = multiplier,
     multiplierY = multiplier;
-  if (direction === DIRECTION.HORIZONTAL) {
+  if (direction === "horizontal") {
     multiplierY = 1;
-  } else if (direction === DIRECTION.VERTICAL) {
+  } else if (direction === "vertical") {
     multiplierX = 1;
   }
 
-  let newLoc = {
+  const newLoc = {
     left: centerX - distX * multiplierX,
     right: centerX + distX * multiplierX,
     bottom: centerY - distY * multiplierY,
@@ -119,16 +119,16 @@ const transformFixRatio = (
   preserveRatio: boolean
 ): [[number, number], [number, number]] => {
   if (preserveRatio) {
-    let xr = Math.abs((xDomain[1] - xDomain[0]) / (xRange[1] - xRange[0]));
-    let yr = Math.abs((yDomain[1] - yDomain[0]) / (yRange[1] - yRange[0]));
+    const xr = Math.abs((xDomain[1] - xDomain[0]) / (xRange[1] - xRange[0]));
+    const yr = Math.abs((yDomain[1] - yDomain[0]) / (yRange[1] - yRange[0]));
 
     if (xr > yr) {
-      let xDomainMu = (xDomain[1] + xDomain[0]) / 2;
-      let xDomainDiff = (xDomain[1] - xDomain[0]) / 2;
+      const xDomainMu = (xDomain[1] + xDomain[0]) / 2;
+      const xDomainDiff = (xDomain[1] - xDomain[0]) / 2;
       xDomain = [xDomainMu - (xDomainDiff * yr) / xr, xDomainMu + (xDomainDiff * yr) / xr];
     } else if (yr > xr) {
-      let yDomainMu = (yDomain[1] + yDomain[0]) / 2;
-      let yDomainDiff = (yDomain[1] - yDomain[0]) / 2;
+      const yDomainMu = (yDomain[1] + yDomain[0]) / 2;
+      const yDomainDiff = (yDomain[1] - yDomain[0]) / 2;
       yDomain = [yDomainMu - (yDomainDiff * xr) / yr, yDomainMu + (yDomainDiff * xr) / yr];
     }
   }
@@ -145,6 +145,16 @@ const locationFromDomain = ([xDomain, yDomain]: [[number, number], [number, numb
   };
 };
 
+export type PlotContextEvents = {
+  onPointerDown: (e: any) => void;
+  onPointerUp: (e: any, ref: any) => void;
+  onPointerMove: (e: any, ref: any, direction?: Direction) => void;
+  onWheel: (e: any, direction?: Direction) => void;
+  onPointerLeave: () => void;
+  onPointerEnter: () => void;
+  onReset: () => void;
+};
+
 export const useZoomablePlot = (
   xDomain: [number, number],
   yDomain: [number, number],
@@ -152,19 +162,8 @@ export const useZoomablePlot = (
   yRange: [number, number],
   xDomainLimit?: [number, number],
   yDomainLimit?: [number, number],
-  preserveRatio: boolean = false
-): [
-  { xDomain: [number, number]; yDomain: [number, number] },
-  {
-    onPointerDown: (e: any) => void;
-    onPointerUp: (e: any, ref: any) => void;
-    onPointerMove: (e: any, ref: any, direction?: null) => void;
-    onWheel: (e: any, direction?: Direction) => void;
-    onPointerLeave: () => void;
-    onPointerEnter: () => void;
-    onReset: () => void;
-  }
-] => {
+  preserveRatio = false
+): [{ xDomain: [number, number]; yDomain: [number, number] }, PlotContextEvents] => {
   const [lastLocation, setLastLocation] = useState(
     locationFromDomain(transformFixRatio(xDomain, yDomain, xRange, yRange, preserveRatio))
   );
@@ -192,11 +191,12 @@ export const useZoomablePlot = (
   const scrollEnabled = useRef({
     enabled: true,
     counter: 0,
-    preventDefault: (e) => {
+    preventDefault: (e: any) => {
       e = e || window.event;
       if (e.preventDefault) {
         e.preventDefault();
       }
+      // TODO investigate if this is needed since its deprecated
       e.returnValue = false;
     },
   });
@@ -205,7 +205,7 @@ export const useZoomablePlot = (
   lastRange.current = { xRange, yRange };
 
   useEffect(() => {
-    let [xD, yD] = transformFixRatio(xDomain, yDomain, xRange, yRange, preserveRatio);
+    const [xD, yD] = transformFixRatio(xDomain, yDomain, xRange, yRange, preserveRatio);
 
     if (!domainMatch(xD, yD, lastDomains.current)) {
       setLastLocation(locationFromDomain([xD, yD]));
@@ -215,10 +215,11 @@ export const useZoomablePlot = (
       xDomain: xD,
       yDomain: yD,
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [xDomain, yDomain]);
 
   useEffect(() => {
-    let [xD, yD] = transformFixRatio(xDomain, yDomain, xRange, yRange, preserveRatio);
+    const [xD, yD] = transformFixRatio(xDomain, yDomain, xRange, yRange, preserveRatio);
 
     if (!domainMatch(xD, yD, lastDomains.current)) {
       setLastLocation(locationFromDomain([xD, yD]));
@@ -228,19 +229,22 @@ export const useZoomablePlot = (
         yDomain: yD,
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [xRange, yRange, preserveRatio]);
 
   const events = useMemo(
     () => ({
-      onPointerDown: (e) => {
+      onPointerDown: (e: any) => {
         dragging.current = true;
+        console.log("pointer down", e.screenX, e.screenY);
+        console.log("pointer down", e.clientX, e.clientY);
         initalLocRef.current = { x: e.screenX, y: e.screenY, ...lastLocRef.current };
       },
-      onPointerUp: (e, ref) => {
+      onPointerUp: (e: any, ref: any) => {
         ref.current.releasePointerCapture(e.pointerId);
         dragging.current = false;
       },
-      onPointerMove: (e, ref, direction = null) => {
+      onPointerMove: (e: any, ref: any, direction?: Direction) => {
         const lastLoc = lastLocRef.current;
 
         if (dragging.current) {
@@ -251,9 +255,9 @@ export const useZoomablePlot = (
           let screenDeltaX = e.screenX - initalLocRef.current.x;
           let screenDeltaY = e.screenY - initalLocRef.current.y;
 
-          if (direction === DIRECTION.VERTICAL) {
+          if (direction === "vertical") {
             screenDeltaX = 0;
-          } else if (direction === DIRECTION.HORIZONTAL) {
+          } else if (direction === "horizontal") {
             screenDeltaY = 0;
           }
 
@@ -302,7 +306,7 @@ export const useZoomablePlot = (
           setLastLocation(newLoc);
         }
       },
-      onWheel: (e, direction?: Direction) => {
+      onWheel: (e: any, direction?: Direction) => {
         const fallbackLocation = { ...lastLocRef.current };
         direction = preserveRatio ? undefined : direction;
 

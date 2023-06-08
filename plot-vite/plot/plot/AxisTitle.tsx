@@ -1,6 +1,8 @@
 import React, { CSSProperties, useMemo } from "react";
 
-import { usePlotContext, ORIENTATION, Orientation } from "./plot-utils";
+import { twMerge } from "tailwind-merge";
+
+import { usePlotContext, Orientation } from "./plot-utils";
 
 const titleContainerStyle: CSSProperties = {
   position: "absolute",
@@ -16,74 +18,37 @@ const titleStyle: CSSProperties = {
   textAlign: "center",
 };
 
-export const AxisTitle = ({
-  orientation = ORIENTATION.BOTTOM,
-  inside = false,
-  margin,
-  children,
-}: {
+type AxisTitleProps = {
   orientation: Orientation;
   inside: boolean;
   margin: number;
   children: React.ReactNode;
-}) => {
-  const {
-    // outerLeft,
-    // outerRight,
-    // outerBottom,
-    // outerTop,
-    left,
-    //right,
-    //bottom,
-    top,
-    innerWidth,
-    innerHeight,
-  } = usePlotContext();
+};
 
-  const titleStyleMemo: CSSProperties = useMemo(() => {
-    if (orientation === ORIENTATION.BOTTOM || orientation === ORIENTATION.TOP) {
-      return {
-        ...titleStyle,
-        textAlign: "right",
-      };
-    } else {
-      return {
-        ...titleStyle,
-        textAlign: "left",
-      };
-    }
-  }, [orientation]);
-
-  const containerStyleMemo: CSSProperties = useMemo(() => {
-    if (orientation === ORIENTATION.BOTTOM || orientation === ORIENTATION.TOP) {
-      return {
-        ...titleContainerStyle,
-        bottom: 0,
-      };
-    } else {
-      return {
-        ...titleContainerStyle,
-        top: 0,
-      };
-    }
-  }, [orientation]);
+export const AxisTitle = ({
+  orientation = "bottom",
+  inside = false,
+  margin,
+  children,
+}: AxisTitleProps) => {
+  const { left, top, innerWidth, innerHeight } = usePlotContext();
 
   const objectProps = useMemo(() => {
-    if (orientation === ORIENTATION.BOTTOM) {
+    if (orientation === "bottom") {
       return {
         x: left + margin,
         y: top + margin,
         height: innerHeight - 2 * margin,
         width: innerWidth - 2 * margin,
       };
-    } else if (orientation === ORIENTATION.TOP) {
+    } else if (orientation === "top") {
       return {
         x: left + margin,
         y: top + margin,
         height: innerHeight - 2 * margin,
         width: innerWidth - 2 * margin,
       };
-    } else if (orientation === ORIENTATION.LEFT) {
+    } else if (orientation === "left") {
       return {
         x: left + innerWidth / 2 - innerHeight / 2 + margin,
         y: top + innerHeight / 2 - innerWidth / 2 + margin,
@@ -110,8 +75,16 @@ export const AxisTitle = ({
 
   return (
     <foreignObject {...objectProps}>
-      <div className="plot__axis-title-container" style={containerStyleMemo}>
-        <div className="plot__axis-title" style={titleStyleMemo}>
+      <div
+        className={twMerge(
+          "plot__axis-title-container w-full absolute",
+          orientation === "bottom" || orientation === "top" ? "bottom-0" : "top-0"
+        )}>
+        <div
+          className={twMerge(
+            "plot__axis-title relative h-full w-full text-18 font-semibold text-center",
+            orientation === "bottom" || orientation === "top" ? "text-right" : "text-left"
+          )}>
           {children}
         </div>
       </div>

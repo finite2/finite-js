@@ -1,14 +1,7 @@
 import React from "react";
 // import styled from "styled-components";
 
-import {
-  usePlotContext,
-  GPlotRegion,
-  classes,
-  onDataEvents,
-  DIRECTION,
-  Direction,
-} from "../plot-utils";
+import { usePlotContext, GPlotRegion, classes, onDataEvents, Direction } from "../plot-utils";
 
 const getPosition = (
   direction: Direction,
@@ -17,7 +10,7 @@ const getPosition = (
   y1: number,
   halfWidth: number
 ) => {
-  if (direction === DIRECTION.VERTICAL) {
+  if (direction === "vertical") {
     return { x: x0, y: y0, width: halfWidth * 2, height: y1 - y0 };
   } else {
     return { x: y1, y: x0, width: y0 - y1, height: halfWidth * 2 };
@@ -63,8 +56,8 @@ export const BarSeries = <T,>({
   const extraProps = { ...rest };
   const { xScale, yScale /* xType, yType */ } = usePlotContext();
 
-  const categoryScale = direction === DIRECTION.VERTICAL ? xScale : yScale;
-  const heightScale = direction === DIRECTION.VERTICAL ? yScale : xScale;
+  const categoryScale = direction === "vertical" ? xScale : yScale;
+  const heightScale = direction === "vertical" ? yScale : xScale;
 
   const distance = Math.abs(categoryScale(1) - categoryScale(0));
   const halfWidth = (distance * width) / 2;
@@ -97,11 +90,9 @@ export const BarSeries = <T,>({
   return <GPlotRegion className={classes("plot__series--bars", className)}>{points}</GPlotRegion>;
 };
 
-export const VerticalBarSeries = ({ data, getHeight, ...props }) => {
-  return <BarSeries direction={DIRECTION.VERTICAL} data={data} getHeight={getHeight} {...props} />;
+export const VerticalBarSeries = <T,>({ ...props }: Omit<BarSeriesProps<T>, "direction">) => {
+  return <BarSeries direction="vertical" {...props} />;
 };
-export const HorizontalBarSeries = ({ data, getHeight, ...props }) => {
-  return (
-    <BarSeries direction={DIRECTION.HORIZONTAL} data={data} getHeight={getHeight} {...props} />
-  );
+export const HorizontalBarSeries = <T,>({ ...props }: Omit<BarSeriesProps<T>, "direction">) => {
+  return <BarSeries direction="horizontal" {...props} />;
 };

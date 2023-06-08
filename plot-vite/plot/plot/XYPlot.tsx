@@ -124,20 +124,18 @@ export const XYPlot = ({
     preserveRatio
   );
 
-  const xScale = useCallback(getScale(domains.xDomain, xRange, xType), [
-    domains.xDomain,
-    xRange,
-    xType,
-  ]);
-  const yScale = useCallback(getScale(domains.yDomain, yRange, yType), [
-    domains.yDomain,
-    yRange,
-    yType,
-  ]);
+  const xScale = useMemo(
+    () => getScale(domains.xDomain, xRange, xType),
+    [domains.xDomain, xRange, xType]
+  );
+  const yScale = useMemo(
+    () => getScale(domains.yDomain, yRange, yType),
+    [domains.yDomain, yRange, yType]
+  );
 
   // available from useSVGContext().containerRef.current.getBoundingClientRect().width;
   const xScaleEvent = useCallback(
-    (containerWidth) => {
+    (containerWidth: number) => {
       const scaleRatio = containerWidth / width;
 
       return getScale(domains.xDomain, [xRange[0] * scaleRatio, xRange[1] * scaleRatio], xType);
@@ -147,7 +145,7 @@ export const XYPlot = ({
 
   // available from useSVGContext().containerRef.current.getBoundingClientRect().width;
   const yScaleEvent = useCallback(
-    (containerHeight) => {
+    (containerHeight: number) => {
       const scaleRatio = containerHeight / height;
 
       return getScale(domains.yDomain, [yRange[0] * scaleRatio, yRange[1] * scaleRatio], yType);
@@ -181,8 +179,7 @@ export const XYPlot = ({
         yValues,
         ...domains,
         events,
-      }}
-    >
+      }}>
       <g className={classes("plot__xyplot", className)}>{children}</g>
     </PlotContext.Provider>
   );

@@ -1,51 +1,23 @@
-import React, { CSSProperties, ReactNode } from "react";
+import { ReactNode } from "react";
 
 import { usePlotContext } from "./plot-utils";
 
-const titleContainerStyle: CSSProperties = {
-  position: "absolute",
-  bottom: 0,
-  width: "100%",
-};
-
-const titleStyle: CSSProperties = {
-  position: "relative",
-  height: "100%",
-  width: "100%",
-  fontSize: "22px",
-  fontWeight: 600,
-  textAlign: "center",
-};
-
-export const ChartTitle = ({
-  paddingBottom = 5,
-  children,
-}: {
+type ChartTitleProps = {
   paddingBottom: number;
   children: ReactNode;
-}) => {
-  const {
-    outerLeft,
-    //outerRight,
-    //outerBottom,
-    outerTop,
-    left,
-    //right,
-    //bottom,
-    top,
-    innerWidth,
-    // innerHeight,
-  } = usePlotContext();
+};
+
+export const ChartTitle = ({ paddingBottom = 5, children }: ChartTitleProps) => {
+  const { outerLeft, outerTop, left, top, innerWidth } = usePlotContext();
 
   return (
     <foreignObject
       x={outerLeft + left}
       y={outerTop}
       height={top - outerTop - paddingBottom}
-      width={innerWidth}
-    >
-      <div className="plot__title-container" style={titleContainerStyle}>
-        <div className="plot__title-title" style={titleStyle}>
+      width={innerWidth}>
+      <div className="plot__title-container absolute bottom-0 w-full">
+        <div className="plot__title-title relative h-full w-full text-22 font-semibold text-center">
           {children}
         </div>
       </div>

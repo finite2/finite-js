@@ -47,8 +47,10 @@ const marks = {
   ),
 };
 
+type Marks = "circle" | "square" | "star" | "diamond" | "text" | "error";
+
 type MarkSeriesProps<T> = {
-  mark?: string | ((d: T, index: number) => string);
+  mark?: Marks | ((d: T, index: number) => string);
   data: T[];
   getX: (d: T, index: number) => number;
   getY: (d: T, index: number) => number;
@@ -82,7 +84,6 @@ export const MarkSeries = <T,>({
   strokeWidth,
   color = "blue",
   size = 10,
-  markTemplates,
   className,
   style,
   ...rest
@@ -156,22 +157,25 @@ export const MarkSeries = <T,>({
     return data.map(fn);
   }, [
     data,
+    Mark,
+    getMark,
+    xScale,
     getX,
+    yScale,
     getY,
     getSize,
-    getMark,
+    size,
     getContent,
     getColor,
+    color,
     getOpacity,
     getStroke,
     getFill,
     strokeWidth,
-    color,
-    size,
     mark,
     style,
-    xScale,
-    yScale,
+    extraProps,
+    markLibrary,
   ]);
 
   return <GPlotRegion className={classes("plot__series--mark", className)}>{points}</GPlotRegion>;

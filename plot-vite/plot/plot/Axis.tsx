@@ -1,22 +1,20 @@
 import { useMemo, useRef } from "react";
+import { ScaleLinear } from "d3-scale";
 
-import {
-  getTickValues,
-  ORIENTATION,
-  DIRECTION,
-  GPlotRegion,
-  usePlotContext,
-  classes,
-  Orientation,
-} from "./plot-utils";
+import { getTickValues, GPlotRegion, usePlotContext, classes, Orientation } from "./plot-utils";
 
-const getTickFormatFn = (scale, ordinalValues, tickTotal, tickFormat) => {
+const getTickFormatFn = (
+  scale: ScaleLinear<number, number, never>,
+  ordinalValues?: string[],
+  tickTotal?: number,
+  tickFormat?: (v: number) => string
+) => {
   if (tickFormat) {
     return tickFormat;
   } else if (ordinalValues) {
-    return (v) => ordinalValues[v];
+    return (v: number) => ordinalValues[v];
   }
-  return scale.tickFormat ? scale.tickFormat(tickTotal) : (v) => v;
+  return scale.tickFormat ? scale.tickFormat(tickTotal) : (v: number) => v;
 };
 
 const isAxisVertical = (orientation: Orientation) =>
@@ -25,7 +23,11 @@ const isAxisVertical = (orientation: Orientation) =>
 const areTicksWrapped = (orientation: Orientation) =>
   orientation === "left" || orientation === "top";
 
-const getTickLineProps = (orientation, tickSize, tickSizeInner, tickSizeOuter) => {
+const getTickLineProps = (
+  orientation: Orientation,
+  tickSizeInner: number,
+  tickSizeOuter: number
+) => {
   const isVertical = isAxisVertical(orientation);
   const tickXAttr = isVertical ? "y" : "x";
   const tickYAttr = isVertical ? "x" : "y";
@@ -38,12 +40,17 @@ const getTickLineProps = (orientation, tickSize, tickSizeInner, tickSizeOuter) =
   };
 };
 
-const getTickLabelProps = (orientation, tickLabelAngle, tickSize, tickSizeOuter, tickPadding) => {
+const getTickLabelProps = (
+  orientation: Orientation,
+  tickLabelAngle: number,
+  tickSizeOuter: number,
+  tickPadding: number
+) => {
   // Assign the text orientation inside the label of the tick mark.
   let textAnchor;
-  if (orientation === LEFT || (orientation === BOTTOM && tickLabelAngle)) {
+  if (orientation === "left" || (orientation === "bottom" && tickLabelAngle)) {
     textAnchor = "end";
-  } else if (orientation === RIGHT || (orientation === TOP && tickLabelAngle)) {
+  } else if (orientation === "right" || (orientation === "top" && tickLabelAngle)) {
     textAnchor = "start";
   } else {
     textAnchor = "middle";
@@ -62,7 +69,7 @@ const getTickLabelProps = (orientation, tickLabelAngle, tickSize, tickSizeOuter,
   // Set the vertical offset of the label according to the position of
   // the axis.
   const dy =
-    orientation === TOP || tickLabelAngle ? "0" : orientation === BOTTOM ? "0.72em" : "0.32em";
+    orientation === "top" || tickLabelAngle ? "0" : orientation === "bottom" ? "0.72em" : "0.32em";
 
   return {
     textAnchor,
@@ -71,15 +78,27 @@ const getTickLabelProps = (orientation, tickLabelAngle, tickSize, tickSizeOuter,
   };
 };
 
-const getTickContainerPropsGetterFn = (orientation) => {
+const getTickContainerPropsGetterFn = (orientation: Orientation) => {
   if (isAxisVertical(orientation)) {
-    return (pos) => {
+    return (pos: number) => {
       return { transform: `translate(0, ${pos})` };
     };
   }
-  return (pos) => {
+  return (pos: number) => {
     return { transform: `translate(${pos}, 0)` };
   };
+};
+
+type AxisTicksProps = {
+  orientation: Orientation;
+  tickValues?: any[];
+  tickTotal?: number;
+  tickFormat?: (v: any, i: number, scale: any, tickTotal: number) => any;
+  tickSize?: number;
+  tickSizeInner?: number;
+  tickSizeOuter?: number;
+  tickPadding?: number;
+  tickLabelAngle?: number;
 };
 
 const AxisTicks = ({
@@ -91,18 +110,8 @@ const AxisTicks = ({
   tickSizeInner = tickSize,
   tickSizeOuter = tickSize,
   tickPadding = tickSize + 2,
-  tickLabelAngle,
-}: {
-  orientation: Orientation;
-  tickValues?: any[];
-  tickTotal?: number;
-  tickFormat?: (v: any, i: number, scale: any, tickTotal: number) => any;
-  tickSize?: number;
-  tickSizeInner?: number;
-  tickSizeOuter?: number;
-  tickPadding?: number;
-  tickLabelAngle?: number;
-}) => {
+  tickLabelAngle = 0,
+}: AxisTicksProps) => {
   const { innerWidth, xScale, xValues, innerHeight, yScale, yValues } = usePlotContext();
 
   const scale = isAxisVertical(orientation) ? yScale : xScale;
@@ -124,13 +133,13 @@ const AxisTicks = ({
   const translateFn = useMemo(() => getTickContainerPropsGetterFn(orientation), [orientation]);
 
   const pathProps = useMemo(
-    () => getTickLineProps(orientation, tickSize, tickSizeInner, tickSizeOuter),
-    [orientation, tickSize, tickSizeInner, tickSizeOuter]
+    () => getTickLineProps(orientation, tickSizeInner, tickSizeOuter),
+    [orientation, tickSizeInner, tickSizeOuter]
   );
 
   const textProps = useMemo(
-    () => getTickLabelProps(orientation, tickLabelAngle, tickSize, tickSizeOuter, tickPadding),
-    [orientation, tickLabelAngle, tickSize, tickSizeOuter, tickPadding]
+    () => getTickLabelProps(orientation, tickLabelAngle, tickSizeOuter, tickPadding),
+    [orientation, tickLabelAngle, tickSizeOuter, tickPadding]
   );
 
   const ticks = useMemo(
@@ -148,21 +157,26 @@ const AxisTicks = ({
           </g>
         );
       }),
-    [scale, tickFormatFn, translateFn, pathProps, textProps, tickTotal, tickSize]
+    [scale, tickFormatFn, translateFn, pathProps, textProps, tickTotal, tickSize, values]
   );
 
   return <g transform={`translate(${x}, ${y})`}>{ticks}</g>;
 };
 
 type XAxisProps = {
-  orientation: "top" | "bottom";
+  orientation?: "top" | "bottom";
   draggable?: boolean;
   on0?: boolean;
   className?: string;
 };
 
-export const XAxis = (props: XAxisProps) => {
-  const { orientation = "bottom", on0 = false, className, draggable = true } = props;
+export const XAxis = ({
+  orientation = "bottom",
+  on0 = false,
+  className,
+  draggable = true,
+  ...axisTickProps
+}: XAxisProps & Omit<AxisTicksProps, "orientation">) => {
   const {
     // xScale,
     yScale,
@@ -174,9 +188,7 @@ export const XAxis = (props: XAxisProps) => {
   } = usePlotContext();
 
   const topPos = on0 ? top - yScale(0) : top;
-  const linePosition = orientation === BOTTOM ? innerHeight : 0;
-
-  console.log(left, topPos);
+  const linePosition = orientation === "bottom" ? innerHeight : 0;
 
   return (
     <>
@@ -192,22 +204,27 @@ export const XAxis = (props: XAxisProps) => {
           y1={linePosition}
           y2={linePosition}
         />
-        <AxisTicks {...props} />
+        <AxisTicks orientation={orientation} {...axisTickProps} />
       </GPlotRegion>
-      {draggable ? <XDraggableAxis orientation={orientation} /> : null}
+      {draggable ? <DraggableAxis orientation={orientation} /> : null}
     </>
   );
 };
 
 type YAxisProps = {
-  orientation: "left" | "right";
+  orientation?: "left" | "right";
   draggable?: boolean;
   on0?: boolean;
   className?: string;
 };
 
-export const YAxis = (props: YAxisProps) => {
-  const { orientation = "left", on0 = false, className, draggable = true } = props;
+export const YAxis = ({
+  orientation = "left",
+  on0 = false,
+  className,
+  draggable = true,
+  ...axisTickProps
+}: YAxisProps & Omit<AxisTicksProps, "orientation">) => {
   const {
     xScale,
     // yScale,
@@ -216,8 +233,8 @@ export const YAxis = (props: YAxisProps) => {
     innerWidth,
     innerHeight,
   } = usePlotContext();
-  const leftPos = on0 ? left - xScale(0) : left;
-  const linePosition = orientation === LEFT ? 0 : innerWidth;
+  const leftPos = on0 ? left + xScale(0) : left;
+  const linePosition = orientation === "left" ? 0 : innerWidth;
 
   return (
     <>
@@ -233,14 +250,18 @@ export const YAxis = (props: YAxisProps) => {
           y1={0}
           y2={innerHeight}
         />
-        <AxisTicks {...props} />
+        <AxisTicks orientation={orientation} {...axisTickProps} />
       </GPlotRegion>
-      {draggable ? <YDraggableAxis orientation={orientation} /> : null}
+      {draggable ? <DraggableAxis orientation={orientation} /> : null}
     </>
   );
 };
 
-export const DraggableAxis = ({ orientation, fill }) => {
+type DraggableAxisProps = {
+  orientation: Orientation;
+  fill?: string;
+};
+export const DraggableAxis = ({ orientation, fill = "#0000" }: DraggableAxisProps) => {
   const {
     outerLeft,
     outerRight,
@@ -255,7 +276,7 @@ export const DraggableAxis = ({ orientation, fill }) => {
     events,
   } = usePlotContext();
 
-  const ref = useRef();
+  const ref = useRef<SVGRectElement>(null);
 
   const getDraggableProps = (orientation: Orientation) => {
     if (orientation === "bottom") {
@@ -286,57 +307,36 @@ export const DraggableAxis = ({ orientation, fill }) => {
         width: outerRight - right,
         height: innerHeight,
       };
+    } else {
+      throw new Error("orientation not recognised");
     }
-    console.warn("orientation not recognised");
   };
 
   const isVertical = isAxisVertical(orientation);
-  const direction = isVertical ? DIRECTION.VERTICAL : DIRECTION.HORIZONTAL;
+  const direction = isVertical ? "vertical" : "horizontal";
   const draggableProps = getDraggableProps(orientation);
 
-  const reffedEvents = useMemo(() => {
-    const { onPointerMove, onPointerDown, onPointerUp, onWheel, ...rest } = events;
+  const { onPointerMove, onPointerDown, onPointerUp, onWheel } = events;
 
+  const reffedEvents = useMemo(() => {
     return {
-      onPointerDown: (e) => onPointerDown(e, ref),
-      onPointerUp: (e) => onPointerUp(e, ref),
-      onPointerMove: (e) => {
+      onPointerUp: (e: any) => onPointerUp(e, ref),
+      onPointerMove: (e: any) => {
         e.stopPropagation();
         onPointerMove(e, ref, direction);
       },
-      onWheel: (e) => onWheel(e, direction),
-      ...rest,
+      onWheel: (e: WheelEvent) => onWheel(e, direction),
     };
-  }, [events, ref]);
+  }, [onPointerMove, onPointerUp, onWheel, direction, ref]);
 
-  // TODO fix classes
   return (
     <rect
-      className={isVertical ? "s-resize" : "e-resize"}
+      className={isVertical ? "cursor-s-resize" : "cursor-e-resize"}
       ref={ref}
       fill={fill}
+      onPointerDown={onPointerDown}
       {...draggableProps}
       {...reffedEvents}
     />
   );
-};
-
-DraggableAxis.defaultProps = {
-  fill: "#0000",
-};
-
-export const XDraggableAxis = (props) => {
-  return <DraggableAxis {...props} />;
-};
-
-XDraggableAxis.defaultProps = {
-  orientation: ORIENTATION.BOTTOM,
-};
-
-export const YDraggableAxis = (props) => {
-  return <DraggableAxis {...props} />;
-};
-
-YDraggableAxis.defaultProps = {
-  orientation: ORIENTATION.LEFT,
 };
