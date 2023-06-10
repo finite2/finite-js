@@ -38,7 +38,7 @@ type BarSeriesProps<T> = {
 export const BarSeries = <T,>({
   direction,
   data,
-  getCategory = (d: T, index: number) => index,
+  getCategory = (_d: T, index: number) => index,
   getHeight,
   getHeight0,
   getColor,

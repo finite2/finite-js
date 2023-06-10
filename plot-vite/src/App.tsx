@@ -7,7 +7,15 @@ import {
   AxisExample5,
   AxisExample6,
 } from "examples/axes";
-import { LineSeriesExample0, LineSeriesExample1 } from "examples/line-series";
+import { LineSeriesExample0, LineSeriesExample1 } from "examples/series-line";
+import {
+  BarSeriesExample0,
+  BarSeriesExample1,
+  BarSeriesExample2,
+  BarSeriesExample3,
+  BarSeriesExample4,
+  BarSeriesExample5,
+} from "examples/series-bar";
 
 function App() {
   return (
@@ -23,6 +31,13 @@ function App() {
 
         <LineSeriesExample0 />
         <LineSeriesExample1 />
+
+        <BarSeriesExample0 />
+        <BarSeriesExample1 />
+        <BarSeriesExample2 />
+        <BarSeriesExample3 />
+        <BarSeriesExample4 />
+        <BarSeriesExample5 />
       </div>
     </>
   );
