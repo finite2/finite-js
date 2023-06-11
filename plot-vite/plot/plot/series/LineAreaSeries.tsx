@@ -47,7 +47,7 @@ const renderArea = <T,>(
   return d ?? undefined;
 };
 
-type LineAreaSeriesProps<T> = {
+export type LineAreaSeriesProps<T> = {
   data: T[];
   getX: (d: T, i: number) => number;
   getY: (d: T, i: number) => number;

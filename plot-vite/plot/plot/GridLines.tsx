@@ -1,10 +1,11 @@
 import { CSSProperties, useMemo } from "react";
 
 import { getTickValues, usePlotContext, GPlotRegion } from "./plot-utils";
+import { Direction } from "./types";
 
 type GridLinesProps = {
   tickTotal?: number;
-  direction?: "horizontal" | "vertical";
+  direction?: Direction;
   tickValues?: number[];
   stroke?: string;
 };

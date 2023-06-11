@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import * as d3Shape from "d3-shape";
-import { usePlotContext, GPlotRegion, CurveType } from "../plot-utils";
+import { usePlotContext, GPlotRegion } from "../plot-utils";
+import { CurveType } from "../types";
 
 const renderLine = <T,>(
   data: T[],
@@ -22,7 +23,7 @@ const renderLine = <T,>(
   return d ?? undefined;
 };
 
-type LineSeriesProps<T> = {
+export type LineSeriesProps<T> = {
   data: T[];
   getX: (d: T, index: number) => number;
   getY: (d: T, index: number) => number;

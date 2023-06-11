@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import { usePlotContext } from "./plot-utils";
 
 type ChartTitleProps = {
-  paddingBottom: number;
+  paddingBottom?: number;
   children: ReactNode;
 };
 

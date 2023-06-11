@@ -1,13 +1,17 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, WheelEvent } from "react";
 import { ScaleLinear } from "d3-scale";
 
-import { getTickValues, GPlotRegion, usePlotContext, classes, Orientation } from "./plot-utils";
+import { getTickValues, GPlotRegion, usePlotContext } from "./plot-utils";
+import { twMerge } from "tailwind-merge";
+import { Orientation } from "./types";
+
+type TickFormatFn = (v: any, i: number, scale: any, tickTotal: number) => any;
 
 const getTickFormatFn = (
   scale: ScaleLinear<number, number, never>,
   ordinalValues?: string[],
   tickTotal?: number,
-  tickFormat?: (v: number) => string
+  tickFormat?: TickFormatFn
 ) => {
   if (tickFormat) {
     return tickFormat;
@@ -91,9 +95,9 @@ const getTickContainerPropsGetterFn = (orientation: Orientation) => {
 
 type AxisTicksProps = {
   orientation: Orientation;
-  tickValues?: any[];
+  tickValues?: number[];
   tickTotal?: number;
-  tickFormat?: (v: any, i: number, scale: any, tickTotal: number) => any;
+  tickFormat?: TickFormatFn;
   tickSize?: number;
   tickSizeInner?: number;
   tickSizeOuter?: number;
@@ -193,7 +197,7 @@ export const XAxis = ({
   return (
     <>
       <GPlotRegion
-        className={classes("plot__x-axis", className)}
+        className={twMerge("plot__x-axis", className)}
         transform={`translate(${left}, ${topPos})`}>
         <line
           className="plot__axis-line"
@@ -239,7 +243,7 @@ export const YAxis = ({
   return (
     <>
       <GPlotRegion
-        className={classes("plot__y-axis", className)}
+        className={twMerge("plot__y-axis", className)}
         transform={`translate(${leftPos}, ${top})`}>
         <line
           className="plot__axis-line"
@@ -261,6 +265,7 @@ type DraggableAxisProps = {
   orientation: Orientation;
   fill?: string;
 };
+
 export const DraggableAxis = ({ orientation, fill = "#0000" }: DraggableAxisProps) => {
   const {
     outerLeft,
@@ -316,7 +321,8 @@ export const DraggableAxis = ({ orientation, fill = "#0000" }: DraggableAxisProp
   const direction = isVertical ? "vertical" : "horizontal";
   const draggableProps = getDraggableProps(orientation);
 
-  const { onPointerMove, onPointerDown, onPointerUp, onWheel } = events;
+  const { onPointerEnter, onPointerLeave, onPointerMove, onPointerDown, onPointerUp, onWheel } =
+    events;
 
   const reffedEvents = useMemo(() => {
     return {
@@ -335,6 +341,8 @@ export const DraggableAxis = ({ orientation, fill = "#0000" }: DraggableAxisProp
       ref={ref}
       fill={fill}
       onPointerDown={onPointerDown}
+      onPointerEnter={onPointerEnter}
+      onPointerLeave={onPointerLeave}
       {...draggableProps}
       {...reffedEvents}
     />

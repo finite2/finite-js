@@ -9,3 +9,10 @@
     --color-background-alt: #d5effc;
   }
 }
+
+@layer utilities {
+  .anchor-center {
+    alignment-baseline: middle;
+    text-anchor: middle;
+  }
+}

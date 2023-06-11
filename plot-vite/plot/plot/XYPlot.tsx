@@ -1,8 +1,9 @@
 import React, { useCallback, useMemo } from "react";
 
-import { PlotContext, getScale, useSVGContext, classes } from "./plot-utils";
+import { PlotContext, getScale, useSVGContext } from "./plot-utils";
 
 import { useZoomablePlot } from "./useZoomablePlot";
+import { twMerge } from "tailwind-merge";
 
 type Grid = {
   left: number;
@@ -56,7 +57,7 @@ const constructMargin = (margin: MarginInput) => {
   return margin as Margin;
 };
 
-type XYPlotProps = {
+export type XYPlotProps = {
   grid?: PartialGrid;
   margin?: MarginInput;
   xType?: "linear" | "log" | "ordinal";
@@ -69,7 +70,7 @@ type XYPlotProps = {
   yValues?: string[];
   className?: string;
   preserveRatio?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export const XYPlot = ({
@@ -180,7 +181,7 @@ export const XYPlot = ({
         ...domains,
         events,
       }}>
-      <g className={classes("plot__xyplot", className)}>{children}</g>
+      <g className={twMerge("plot__xyplot", className)}>{children}</g>
     </PlotContext.Provider>
   );
 };

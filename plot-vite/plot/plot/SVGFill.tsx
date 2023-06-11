@@ -8,7 +8,7 @@ export const SVGFill = ({ children, ...rest }: Omit<MySVGProps, "width" | "heigh
   });
 
   return (
-    <div className="w-full h-inherit" ref={elementRef}>
+    <div className="w-full h-full" ref={elementRef}>
       <SVG width={innerWidth} height={innerHeight} {...rest}>
         {children}
       </SVG>

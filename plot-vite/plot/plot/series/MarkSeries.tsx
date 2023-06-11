@@ -1,6 +1,7 @@
 import React, { CSSProperties, useMemo } from "react";
 
-import { usePlotContext, GPlotRegion, classes, onDataEvents } from "../plot-utils";
+import { usePlotContext, GPlotRegion, onDataEvents } from "../plot-utils";
+import { twMerge } from "tailwind-merge";
 
 const textMarkStyle: CSSProperties = {
   alignmentBaseline: "middle",
@@ -36,12 +37,16 @@ const marks = {
     />
   ),
   text: ({ size, content, ...rest }) => (
-    <text fontSize={size} style={textMarkStyle} {...rest}>
+    <text className="plot__mark-text anchor-center" fontSize={size} {...rest}>
       {content}
     </text>
   ),
   error: ({ size, content, ...rest }) => (
-    <text fontSize={size} style={textMarkStyle} {...rest}>
+    <text
+      className="plot__mark-error anchor-center"
+      fontSize={size}
+      style={textMarkStyle}
+      {...rest}>
       Error in MarkSeries mark type not found
     </text>
   ),
@@ -49,7 +54,7 @@ const marks = {
 
 type Marks = "circle" | "square" | "star" | "diamond" | "text" | "error";
 
-type MarkSeriesProps<T> = {
+export type MarkSeriesProps<T> = {
   mark?: Marks | ((d: T, index: number) => string);
   data: T[];
   getX: (d: T, index: number) => number;
@@ -67,6 +72,8 @@ type MarkSeriesProps<T> = {
   markTemplates?: { [key: string]: React.FC<any> };
   className?: string;
   style?: CSSProperties;
+  onClick?: (e: any, d: T, index: number) => void;
+  onContextMenu?: (e: any, d: T, index: number) => void;
 };
 
 export const MarkSeries = <T,>({
@@ -81,6 +88,7 @@ export const MarkSeries = <T,>({
   getStroke,
   getOpacity,
   getFill,
+  markTemplates,
   strokeWidth,
   color = "blue",
   size = 10,
@@ -121,13 +129,10 @@ export const MarkSeries = <T,>({
 
   const points = useMemo(() => {
     const fn = (d: T, index: number) => {
-      let MarkComponent = Mark;
-      if (getMark) {
-        MarkComponent = markLibrary[getMark(d, index)];
-        if (!Mark) {
-          console.error(`Error in markSeries mark named "${getMark(d, index)}" not found`);
-          return null;
-        }
+      const MarkComponent: (any) => JSX.Element = getMark ? markLibrary[getMark(d, index)] : Mark;
+      if (!MarkComponent) {
+        console.error(`Error in markSeries mark named "${getMark(d, index)}" not found`);
+        return null;
       }
 
       const x = xScale(getX(d, index));
@@ -137,18 +142,16 @@ export const MarkSeries = <T,>({
         size: getSize ? getSize(d, index) : size,
         content: getContent && getContent(d, index),
         color: getColor ? getColor(d, index) : color,
-        style: {
-          opacity: getOpacity && getOpacity(d, index),
-          stroke: getStroke ? getStroke(d, index) : color,
-          fill: getFill ? getFill(d, index) : color,
-          strokeWidth: strokeWidth || 1 * Number(mark !== "text"),
-          ...style,
-        },
+        opacity: getOpacity && getOpacity(d, index),
+        stroke: getStroke ? getStroke(d, index) : color,
+        fill: getFill ? getFill(d, index) : color,
+        strokeWidth: strokeWidth || 1 * Number(mark !== "text"),
+        style,
         ...onDataEvents(extraProps, d, index),
       };
 
       return (
-        <g transform={`translate(${x},${y})`}>
+        <g key={index} transform={`translate(${x},${y})`}>
           <MarkComponent {...attrs} />
         </g>
       );
@@ -178,5 +181,5 @@ export const MarkSeries = <T,>({
     markLibrary,
   ]);
 
-  return <GPlotRegion className={classes("plot__series--mark", className)}>{points}</GPlotRegion>;
+  return <GPlotRegion className={twMerge("plot__series--mark", className)}>{points}</GPlotRegion>;
 };

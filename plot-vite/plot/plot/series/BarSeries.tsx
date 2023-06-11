@@ -1,7 +1,8 @@
 import React from "react";
-// import styled from "styled-components";
 
-import { usePlotContext, GPlotRegion, classes, onDataEvents, Direction } from "../plot-utils";
+import { usePlotContext, GPlotRegion, onDataEvents } from "../plot-utils";
+import { twMerge } from "tailwind-merge";
+import { Direction } from "../types";
 
 const getPosition = (
   direction: Direction,
@@ -17,7 +18,7 @@ const getPosition = (
   }
 };
 
-type BarSeriesProps<T> = {
+export type BarSeriesProps<T> = {
   direction: Direction;
   data: T[];
   getCategory?: (d: T, index: number) => number;
@@ -33,6 +34,7 @@ type BarSeriesProps<T> = {
   offset?: number;
   className?: string;
   style?: React.CSSProperties;
+  onMouseOver?: (e: any, d: T, index: number) => void;
 };
 
 export const BarSeries = <T,>({
@@ -87,7 +89,7 @@ export const BarSeries = <T,>({
     return <rect {...attrs} />;
   });
 
-  return <GPlotRegion className={classes("plot__series--bars", className)}>{points}</GPlotRegion>;
+  return <GPlotRegion className={twMerge("plot__series--bars", className)}>{points}</GPlotRegion>;
 };
 
 export const VerticalBarSeries = <T,>({ ...props }: Omit<BarSeriesProps<T>, "direction">) => {

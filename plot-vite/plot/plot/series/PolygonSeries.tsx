@@ -13,7 +13,7 @@ const generatePath = <P,>(
     ""
   )} Z`;
 
-type PolygonSeriesProps<T extends { points: P[] }, P> = {
+export type PolygonSeriesProps<T extends { points: P[] }, P> = {
   data: T[];
   getX: (d: P, index: number) => number;
   getY: (d: P, index: number) => number;

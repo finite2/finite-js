@@ -1,22 +1,9 @@
-import React, { CSSProperties, useMemo } from "react";
+import React, { useMemo } from "react";
 
 import { twMerge } from "tailwind-merge";
 
-import { usePlotContext, Orientation } from "./plot-utils";
-
-const titleContainerStyle: CSSProperties = {
-  position: "absolute",
-  width: "100%",
-};
-
-const titleStyle: CSSProperties = {
-  position: "relative",
-  height: "100%",
-  width: "100%",
-  fontSize: "18px",
-  fontWeight: 600,
-  textAlign: "center",
-};
+import { usePlotContext } from "./plot-utils";
+import { Orientation } from "./types";
 
 type AxisTitleProps = {
   orientation: Orientation;

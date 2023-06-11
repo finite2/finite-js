@@ -100,34 +100,6 @@ export const getTickValues = (
   return scale.ticks ? scale.ticks(tickTotal) : scale.domain();
 };
 
-export function classes(...args: any[]) {
-  return [...args].filter(Boolean).join(" ");
-}
-
-export type Orientation = "top" | "left" | "right" | "bottom";
-
-export type Direction = "vertical" | "horizontal";
-
-export type CurveType =
-  | "curveBasis"
-  | "curveBasisClosed"
-  | "curveBasisOpen"
-  | "curveBundle"
-  | "curveCardinal"
-  | "curveCardinalClosed"
-  | "curveCardinalOpen"
-  | "curveCatmullRom"
-  | "curveCatmullRomClosed"
-  | "curveCatmullRomOpen"
-  | "curveLinear"
-  | "curveLinearClosed"
-  | "curveMonotoneX"
-  | "curveMonotoneY"
-  | "curveNatural"
-  | "curveStep"
-  | "curveStepAfter"
-  | "curveStepBefore";
-
 export const GPlotRegion = ({ className, children, ...rest }: SVGProps<SVGGElement>) => {
   const { left, top } = usePlotContext();
 

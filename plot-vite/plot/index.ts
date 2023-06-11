@@ -10,9 +10,9 @@ export { Offset } from "./plot/Offset";
 export { ClipPath, ClipPlotRegion } from "./plot/ClipPath";
 export { AxisTitle } from "./plot/AxisTitle";
 
-export { LineSeries } from "./plot/series/LineSeries";
+export { LineSeries, LineSeriesProps } from "./plot/series/LineSeries";
 export { LineAreaSeries } from "./plot/series/LineAreaSeries";
-export { MarkSeries } from "./plot/series/MarkSeries";
+export { MarkSeries, MarkSeriesProps } from "./plot/series/MarkSeries";
 export { PolygonSeries } from "./plot/series/PolygonSeries";
 export { VerticalBarSeries, HorizontalBarSeries } from "./plot/series/BarSeries";
 // export { AreaSeries } from "./plot/series/AreaSeries";
