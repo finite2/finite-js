@@ -92,9 +92,14 @@ export const BarSeries = <T,>({
   return <GPlotRegion className={twMerge("plot__series--bars", className)}>{points}</GPlotRegion>;
 };
 
-export const VerticalBarSeries = <T,>({ ...props }: Omit<BarSeriesProps<T>, "direction">) => {
-  return <BarSeries direction="vertical" {...props} />;
-};
-export const HorizontalBarSeries = <T,>({ ...props }: Omit<BarSeriesProps<T>, "direction">) => {
-  return <BarSeries direction="horizontal" {...props} />;
-};
+export type VerticalBarSeriesProps<T> = Omit<BarSeriesProps<T>, "direction">;
+
+export const VerticalBarSeries = <T,>({ ...props }: VerticalBarSeriesProps<T>) => (
+  <BarSeries direction="vertical" {...props} />
+);
+
+export type HorizontalBarSeriesProps<T> = Omit<BarSeriesProps<T>, "direction">;
+
+export const HorizontalBarSeries = <T,>({ ...props }: HorizontalBarSeriesProps<T>) => (
+  <BarSeries direction="horizontal" {...props} />
+);
