@@ -98,6 +98,8 @@ export const PlotRegionUnmemorised = ({
   );
 
   const {
+    onPointerEnter: contextPointerEnter,
+    onPointerLeave: contextPointerLeave,
     onPointerDown: contextPointerDown,
     onPointerUp: contextPointerUp,
     onPointerMove: contextPointerMove,
@@ -107,6 +109,8 @@ export const PlotRegionUnmemorised = ({
   const draggableEvents = useMemo(() => {
     if (draggable) {
       return {
+        contextPointerLeave,
+        contextPointerEnter,
         onPointerDown: (e: PointerEvent) => contextPointerDown(e),
         onPointerUp: (e: PointerEvent) => contextPointerUp(e, ref),
         onPointerMove: (e: PointerEvent) => contextPointerMove(e, ref),
@@ -114,7 +118,18 @@ export const PlotRegionUnmemorised = ({
       };
     }
     return null;
-  }, [contextPointerDown, contextPointerUp, contextPointerMove, contextWheel, draggable]);
+  }, [
+    contextPointerEnter,
+    contextPointerDown,
+    contextPointerLeave,
+    contextPointerUp,
+    contextPointerMove,
+    contextWheel,
+    draggable,
+  ]);
+
+  console.log("draggableEvents", draggableEvents);
+  console.log("regionEvents", regionEvents);
 
   // TODO: event type mismatch here. Decide what to do about it.
   return (
@@ -192,38 +207,28 @@ const usePlotRegionEvents = () => {
         onLostPointerCapture,
       }: LocationEvents,
       ref: RefObject<SVGRectElement>
-    ): GEvents => ({
-      onClick: onClick ? (e: MouseEvent) => onClick(addDataMouseEvent(e, ref)) : undefined,
-      onDoubleClick: onDoubleClick
-        ? (e: MouseEvent) => onDoubleClick(addDataMouseEvent(e, ref))
-        : undefined,
-      onPointerDown: onPointerDown
-        ? (e: PointerEvent) => onPointerDown(addData(e, ref))
-        : undefined,
-      onPointerUp: onPointerUp ? (e: PointerEvent) => onPointerUp(addData(e, ref)) : undefined,
-      onPointerMove: onPointerMove
-        ? (e: PointerEvent) => onPointerMove(addData(e, ref))
-        : undefined,
-      onPointerEnter: onPointerEnter
-        ? (e: PointerEvent) => onPointerEnter(addData(e, ref))
-        : undefined,
-      onPointerLeave: onPointerLeave
-        ? (e: PointerEvent) => onPointerLeave(addData(e, ref))
-        : undefined,
-      onPointerOver: onPointerOver
-        ? (e: PointerEvent) => onPointerOver(addData(e, ref))
-        : undefined,
-      onPointerOut: onPointerOut ? (e: PointerEvent) => onPointerOut(addData(e, ref)) : undefined,
-      onPointerCancel: onPointerCancel
-        ? (e: PointerEvent) => onPointerCancel(addData(e, ref))
-        : undefined,
-      onGotPointerCapture: onGotPointerCapture
-        ? (e: PointerEvent) => onGotPointerCapture(addData(e, ref))
-        : undefined,
-      onLostPointerCapture: onLostPointerCapture
-        ? (e: PointerEvent) => onLostPointerCapture(addData(e, ref))
-        : undefined,
-    }),
+    ): Partial<GEvents> => {
+      const ev: Partial<GEvents> = {};
+
+      if (onClick) ev.onClick = (e: MouseEvent) => onClick(addDataMouseEvent(e, ref));
+      if (onDoubleClick)
+        ev.onDoubleClick = (e: MouseEvent) => onDoubleClick(addDataMouseEvent(e, ref));
+      if (onPointerDown) ev.onPointerDown = (e: PointerEvent) => onPointerDown(addData(e, ref));
+      if (onPointerUp) ev.onPointerUp = (e: PointerEvent) => onPointerUp(addData(e, ref));
+      if (onPointerMove) ev.onPointerMove = (e: PointerEvent) => onPointerMove(addData(e, ref));
+      if (onPointerEnter) ev.onPointerEnter = (e: PointerEvent) => onPointerEnter(addData(e, ref));
+      if (onPointerLeave) ev.onPointerLeave = (e: PointerEvent) => onPointerLeave(addData(e, ref));
+      if (onPointerOver) ev.onPointerOver = (e: PointerEvent) => onPointerOver(addData(e, ref));
+      if (onPointerOut) ev.onPointerOut = (e: PointerEvent) => onPointerOut(addData(e, ref));
+      if (onPointerCancel)
+        ev.onPointerCancel = (e: PointerEvent) => onPointerCancel(addData(e, ref));
+      if (onGotPointerCapture)
+        ev.onGotPointerCapture = (e: PointerEvent) => onGotPointerCapture(addData(e, ref));
+      if (onLostPointerCapture)
+        ev.onLostPointerCapture = (e: PointerEvent) => onLostPointerCapture(addData(e, ref));
+
+      return ev;
+    },
     [addData, addDataMouseEvent]
   );
 };
