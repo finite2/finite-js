@@ -146,10 +146,14 @@ const locationFromDomain = ([xDomain, yDomain]: [[number, number], [number, numb
 };
 
 export type PlotContextEvents = {
-  onPointerDown: (e: PointerEvent) => void;
-  onPointerUp: (e: PointerEvent, ref: RefObject<SVGRectElement>) => void;
-  onPointerMove: (e: PointerEvent, ref: RefObject<SVGRectElement>, direction?: Direction) => void;
-  onWheel: (e: WheelEvent, direction?: Direction) => void;
+  onPointerDown: (event: PointerEvent) => void;
+  onPointerUp: (event: PointerEvent, ref: RefObject<SVGRectElement>) => void;
+  onPointerMove: (
+    event: PointerEvent,
+    ref: RefObject<SVGRectElement>,
+    direction?: Direction
+  ) => void;
+  onWheel: (event: WheelEvent, direction?: Direction) => void;
   onPointerLeave: () => void;
   onPointerEnter: () => void;
   onReset: () => void;
@@ -191,11 +195,11 @@ export const useZoomablePlot = (
   const scrollEnabled = useRef({
     enabled: true,
     counter: 0,
-    preventDefault: (e: Event) => {
-      e = e || window.event;
-      e?.preventDefault();
+    preventDefault: (event: Event) => {
+      event = event || window.event;
+      event?.preventDefault();
       // TODO investigate if this is needed since its deprecated
-      e.returnValue = false;
+      event.returnValue = false;
     },
   });
 
@@ -232,22 +236,26 @@ export const useZoomablePlot = (
 
   const events = useMemo(
     () => ({
-      onPointerDown: (e: PointerEvent) => {
+      onPointerDown: (event: PointerEvent) => {
         dragging.current = true;
-        initalLocRef.current = { x: e.screenX, y: e.screenY, ...lastLocRef.current };
+        initalLocRef.current = { x: event.screenX, y: event.screenY, ...lastLocRef.current };
       },
-      onPointerUp: (e: PointerEvent, ref: RefObject<SVGRectElement>) => {
-        if (ref.current) ref.current.releasePointerCapture(e.pointerId);
+      onPointerUp: (event: PointerEvent, ref: RefObject<SVGRectElement>) => {
+        if (ref.current) ref.current.releasePointerCapture(event.pointerId);
         dragging.current = false;
       },
-      onPointerMove: (e: PointerEvent, ref: RefObject<SVGRectElement>, direction?: Direction) => {
+      onPointerMove: (
+        event: PointerEvent,
+        ref: RefObject<SVGRectElement>,
+        direction?: Direction
+      ) => {
         const lastLoc = lastLocRef.current;
 
         if (dragging.current) {
-          if (ref.current) ref.current.setPointerCapture(e.pointerId);
+          if (ref.current) ref.current.setPointerCapture(event.pointerId);
 
-          let screenDeltaX = e.screenX - initalLocRef.current.x;
-          let screenDeltaY = e.screenY - initalLocRef.current.y;
+          let screenDeltaX = event.screenX - initalLocRef.current.x;
+          let screenDeltaY = event.screenY - initalLocRef.current.y;
 
           if (direction === "vertical") {
             screenDeltaX = 0;
@@ -299,11 +307,11 @@ export const useZoomablePlot = (
           setLastLocation(newLoc);
         }
       },
-      onWheel: (e: WheelEvent, direction?: Direction) => {
+      onWheel: (event: WheelEvent, direction?: Direction) => {
         const fallbackLocation = { ...lastLocRef.current };
         direction = preserveRatio ? undefined : direction;
 
-        if (e.deltaY > 0) {
+        if (event.deltaY > 0) {
           setLastLocation((location) =>
             scaleLoc(location || fallbackLocation, 1.1, direction, xDomainLimit, yDomainLimit)
           );

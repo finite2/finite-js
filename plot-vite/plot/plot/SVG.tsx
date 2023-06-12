@@ -3,29 +3,15 @@ import {
   useState,
   useEffect,
   useCallback,
-  SVGProps,
   Dispatch,
   SetStateAction,
   CSSProperties,
   ReactNode,
-  RefObject,
 } from "react";
 
 import { SVGContext } from "./plot-utils";
 import { PlotContainer } from "./menu/PlotContainer";
 import { getID } from "plot/utils/getID";
-
-const SVGstyled = ({
-  children,
-  fRef,
-  ...rest
-}: SVGProps<SVGSVGElement> & { fRef: RefObject<SVGSVGElement> }) => {
-  return (
-    <svg ref={fRef} {...rest} className="user-select-none relative">
-      {children}
-    </svg>
-  );
-};
 
 const useSVGsize = (
   width: number,
@@ -87,9 +73,13 @@ export const SVG = ({
   return (
     <SVGContext.Provider value={{ width, height, svgRef, containerRef, setSize, resetSize }}>
       <PlotContainer fRef={containerRef} id={idRef.current} className={className} style={style}>
-        <SVGstyled fRef={svgRef} onClick={onClick} viewBox={`0 0 ${width} ${height}`}>
+        <svg
+          ref={svgRef}
+          className={"user-select-none relative"}
+          onClick={onClick}
+          viewBox={`0 0 ${width} ${height}`}>
           {children}
-        </SVGstyled>
+        </svg>
         {overlay}
       </PlotContainer>
     </SVGContext.Provider>

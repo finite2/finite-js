@@ -1,6 +1,16 @@
-import { Dispatch, RefObject, SVGProps, SetStateAction, createContext, useContext } from "react";
+import {
+  Dispatch,
+  MouseEvent,
+  PointerEvent,
+  RefObject,
+  SVGProps,
+  SetStateAction,
+  createContext,
+  useContext,
+} from "react";
 import { ScaleLinear, scaleLinear, scaleLog } from "d3-scale";
 import { PlotContextEvents } from "./useZoomablePlot";
+import { ISeriesEvents, SeriesEvents } from "./types";
 
 type SVGContext = {
   width: number;
@@ -110,14 +120,30 @@ export const GPlotRegion = ({ className, children, ...rest }: SVGProps<SVGGEleme
   );
 };
 
-export function onDataEvents<T>(props: any, d: T, index: number) {
-  const eventHandlerKeys = Object.keys(props).filter((k) => k.startsWith("on"));
-  const p = {};
-  for (let i = 0; i < eventHandlerKeys.length; i++) {
-    const key = eventHandlerKeys[i];
-    p[key] = (e) => props[key](e, d, index);
-  }
-  return p;
+export function onDataEvents<T>(
+  {
+    onClick,
+    onContextMenu,
+    onDoubleClick,
+    onPointerEnter,
+    onPointerLeave,
+    onPointerMove,
+    onPointerOut,
+  }: SeriesEvents<T>,
+  d: T,
+  index: number
+) {
+  const ev: ISeriesEvents = {};
+
+  if (onClick) ev.onClick = (event: MouseEvent) => onClick(event, d, index);
+  if (onContextMenu) ev.onContextMenu = (event: MouseEvent) => onContextMenu(event, d, index);
+  if (onDoubleClick) ev.onDoubleClick = (event: MouseEvent) => onDoubleClick(event, d, index);
+  if (onPointerEnter) ev.onPointerEnter = (event: PointerEvent) => onPointerEnter(event, d, index);
+  if (onPointerLeave) ev.onPointerLeave = (event: PointerEvent) => onPointerLeave(event, d, index);
+  if (onPointerMove) ev.onPointerMove = (event: PointerEvent) => onPointerMove(event, d, index);
+  if (onPointerOut) ev.onPointerOut = (event: PointerEvent) => onPointerOut(event, d, index);
+
+  return ev;
 }
 
 export const getScale = (

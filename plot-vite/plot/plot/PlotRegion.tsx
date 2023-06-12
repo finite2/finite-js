@@ -21,18 +21,18 @@ type PlotRegionProps = {
   className?: string;
   style?: CSSProperties;
   children?: ReactNode;
-  onClick?: (e: PosMouseEvent) => void;
-  onDoubleClick?: (e: PosMouseEvent) => void;
-  onPointerDown?: (e: PosPointerEvent) => void;
-  onPointerUp?: (e: PosPointerEvent) => void;
-  onPointerMove?: (e: PosPointerEvent) => void;
-  onPointerEnter?: (e: PosPointerEvent) => void;
-  onPointerLeave?: (e: PosPointerEvent) => void;
-  onPointerOver?: (e: PosPointerEvent) => void;
-  onPointerOut?: (e: PosPointerEvent) => void;
-  onPointerCancel?: (e: PosPointerEvent) => void;
-  onGotPointerCapture?: (e: PosPointerEvent) => void;
-  onLostPointerCapture?: (e: PosPointerEvent) => void;
+  onClick?: (event: PosMouseEvent) => void;
+  onDoubleClick?: (event: PosMouseEvent) => void;
+  onPointerDown?: (event: PosPointerEvent) => void;
+  onPointerUp?: (event: PosPointerEvent) => void;
+  onPointerMove?: (event: PosPointerEvent) => void;
+  onPointerEnter?: (event: PosPointerEvent) => void;
+  onPointerLeave?: (event: PosPointerEvent) => void;
+  onPointerOver?: (event: PosPointerEvent) => void;
+  onPointerOut?: (event: PosPointerEvent) => void;
+  onPointerCancel?: (event: PosPointerEvent) => void;
+  onGotPointerCapture?: (event: PosPointerEvent) => void;
+  onLostPointerCapture?: (event: PosPointerEvent) => void;
 };
 
 // TODO event typing
@@ -109,12 +109,12 @@ export const PlotRegionUnmemorised = ({
   const draggableEvents = useMemo(() => {
     if (draggable) {
       return {
-        contextPointerLeave,
-        contextPointerEnter,
-        onPointerDown: (e: PointerEvent) => contextPointerDown(e),
-        onPointerUp: (e: PointerEvent) => contextPointerUp(e, ref),
-        onPointerMove: (e: PointerEvent) => contextPointerMove(e, ref),
-        onWheel: (e: WheelEvent) => contextWheel(e),
+        onPointerLeave: contextPointerLeave,
+        onPointerEnter: contextPointerEnter,
+        onPointerDown: (event: PointerEvent) => contextPointerDown(event),
+        onPointerUp: (event: PointerEvent) => contextPointerUp(event, ref),
+        onPointerMove: (event: PointerEvent) => contextPointerMove(event, ref),
+        onWheel: (event: WheelEvent) => contextWheel(event),
       };
     }
     return null;
@@ -127,9 +127,6 @@ export const PlotRegionUnmemorised = ({
     contextWheel,
     draggable,
   ]);
-
-  console.log("draggableEvents", draggableEvents);
-  console.log("regionEvents", regionEvents);
 
   // TODO: event type mismatch here. Decide what to do about it.
   return (
@@ -157,34 +154,34 @@ const usePlotRegionEvents = () => {
 
   // TODO these functions share implementation but not type
   const addData = useCallback(
-    (e: PointerEvent, ref: RefObject<SVGRectElement>): PosPointerEvent => {
+    (event: PointerEvent, ref: RefObject<SVGRectElement>): PosPointerEvent => {
       if (!ref.current || !containerRef.current) throw new Error("ref not set");
       const { top, left } = ref.current.getBoundingClientRect();
       const { width, height } = containerRef.current.getBoundingClientRect();
 
       return {
-        ...e,
-        xAbsPosition: e.clientX - left,
-        xPosition: xScaleEvent(width).invert(e.clientX - left),
-        yAbsPosition: e.clientY - top,
-        yPosition: yScaleEvent(height).invert(e.clientY - top),
+        ...event,
+        xAbsPosition: event.clientX - left,
+        xPosition: xScaleEvent(width).invert(event.clientX - left),
+        yAbsPosition: event.clientY - top,
+        yPosition: yScaleEvent(height).invert(event.clientY - top),
       };
     },
     [containerRef, xScaleEvent, yScaleEvent]
   );
 
   const addDataMouseEvent = useCallback(
-    (e: MouseEvent, ref: RefObject<SVGRectElement>): PosMouseEvent => {
+    (event: MouseEvent, ref: RefObject<SVGRectElement>): PosMouseEvent => {
       if (!ref.current || !containerRef.current) throw new Error("ref not set");
       const { top, left } = ref.current.getBoundingClientRect();
       const { width, height } = containerRef.current.getBoundingClientRect();
 
       return {
-        ...e,
-        xAbsPosition: e.clientX - left,
-        xPosition: xScaleEvent(width).invert(e.clientX - left),
-        yAbsPosition: e.clientY - top,
-        yPosition: yScaleEvent(height).invert(e.clientY - top),
+        ...event,
+        xAbsPosition: event.clientX - left,
+        xPosition: xScaleEvent(width).invert(event.clientX - left),
+        yAbsPosition: event.clientY - top,
+        yPosition: yScaleEvent(height).invert(event.clientY - top),
       };
     },
     [containerRef, xScaleEvent, yScaleEvent]
@@ -210,22 +207,29 @@ const usePlotRegionEvents = () => {
     ): Partial<GEvents> => {
       const ev: Partial<GEvents> = {};
 
-      if (onClick) ev.onClick = (e: MouseEvent) => onClick(addDataMouseEvent(e, ref));
+      if (onClick) ev.onClick = (event: MouseEvent) => onClick(addDataMouseEvent(event, ref));
       if (onDoubleClick)
-        ev.onDoubleClick = (e: MouseEvent) => onDoubleClick(addDataMouseEvent(e, ref));
-      if (onPointerDown) ev.onPointerDown = (e: PointerEvent) => onPointerDown(addData(e, ref));
-      if (onPointerUp) ev.onPointerUp = (e: PointerEvent) => onPointerUp(addData(e, ref));
-      if (onPointerMove) ev.onPointerMove = (e: PointerEvent) => onPointerMove(addData(e, ref));
-      if (onPointerEnter) ev.onPointerEnter = (e: PointerEvent) => onPointerEnter(addData(e, ref));
-      if (onPointerLeave) ev.onPointerLeave = (e: PointerEvent) => onPointerLeave(addData(e, ref));
-      if (onPointerOver) ev.onPointerOver = (e: PointerEvent) => onPointerOver(addData(e, ref));
-      if (onPointerOut) ev.onPointerOut = (e: PointerEvent) => onPointerOut(addData(e, ref));
+        ev.onDoubleClick = (event: MouseEvent) => onDoubleClick(addDataMouseEvent(event, ref));
+      if (onPointerDown)
+        ev.onPointerDown = (event: PointerEvent) => onPointerDown(addData(event, ref));
+      if (onPointerUp) ev.onPointerUp = (event: PointerEvent) => onPointerUp(addData(event, ref));
+      if (onPointerMove)
+        ev.onPointerMove = (event: PointerEvent) => onPointerMove(addData(event, ref));
+      if (onPointerEnter)
+        ev.onPointerEnter = (event: PointerEvent) => onPointerEnter(addData(event, ref));
+      if (onPointerLeave)
+        ev.onPointerLeave = (event: PointerEvent) => onPointerLeave(addData(event, ref));
+      if (onPointerOver)
+        ev.onPointerOver = (event: PointerEvent) => onPointerOver(addData(event, ref));
+      if (onPointerOut)
+        ev.onPointerOut = (event: PointerEvent) => onPointerOut(addData(event, ref));
       if (onPointerCancel)
-        ev.onPointerCancel = (e: PointerEvent) => onPointerCancel(addData(e, ref));
+        ev.onPointerCancel = (event: PointerEvent) => onPointerCancel(addData(event, ref));
       if (onGotPointerCapture)
-        ev.onGotPointerCapture = (e: PointerEvent) => onGotPointerCapture(addData(e, ref));
+        ev.onGotPointerCapture = (event: PointerEvent) => onGotPointerCapture(addData(event, ref));
       if (onLostPointerCapture)
-        ev.onLostPointerCapture = (e: PointerEvent) => onLostPointerCapture(addData(e, ref));
+        ev.onLostPointerCapture = (event: PointerEvent) =>
+          onLostPointerCapture(addData(event, ref));
 
       return ev;
     },

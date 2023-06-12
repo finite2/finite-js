@@ -1,11 +1,16 @@
-import { useMemo, useRef, WheelEvent } from "react";
+import { useMemo, useRef, WheelEvent, PointerEvent } from "react";
 import { ScaleLinear } from "d3-scale";
 
 import { getTickValues, GPlotRegion, usePlotContext } from "./plot-utils";
 import { twMerge } from "tailwind-merge";
 import { Orientation } from "./types";
 
-type TickFormatFn = (v: any, i: number, scale: any, tickTotal: number) => any;
+type TickFormatFn = (
+  v: number,
+  i: number,
+  scale: ScaleLinear<number, number>,
+  tickTotal: number
+) => string;
 
 const getTickFormatFn = (
   scale: ScaleLinear<number, number, never>,
@@ -326,18 +331,21 @@ export const DraggableAxis = ({ orientation, fill = "#0000" }: DraggableAxisProp
 
   const reffedEvents = useMemo(() => {
     return {
-      onPointerUp: (e: any) => onPointerUp(e, ref),
-      onPointerMove: (e: any) => {
-        e.stopPropagation();
-        onPointerMove(e, ref, direction);
+      onPointerUp: (event: PointerEvent) => onPointerUp(event, ref),
+      onPointerMove: (event: PointerEvent) => {
+        event.stopPropagation();
+        onPointerMove(event, ref, direction);
       },
-      onWheel: (e: WheelEvent) => onWheel(e, direction),
+      onWheel: (event: WheelEvent) => onWheel(event, direction),
     };
   }, [onPointerMove, onPointerUp, onWheel, direction, ref]);
 
   return (
     <rect
-      className={isVertical ? "cursor-s-resize" : "cursor-e-resize"}
+      className={twMerge(
+        "plot__draggable-axis",
+        isVertical ? "cursor-s-resize" : "cursor-e-resize"
+      )}
       ref={ref}
       fill={fill}
       onPointerDown={onPointerDown}

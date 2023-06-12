@@ -144,7 +144,7 @@ exports[`MarkSeries example render > MarkSeriesExample0 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -284,7 +284,7 @@ exports[`MarkSeries example render > MarkSeriesExample0 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -511,7 +511,7 @@ exports[`MarkSeries example render > MarkSeriesExample1 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -651,7 +651,7 @@ exports[`MarkSeries example render > MarkSeriesExample1 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -949,7 +949,7 @@ exports[`MarkSeries example render > MarkSeriesExample2 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -1089,7 +1089,7 @@ exports[`MarkSeries example render > MarkSeriesExample2 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -1316,7 +1316,7 @@ exports[`MarkSeries example render > MarkSeriesExample3 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -1456,7 +1456,7 @@ exports[`MarkSeries example render > MarkSeriesExample3 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -1701,7 +1701,7 @@ exports[`MarkSeries example render > MarkSeriesExample4 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -1841,7 +1841,7 @@ exports[`MarkSeries example render > MarkSeriesExample4 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -2096,7 +2096,7 @@ exports[`MarkSeries example render > MarkSeriesExample5 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -2236,7 +2236,7 @@ exports[`MarkSeries example render > MarkSeriesExample5 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"

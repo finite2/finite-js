@@ -12,6 +12,7 @@ export const ChartTitle = ({ paddingBottom = 5, children }: ChartTitleProps) => 
 
   return (
     <foreignObject
+      className="plot__title"
       x={outerLeft + left}
       y={outerTop}
       height={top - outerTop - paddingBottom}

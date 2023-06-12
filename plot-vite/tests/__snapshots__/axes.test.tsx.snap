@@ -156,7 +156,7 @@ exports[`Axes example render > AxisExample0 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -296,7 +296,7 @@ exports[`Axes example render > AxisExample0 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -464,7 +464,7 @@ exports[`Axes example render > AxisExample1 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="850"
@@ -604,7 +604,7 @@ exports[`Axes example render > AxisExample1 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="40"
@@ -791,7 +791,7 @@ exports[`Axes example render > AxisExample2 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -912,7 +912,7 @@ exports[`Axes example render > AxisExample2 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -1080,7 +1080,7 @@ exports[`Axes example render > AxisExample3 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="390"
@@ -1220,7 +1220,7 @@ exports[`Axes example render > AxisExample3 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="250"
         width="50"
@@ -1376,7 +1376,7 @@ exports[`Axes example render > AxisExample3 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="390"
@@ -1516,7 +1516,7 @@ exports[`Axes example render > AxisExample3 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="250"
         width="50"
@@ -1672,7 +1672,7 @@ exports[`Axes example render > AxisExample3 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="390"
@@ -1812,7 +1812,7 @@ exports[`Axes example render > AxisExample3 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="250"
         width="50"
@@ -1949,7 +1949,7 @@ exports[`Axes example render > AxisExample3 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="390"
@@ -2089,7 +2089,7 @@ exports[`Axes example render > AxisExample3 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="250"
         width="50"
@@ -2627,7 +2627,7 @@ exports[`Axes example render > AxisExample4 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -2986,7 +2986,7 @@ exports[`Axes example render > AxisExample4 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -3039,7 +3039,7 @@ exports[`Axes example render > AxisExample5 renders 1`] = `
         />
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -3398,7 +3398,7 @@ exports[`Axes example render > AxisExample5 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -3547,7 +3547,7 @@ exports[`Axes example render > AxisExample6 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -3687,7 +3687,7 @@ exports[`Axes example render > AxisExample6 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"

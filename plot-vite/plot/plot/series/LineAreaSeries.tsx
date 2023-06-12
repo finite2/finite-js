@@ -52,7 +52,7 @@ export type LineAreaSeriesProps<T> = {
   getX: (d: T, i: number) => number;
   getY: (d: T, i: number) => number;
   getY0?: (d: T, i: number) => number;
-  curve?: any;
+  curve?: CurveType;
   color?: string;
   fill?: string;
   width?: number;
@@ -81,7 +81,7 @@ export const LineAreaSeries = <T,>({
         (d, index) => yScale(getY0(d, index)),
         curve
       ),
-    [data, xScale, yScale, getX, getY, getY0]
+    [data, xScale, yScale, getX, getY, getY0, curve]
   );
 
   return (

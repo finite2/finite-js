@@ -1,6 +1,6 @@
-import React from "react";
+import { MouseEvent, PointerEvent } from "react";
 
-import { usePlotContext, GPlotRegion } from "../plot-utils";
+import { usePlotContext, GPlotRegion, onDataEvents } from "../plot-utils";
 
 // TODO use the d3Shape.area method instead of points.reduce
 const generatePath = <P,>(
@@ -24,18 +24,16 @@ export type PolygonSeriesProps<T extends { points: P[] }, P> = {
   strokeWidth?: number;
   stroke?: string;
   color?: string;
-  onClick?: (
-    e: React.MouseEvent,
-    d: T,
-    getX: (d: P, index: number) => number,
-    getY: (d: P, index: number) => number
-  ) => void;
-  onMouseEnter?: (e: React.MouseEvent, d: T) => void;
-  id?: string;
+  onClick?: (event: MouseEvent, d: T, index: number) => void;
+  onContextMenu?: (event: MouseEvent, d: T, index: number) => void;
+  onDoubleClick?: (event: MouseEvent, d: T, index: number) => void;
+  onPointerEnter?: (event: PointerEvent, d: T, index: number) => void;
+  onPointerMove?: (event: PointerEvent, d: T, index: number) => void;
+  onPointerLeave?: (event: PointerEvent, d: T, index: number) => void;
+  onPointerOut?: (event: PointerEvent, d: T, index: number) => void;
 };
 
 export const PolygonSeries = <T extends { points: P[] }, P>({
-  id,
   data,
   getX,
   getY,
@@ -47,8 +45,12 @@ export const PolygonSeries = <T extends { points: P[] }, P>({
   stroke,
   color = "blue",
   onClick,
-  onMouseEnter,
-  ...rest
+  onContextMenu,
+  onDoubleClick,
+  onPointerEnter,
+  onPointerMove,
+  onPointerLeave,
+  onPointerOut,
 }: PolygonSeriesProps<T, P>) => {
   const { xScale, yScale } = usePlotContext();
 
@@ -63,16 +65,23 @@ export const PolygonSeries = <T extends { points: P[] }, P>({
       fill: getFill ? getFill(d, index) : color,
       strokeWidth: strokeWidth || 0,
       opacity: getOpacity ? getOpacity(d, index) : undefined,
-      onClick: onClick ? (e: any) => onClick(e, d, scaledGetX, scaledGetY) : undefined,
-      onMouseEnter: onMouseEnter ? (e: any) => onMouseEnter(e, d) : undefined,
+      ...onDataEvents(
+        {
+          onClick,
+          onContextMenu,
+          onDoubleClick,
+          onPointerEnter,
+          onPointerMove,
+          onPointerLeave,
+          onPointerOut,
+        },
+        d,
+        index
+      ),
     };
 
-    return <path {...attrs} {...rest} />;
+    return <path {...attrs} />;
   });
 
-  return (
-    <GPlotRegion id={id} className="plot__series--polygon">
-      {polygons}
-    </GPlotRegion>
-  );
+  return <GPlotRegion className="plot__series--polygon">{polygons}</GPlotRegion>;
 };

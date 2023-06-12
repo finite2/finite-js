@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent, PointerEvent } from "react";
 
 import { usePlotContext, GPlotRegion, onDataEvents } from "../plot-utils";
 import { twMerge } from "tailwind-merge";
@@ -34,7 +34,13 @@ export type BarSeriesProps<T> = {
   offset?: number;
   className?: string;
   style?: React.CSSProperties;
-  onMouseOver?: (e: any, d: T, index: number) => void;
+  onClick?: (event: MouseEvent, d: T, index: number) => void;
+  onContextMenu?: (event: MouseEvent, d: T, index: number) => void;
+  onDoubleClick?: (event: MouseEvent, d: T, index: number) => void;
+  onPointerEnter?: (event: PointerEvent, d: T, index: number) => void;
+  onPointerMove?: (event: PointerEvent, d: T, index: number) => void;
+  onPointerLeave?: (event: PointerEvent, d: T, index: number) => void;
+  onPointerOut?: (event: PointerEvent, d: T, index: number) => void;
 };
 
 export const BarSeries = <T,>({
@@ -53,10 +59,15 @@ export const BarSeries = <T,>({
   offset = 0,
   className,
   style,
-  ...rest
+  onClick,
+  onContextMenu,
+  onDoubleClick,
+  onPointerEnter,
+  onPointerMove,
+  onPointerLeave,
+  onPointerOut,
 }: BarSeriesProps<T>) => {
-  const extraProps = { ...rest };
-  const { xScale, yScale /* xType, yType */ } = usePlotContext();
+  const { xScale, yScale } = usePlotContext();
 
   const categoryScale = direction === "vertical" ? xScale : yScale;
   const heightScale = direction === "vertical" ? yScale : xScale;
@@ -83,7 +94,19 @@ export const BarSeries = <T,>({
         strokeWidth: strokeWidth || 1,
         ...style,
       },
-      ...onDataEvents<T>(extraProps, d, index),
+      ...onDataEvents<T>(
+        {
+          onClick,
+          onContextMenu,
+          onDoubleClick,
+          onPointerEnter,
+          onPointerMove,
+          onPointerLeave,
+          onPointerOut,
+        },
+        d,
+        index
+      ),
     };
 
     return <rect {...attrs} />;

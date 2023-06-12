@@ -197,7 +197,7 @@ exports[`BarSeries example render > BarSeriesExample0 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -337,7 +337,7 @@ exports[`BarSeries example render > BarSeriesExample0 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -599,7 +599,7 @@ exports[`BarSeries example render > BarSeriesExample1 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -739,7 +739,7 @@ exports[`BarSeries example render > BarSeriesExample1 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -906,7 +906,7 @@ exports[`BarSeries example render > BarSeriesExample2 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -1046,7 +1046,7 @@ exports[`BarSeries example render > BarSeriesExample2 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -1266,7 +1266,7 @@ exports[`BarSeries example render > BarSeriesExample3 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -1368,7 +1368,7 @@ exports[`BarSeries example render > BarSeriesExample3 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -1630,7 +1630,7 @@ exports[`BarSeries example render > BarSeriesExample4 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="810"
@@ -1728,7 +1728,7 @@ exports[`BarSeries example render > BarSeriesExample4 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="80"
@@ -1952,7 +1952,7 @@ exports[`BarSeries example render > BarSeriesExample5 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="810"
@@ -2050,7 +2050,7 @@ exports[`BarSeries example render > BarSeriesExample5 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="80"

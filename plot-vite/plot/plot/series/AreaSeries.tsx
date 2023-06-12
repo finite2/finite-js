@@ -38,7 +38,7 @@ export const AreaSeries = ({
   getArea,
   getLabel,
   getColor,
-  onMouseEnter,
+  onPointerEnter,
   onClick,
   getCharacters,
 }) => {
@@ -87,7 +87,7 @@ export const AreaSeries = ({
           title: `$${value.toFixed(0)}`,
           stroke: getStroke ? getStroke(d) : stroke,
           strokeWidth: strokeW,
-          onMouseEnter: onMouseEnter ? () => onMouseEnter(d) : undefined,
+          onPointerEnter: onPointerEnter ? () => onPointerEnter(d) : undefined,
           onClick: onClick ? () => onClick(d) : undefined,
         };
 

@@ -61,7 +61,7 @@ export const AxisTitle = ({
   }, [orientation, left, top, innerWidth, innerHeight, margin]);
 
   return (
-    <foreignObject {...objectProps}>
+    <foreignObject className="plot__axis-title" {...objectProps}>
       <div
         className={twMerge(
           "plot__axis-title-container w-full absolute",
@@ -69,7 +69,7 @@ export const AxisTitle = ({
         )}>
         <div
           className={twMerge(
-            "plot__axis-title relative h-full w-full text-18 font-semibold text-center",
+            "plot__axis-sub-container relative h-full w-full text-18 font-semibold text-center",
             orientation === "bottom" || orientation === "top" ? "text-right" : "text-left"
           )}>
           {children}

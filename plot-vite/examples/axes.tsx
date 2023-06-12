@@ -75,6 +75,7 @@ export const AxisExample4 = () => {
   );
 };
 
+// doesn't fall over on invalid domain
 export const AxisExample5 = () => {
   return (
     <SVG>
@@ -92,7 +93,7 @@ export const AxisExample6 = () => {
     <SVG>
       <XYPlot>
         <PlotRegion />
-        <XAxis tickValues={[0, 0.25, 0.5, 0.75, 1]} tickFormat={(t) => t} />
+        <XAxis tickValues={[0, 0.25, 0.5, 0.75, 1]} tickFormat={(t) => `${t}`} />
         <YAxis />
       </XYPlot>
     </SVG>

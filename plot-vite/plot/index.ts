@@ -7,7 +7,7 @@ export { XYPlot } from "./plot/XYPlot";
 
 // Plot area background and containing content
 export { PlotRegion } from "./plot/PlotRegion";
-export { ClipPath, ClipPlotRegion } from "./plot/ClipPath";
+export { ClipPlotRegion } from "./plot/ClipPath";
 
 // Axes
 export { XAxis, YAxis } from "./plot/Axis";
@@ -35,4 +35,3 @@ export type { VerticalBarSeriesProps, HorizontalBarSeriesProps } from "./plot/se
 
 // build your own components
 export { usePlotContext, useSVGContext } from "./plot/plot-utils";
-export { Offset } from "./plot/Offset";

@@ -1,4 +1,4 @@
-import React, { CSSProperties, useMemo } from "react";
+import { CSSProperties, MouseEvent, PointerEvent, useMemo } from "react";
 
 import { usePlotContext, GPlotRegion, onDataEvents } from "../plot-utils";
 import { twMerge } from "tailwind-merge";
@@ -24,26 +24,44 @@ const starPoints = (size: number): string => {
     .join(" ");
 };
 
+export type MarkProps = {
+  size: number;
+  content?: string;
+  color?: string;
+  opacity?: number;
+  stroke?: string;
+  fill?: string;
+  strokeWidth?: number;
+  className?: string;
+  onClick?: (e: MouseEvent) => void;
+  onContextMenu?: (e: MouseEvent) => void;
+  onDoubleClick?: (e: MouseEvent) => void;
+  onPointerEnter?: (e: PointerEvent) => void;
+  onPointerMove?: (e: PointerEvent) => void;
+  onPointerLeave?: (e: PointerEvent) => void;
+  onPointerOut?: (e: PointerEvent) => void;
+};
+
 const marks = {
-  circle: ({ size, ...rest }) => <circle r={size / 2} {...rest} />,
-  square: ({ size, ...rest }) => (
+  circle: ({ size, ...rest }: MarkProps) => <circle r={size / 2} {...rest} />,
+  square: ({ size, ...rest }: MarkProps) => (
     <rect x={-size / 2} y={-size / 2} width={size} height={size} {...rest} />
   ),
-  star: ({ size, ...rest }) => <polygon points={starPoints(size / 2)} {...rest} />,
-  diamond: ({ size, ...rest }) => (
+  star: ({ size, ...rest }: MarkProps) => <polygon points={starPoints(size / 2)} {...rest} />,
+  diamond: ({ size, ...rest }: MarkProps) => (
     <polygon
       points={`0 0 ${size / 2} ${size / 2} 0 ${size} ${-size / 2} ${size / 2} 0 0`}
       {...rest}
     />
   ),
-  text: ({ size, content, ...rest }) => (
-    <text className="plot__mark-text anchor-center" fontSize={size} {...rest}>
+  text: ({ size, content, className, ...rest }: MarkProps) => (
+    <text className={twMerge("plot__mark-text anchor-center", className)} fontSize={size} {...rest}>
       {content}
     </text>
   ),
-  error: ({ size, content, ...rest }) => (
+  error: ({ size, content, className, ...rest }: MarkProps) => (
     <text
-      className="plot__mark-error anchor-center"
+      className={twMerge("plot__mark-error anchor-center", className)}
       fontSize={size}
       style={textMarkStyle}
       {...rest}>
@@ -55,7 +73,7 @@ const marks = {
 type Marks = "circle" | "square" | "star" | "diamond" | "text" | "error";
 
 export type MarkSeriesProps<T> = {
-  mark?: Marks | ((d: T, index: number) => string);
+  mark?: Marks | ((props: MarkProps) => JSX.Element);
   data: T[];
   getX: (d: T, index: number) => number;
   getY: (d: T, index: number) => number;
@@ -69,11 +87,15 @@ export type MarkSeriesProps<T> = {
   strokeWidth?: number;
   color?: string;
   size?: number;
-  markTemplates?: { [key: string]: React.FC<any> };
+  markTemplates?: { [key: string]: () => JSX.Element };
   className?: string;
-  style?: CSSProperties;
-  onClick?: (e: any, d: T, index: number) => void;
-  onContextMenu?: (e: any, d: T, index: number) => void;
+  onClick?: (event: MouseEvent, d: T, index: number) => void;
+  onContextMenu?: (event: MouseEvent, d: T, index: number) => void;
+  onDoubleClick?: (event: MouseEvent, d: T, index: number) => void;
+  onPointerEnter?: (event: PointerEvent, d: T, index: number) => void;
+  onPointerMove?: (event: PointerEvent, d: T, index: number) => void;
+  onPointerLeave?: (event: PointerEvent, d: T, index: number) => void;
+  onPointerOut?: (event: PointerEvent, d: T, index: number) => void;
 };
 
 export const MarkSeries = <T,>({
@@ -93,30 +115,19 @@ export const MarkSeries = <T,>({
   color = "blue",
   size = 10,
   className,
-  style,
-  ...rest
+  onClick,
+  onContextMenu,
+  onDoubleClick,
+  onPointerEnter,
+  onPointerMove,
+  onPointerLeave,
+  onPointerOut,
 }: MarkSeriesProps<T>) => {
   const { xScale, yScale } = usePlotContext();
 
-  // warning extraProps is heading into useMemo and won't trigger updates there
-  const extraProps = { ...rest };
-
-  const [Mark, markLibrary] = useMemo(() => {
-    const markLibrary = markTemplates ? { ...marks, ...markTemplates } : marks;
-
-    if (typeof mark === "string") {
-      if (mark in markLibrary) {
-        return [markLibrary[mark], markLibrary];
-      } else {
-        console.error(`Error in MarkSeries mark named "${mark}" not found`);
-        return [markLibrary.error, markLibrary];
-      }
-    } else if (mark instanceof Function) {
-      return [mark, markLibrary];
-    } else {
-      throw new Error("Error in MarkSeries mark must be a string or function");
-    }
-  }, [marks, markTemplates]);
+  const markLibrary: { [key: string]: (props: MarkProps) => JSX.Element } = useMemo(() => {
+    return markTemplates ? { ...marks, ...markTemplates } : marks;
+  }, [markTemplates]);
 
   if (getColor) {
     if (!getFill) {
@@ -129,15 +140,24 @@ export const MarkSeries = <T,>({
 
   const points = useMemo(() => {
     const fn = (d: T, index: number) => {
-      const MarkComponent: (any) => JSX.Element = getMark ? markLibrary[getMark(d, index)] : Mark;
+      const MarkComponent: (props: MarkProps) => JSX.Element =
+        getMark && markLibrary[getMark(d, index)]
+          ? markLibrary[getMark(d, index)]
+          : typeof mark === "string"
+          ? markLibrary[mark]
+          : mark;
       if (!MarkComponent) {
-        console.error(`Error in markSeries mark named "${getMark(d, index)}" not found`);
+        console.error(
+          `Error in markSeries mark named "${
+            getMark ? getMark(d, index) : typeof mark === "string" ? markLibrary[mark] : "??"
+          }" not found`
+        );
         return null;
       }
 
       const x = xScale(getX(d, index));
       const y = yScale(getY(d, index));
-      const attrs = {
+      const attrs: MarkProps & { key: number | string } = {
         key: index,
         size: getSize ? getSize(d, index) : size,
         content: getContent && getContent(d, index),
@@ -146,8 +166,20 @@ export const MarkSeries = <T,>({
         stroke: getStroke ? getStroke(d, index) : color,
         fill: getFill ? getFill(d, index) : color,
         strokeWidth: strokeWidth || 1 * Number(mark !== "text"),
-        style,
-        ...onDataEvents(extraProps, d, index),
+        className,
+        ...onDataEvents(
+          {
+            onClick,
+            onContextMenu,
+            onDoubleClick,
+            onPointerEnter,
+            onPointerMove,
+            onPointerLeave,
+            onPointerOut,
+          },
+          d,
+          index
+        ),
       };
 
       return (
@@ -160,7 +192,6 @@ export const MarkSeries = <T,>({
     return data.map(fn);
   }, [
     data,
-    Mark,
     getMark,
     xScale,
     getX,
@@ -176,10 +207,16 @@ export const MarkSeries = <T,>({
     getFill,
     strokeWidth,
     mark,
-    style,
-    extraProps,
+    className,
     markLibrary,
+    onClick,
+    onContextMenu,
+    onDoubleClick,
+    onPointerEnter,
+    onPointerMove,
+    onPointerLeave,
+    onPointerOut,
   ]);
 
-  return <GPlotRegion className={twMerge("plot__series--mark", className)}>{points}</GPlotRegion>;
+  return <GPlotRegion className="plot__series--mark">{points}</GPlotRegion>;
 };

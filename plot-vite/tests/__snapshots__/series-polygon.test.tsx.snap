@@ -144,7 +144,7 @@ exports[`PolygonSeries example render > PolygonSeriesExample0 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -284,7 +284,7 @@ exports[`PolygonSeries example render > PolygonSeriesExample0 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"
@@ -460,7 +460,7 @@ exports[`PolygonSeries example render > PolygonSeriesExample1 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-e-resize"
+        class="plot__draggable-axis cursor-e-resize"
         fill="#0000"
         height="40"
         width="840"
@@ -600,7 +600,7 @@ exports[`PolygonSeries example render > PolygonSeriesExample1 renders 1`] = `
         </g>
       </g>
       <rect
-        class="cursor-s-resize"
+        class="plot__draggable-axis cursor-s-resize"
         fill="#0000"
         height="550"
         width="50"

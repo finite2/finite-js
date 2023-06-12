@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { MouseEvent, useCallback, useState } from "react";
 
 import { scaleLinear } from "d3-scale";
 import { MarkSeries, SVG, XAxis, XYPlot, YAxis } from "plot/index";
@@ -119,9 +119,12 @@ export const MarkSeriesExample5 = () => {
     [selected]
   );
 
-  const onClick = useCallback((_e: any, _d: Data, i: number) => setSelected(i), [setSelected]);
+  const onClick = useCallback(
+    (_e: MouseEvent, _d: Data, i: number) => setSelected(i),
+    [setSelected]
+  );
   const onRightClick = useCallback(
-    (e: any, _d: Data, i: number) => {
+    (e: MouseEvent, _d: Data, i: number) => {
       e.preventDefault();
       setRight(i);
     },

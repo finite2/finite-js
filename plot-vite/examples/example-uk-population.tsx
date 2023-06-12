@@ -10,6 +10,7 @@ import {
   YAxis,
 } from "plot/index";
 import { XYPlotProps } from "plot/plot/XYPlot";
+import { PosPointerEvent } from "plot/plot/types";
 import { useCallback, useRef, useReducer } from "react";
 
 const ukPopulation = {
@@ -95,8 +96,8 @@ export const ExampleUKPopulation = () => {
   console.log(dataRef.current);
 
   const onPointerMove = useCallback(
-    (e: any) => {
-      const age = parseInt(e.xPosition);
+    (e: PosPointerEvent) => {
+      const age = e.xPosition;
 
       // console.log(dataRef.current.pointerDown);
 
@@ -118,7 +119,7 @@ export const ExampleUKPopulation = () => {
   );
 
   const onPointerDown = useCallback(
-    (e: any) => {
+    (e: PosPointerEvent) => {
       const age = parseInt(e.xPosition);
 
       console.log(age);

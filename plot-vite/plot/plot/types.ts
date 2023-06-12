@@ -82,3 +82,23 @@ export type GEvents = {
 //   onGotPointerCapture,
 //   onLostPointerCapture,
 // };
+
+export type SeriesEvents<T> = {
+  onClick?: (e: MouseEvent, d: T, index: number) => void;
+  onContextMenu?: (e: MouseEvent, d: T, index: number) => void;
+  onDoubleClick?: (e: MouseEvent, d: T, index: number) => void;
+  onPointerEnter?: (e: PointerEvent, d: T, index: number) => void;
+  onPointerMove?: (e: PointerEvent, d: T, index: number) => void;
+  onPointerLeave?: (e: PointerEvent, d: T, index: number) => void;
+  onPointerOut?: (e: PointerEvent, d: T, index: number) => void;
+};
+
+export type ISeriesEvents = {
+  onClick?: (e: MouseEvent) => void;
+  onContextMenu?: (e: MouseEvent) => void;
+  onDoubleClick?: (e: MouseEvent) => void;
+  onPointerEnter?: (e: PointerEvent) => void;
+  onPointerMove?: (e: PointerEvent) => void;
+  onPointerLeave?: (e: PointerEvent) => void;
+  onPointerOut?: (e: PointerEvent) => void;
+};
