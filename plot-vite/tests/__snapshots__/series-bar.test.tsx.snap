@@ -1,0 +1,2063 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`BarSeries example render > BarSeriesExample0 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__series--bars"
+        transform="translate(50,10)"
+      >
+        <rect
+          color="blue"
+          height="220"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="70"
+          x="35"
+          y="330"
+        />
+        <rect
+          color="blue"
+          height="110"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="70"
+          x="175"
+          y="440"
+        />
+        <rect
+          color="blue"
+          height="330"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="70"
+          x="315"
+          y="220"
+        />
+        <rect
+          color="blue"
+          height="110"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="70"
+          x="455.00000000000006"
+          y="440"
+        />
+        <rect
+          color="blue"
+          height="330"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="70"
+          x="595"
+          y="220"
+        />
+        <rect
+          color="blue"
+          height="110"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="70"
+          x="735"
+          y="440"
+        />
+      </g>
+      <g
+        class="plot__x-axis"
+        transform="translate(50, 10)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="840"
+          y1="550"
+          y2="550"
+        />
+        <g
+          transform="translate(0, 550)"
+        >
+          <g
+            transform="translate(70, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              Shop 1
+            </text>
+          </g>
+          <g
+            transform="translate(210, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              Shop 2
+            </text>
+          </g>
+          <g
+            transform="translate(350, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              Shop 3
+            </text>
+          </g>
+          <g
+            transform="translate(490.00000000000006, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              Shop 4
+            </text>
+          </g>
+          <g
+            transform="translate(630, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              Shop 5
+            </text>
+          </g>
+          <g
+            transform="translate(770, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              Shop 6
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="cursor-e-resize"
+        fill="#0000"
+        height="40"
+        width="840"
+        x="50"
+        y="560"
+      />
+      <g
+        class="plot__y-axis"
+        transform="translate(50, 10)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="550"
+        />
+        <g
+          transform="translate(0, 0)"
+        >
+          <g
+            transform="translate(0, 550)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.0
+            </text>
+          </g>
+          <g
+            transform="translate(0, 440)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.2
+            </text>
+          </g>
+          <g
+            transform="translate(0, 330)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.4
+            </text>
+          </g>
+          <g
+            transform="translate(0, 220)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.6
+            </text>
+          </g>
+          <g
+            transform="translate(0, 109.99999999999997)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.8
+            </text>
+          </g>
+          <g
+            transform="translate(0, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              1.0
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="cursor-s-resize"
+        fill="#0000"
+        height="550"
+        width="50"
+        x="0"
+        y="10"
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`BarSeries example render > BarSeriesExample1 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__series--bars"
+        transform="translate(50,10)"
+      >
+        <rect
+          color="blue"
+          height="220"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="35"
+          x="35"
+          y="330"
+        />
+        <rect
+          color="blue"
+          height="110"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="35"
+          x="175"
+          y="440"
+        />
+        <rect
+          color="blue"
+          height="330"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="35"
+          x="315"
+          y="220"
+        />
+        <rect
+          color="blue"
+          height="110"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="35"
+          x="455.00000000000006"
+          y="440"
+        />
+        <rect
+          color="blue"
+          height="330"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="35"
+          x="595"
+          y="220"
+        />
+        <rect
+          color="blue"
+          height="110"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="35"
+          x="735"
+          y="440"
+        />
+      </g>
+      <g
+        class="plot__series--bars"
+        transform="translate(50,10)"
+      >
+        <rect
+          color="red"
+          height="440"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="35"
+          x="70"
+          y="109.99999999999997"
+        />
+        <rect
+          color="red"
+          height="330"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="35"
+          x="210"
+          y="220"
+        />
+        <rect
+          color="red"
+          height="275"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="35"
+          x="350"
+          y="275"
+        />
+        <rect
+          color="red"
+          height="330"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="35"
+          x="490.00000000000006"
+          y="220"
+        />
+        <rect
+          color="red"
+          height="440"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="35"
+          x="630"
+          y="109.99999999999997"
+        />
+        <rect
+          color="red"
+          height="495"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="35"
+          x="770"
+          y="54.999999999999986"
+        />
+      </g>
+      <g
+        class="plot__x-axis"
+        transform="translate(50, 10)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="840"
+          y1="550"
+          y2="550"
+        />
+        <g
+          transform="translate(0, 550)"
+        >
+          <g
+            transform="translate(70, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              Shop 1
+            </text>
+          </g>
+          <g
+            transform="translate(210, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              Shop 2
+            </text>
+          </g>
+          <g
+            transform="translate(350, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              Shop 3
+            </text>
+          </g>
+          <g
+            transform="translate(490.00000000000006, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              Shop 4
+            </text>
+          </g>
+          <g
+            transform="translate(630, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              Shop 5
+            </text>
+          </g>
+          <g
+            transform="translate(770, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              Shop 6
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="cursor-e-resize"
+        fill="#0000"
+        height="40"
+        width="840"
+        x="50"
+        y="560"
+      />
+      <g
+        class="plot__y-axis"
+        transform="translate(50, 10)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="550"
+        />
+        <g
+          transform="translate(0, 0)"
+        >
+          <g
+            transform="translate(0, 550)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.0
+            </text>
+          </g>
+          <g
+            transform="translate(0, 440)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.2
+            </text>
+          </g>
+          <g
+            transform="translate(0, 330)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.4
+            </text>
+          </g>
+          <g
+            transform="translate(0, 220)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.6
+            </text>
+          </g>
+          <g
+            transform="translate(0, 109.99999999999997)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.8
+            </text>
+          </g>
+          <g
+            transform="translate(0, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              1.0
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="cursor-s-resize"
+        fill="#0000"
+        height="550"
+        width="50"
+        x="0"
+        y="10"
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`BarSeries example render > BarSeriesExample2 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__series--bars"
+        transform="translate(50,10)"
+      >
+        <rect
+          color="rgb(255, 51, 0)"
+          height="220"
+          style="stroke: rgb(255, 51, 0); fill: rgb(255, 51, 0); stroke-width: 1;"
+          width="70"
+          x="35"
+          y="330"
+        />
+        <rect
+          color="rgb(255, 102, 0)"
+          height="110"
+          style="stroke: rgb(255, 102, 0); fill: rgb(255, 102, 0); stroke-width: 1;"
+          width="70"
+          x="175"
+          y="440"
+        />
+        <rect
+          color="rgb(255, 204, 0)"
+          height="330"
+          style="stroke: rgb(255, 204, 0); fill: rgb(255, 204, 0); stroke-width: 1;"
+          width="70"
+          x="315"
+          y="220"
+        />
+        <rect
+          color="rgb(204, 230, 0)"
+          height="110"
+          style="stroke: rgb(204, 230, 0); fill: rgb(204, 230, 0); stroke-width: 1;"
+          width="70"
+          x="455.00000000000006"
+          y="440"
+        />
+        <rect
+          color="rgb(102, 179, 0)"
+          height="330"
+          style="stroke: rgb(102, 179, 0); fill: rgb(102, 179, 0); stroke-width: 1;"
+          width="70"
+          x="595"
+          y="220"
+        />
+        <rect
+          color="rgb(51, 153, 0)"
+          height="110"
+          style="stroke: rgb(51, 153, 0); fill: rgb(51, 153, 0); stroke-width: 1;"
+          width="70"
+          x="735"
+          y="440"
+        />
+      </g>
+      <g
+        class="plot__x-axis"
+        transform="translate(50, 10)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="840"
+          y1="550"
+          y2="550"
+        />
+        <g
+          transform="translate(0, 550)"
+        >
+          <g
+            transform="translate(70, 0)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 2)"
+            >
+              Shop 1
+            </text>
+          </g>
+          <g
+            transform="translate(210, 0)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 2)"
+            >
+              Shop 2
+            </text>
+          </g>
+          <g
+            transform="translate(350, 0)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 2)"
+            >
+              Shop 3
+            </text>
+          </g>
+          <g
+            transform="translate(490.00000000000006, 0)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 2)"
+            >
+              Shop 4
+            </text>
+          </g>
+          <g
+            transform="translate(630, 0)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 2)"
+            >
+              Shop 5
+            </text>
+          </g>
+          <g
+            transform="translate(770, 0)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 2)"
+            >
+              Shop 6
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="cursor-e-resize"
+        fill="#0000"
+        height="40"
+        width="840"
+        x="50"
+        y="560"
+      />
+      <g
+        class="plot__y-axis"
+        transform="translate(50, 10)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="550"
+        />
+        <g
+          transform="translate(0, 0)"
+        >
+          <g
+            transform="translate(0, 550)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.0
+            </text>
+          </g>
+          <g
+            transform="translate(0, 440)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.2
+            </text>
+          </g>
+          <g
+            transform="translate(0, 330)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.4
+            </text>
+          </g>
+          <g
+            transform="translate(0, 220)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.6
+            </text>
+          </g>
+          <g
+            transform="translate(0, 109.99999999999997)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.8
+            </text>
+          </g>
+          <g
+            transform="translate(0, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              1.0
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="cursor-s-resize"
+        fill="#0000"
+        height="550"
+        width="50"
+        x="0"
+        y="10"
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`BarSeries example render > BarSeriesExample3 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__series--bars"
+        transform="translate(50,10)"
+      >
+        <rect
+          color="blue"
+          height="137.5"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="70"
+          x="35"
+          y="412.5"
+        />
+        <rect
+          color="blue"
+          height="68.75"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="70"
+          x="175"
+          y="481.25"
+        />
+        <rect
+          color="blue"
+          height="206.25"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="70"
+          x="315"
+          y="343.75"
+        />
+        <rect
+          color="blue"
+          height="68.75"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="70"
+          x="455.00000000000006"
+          y="481.25"
+        />
+        <rect
+          color="blue"
+          height="206.25"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="70"
+          x="595"
+          y="343.75"
+        />
+        <rect
+          color="blue"
+          height="68.75"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="70"
+          x="735"
+          y="481.25"
+        />
+      </g>
+      <g
+        class="plot__series--bars"
+        transform="translate(50,10)"
+      >
+        <rect
+          color="red"
+          height="275.00000000000006"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="70"
+          x="35"
+          y="137.49999999999994"
+        />
+        <rect
+          color="red"
+          height="206.25"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="70"
+          x="175"
+          y="275"
+        />
+        <rect
+          color="red"
+          height="171.875"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="70"
+          x="315"
+          y="171.875"
+        />
+        <rect
+          color="red"
+          height="206.25"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="70"
+          x="455.00000000000006"
+          y="275"
+        />
+        <rect
+          color="red"
+          height="274.99999999999994"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="70"
+          x="595"
+          y="68.75000000000006"
+        />
+        <rect
+          color="red"
+          height="309.375"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="70"
+          x="735"
+          y="171.875"
+        />
+      </g>
+      <g
+        class="plot__x-axis"
+        transform="translate(50, 10)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="840"
+          y1="550"
+          y2="550"
+        />
+        <g
+          transform="translate(0, 550)"
+        >
+          <g
+            transform="translate(70, 0)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 2)"
+            >
+              Shop 1
+            </text>
+          </g>
+          <g
+            transform="translate(210, 0)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 2)"
+            >
+              Shop 2
+            </text>
+          </g>
+          <g
+            transform="translate(350, 0)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 2)"
+            >
+              Shop 3
+            </text>
+          </g>
+          <g
+            transform="translate(490.00000000000006, 0)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 2)"
+            >
+              Shop 4
+            </text>
+          </g>
+          <g
+            transform="translate(630, 0)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 2)"
+            >
+              Shop 5
+            </text>
+          </g>
+          <g
+            transform="translate(770, 0)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 2)"
+            >
+              Shop 6
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="cursor-e-resize"
+        fill="#0000"
+        height="40"
+        width="840"
+        x="50"
+        y="560"
+      />
+      <g
+        class="plot__y-axis"
+        transform="translate(50, 10)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="550"
+        />
+        <g
+          transform="translate(0, 0)"
+        >
+          <g
+            transform="translate(0, 550)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.0
+            </text>
+          </g>
+          <g
+            transform="translate(0, 378.125)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.5
+            </text>
+          </g>
+          <g
+            transform="translate(0, 206.25)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              1.0
+            </text>
+          </g>
+          <g
+            transform="translate(0, 34.375)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              1.5
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="cursor-s-resize"
+        fill="#0000"
+        height="550"
+        width="50"
+        x="0"
+        y="10"
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`BarSeries example render > BarSeriesExample4 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__series--bars"
+        transform="translate(80,10)"
+      >
+        <rect
+          color="blue"
+          height="22.916666666666657"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="324"
+          x="0"
+          y="481.25"
+        />
+        <rect
+          color="blue"
+          height="22.916666666666657"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="162"
+          x="0"
+          y="389.58333333333337"
+        />
+        <rect
+          color="blue"
+          height="22.916666666666657"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="486"
+          x="0"
+          y="297.9166666666667"
+        />
+        <rect
+          color="blue"
+          height="22.916666666666657"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="162"
+          x="0"
+          y="206.25"
+        />
+        <rect
+          color="blue"
+          height="22.916666666666657"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="486"
+          x="0"
+          y="114.58333333333334"
+        />
+        <rect
+          color="blue"
+          height="22.916666666666657"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="162"
+          x="0"
+          y="22.9166666666667"
+        />
+      </g>
+      <g
+        class="plot__series--bars"
+        transform="translate(80,10)"
+      >
+        <rect
+          color="red"
+          height="22.916666666666657"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="648"
+          x="0"
+          y="504.16666666666663"
+        />
+        <rect
+          color="red"
+          height="22.916666666666657"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="486"
+          x="0"
+          y="412.5"
+        />
+        <rect
+          color="red"
+          height="22.916666666666657"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="405"
+          x="0"
+          y="320.8333333333333"
+        />
+        <rect
+          color="red"
+          height="22.916666666666657"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="486"
+          x="0"
+          y="229.16666666666663"
+        />
+        <rect
+          color="red"
+          height="22.916666666666657"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="648"
+          x="0"
+          y="137.5"
+        />
+        <rect
+          color="red"
+          height="22.916666666666657"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="729"
+          x="0"
+          y="45.83333333333336"
+        />
+      </g>
+      <g
+        class="plot__x-axis"
+        transform="translate(80, 10)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="810"
+          y1="550"
+          y2="550"
+        />
+        <g
+          transform="translate(0, 550)"
+        >
+          <g
+            transform="translate(0, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              0.0
+            </text>
+          </g>
+          <g
+            transform="translate(162, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              0.2
+            </text>
+          </g>
+          <g
+            transform="translate(324, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              0.4
+            </text>
+          </g>
+          <g
+            transform="translate(486, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              0.6
+            </text>
+          </g>
+          <g
+            transform="translate(648, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              0.8
+            </text>
+          </g>
+          <g
+            transform="translate(810, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              1.0
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="cursor-e-resize"
+        fill="#0000"
+        height="40"
+        width="810"
+        x="80"
+        y="560"
+      />
+      <g
+        class="plot__y-axis"
+        transform="translate(80, 10)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="550"
+        />
+        <g
+          transform="translate(0, 0)"
+        >
+          <g
+            transform="translate(0, 504.16666666666663)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-2, 0)"
+            >
+              Shop 1
+            </text>
+          </g>
+          <g
+            transform="translate(0, 412.5)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-2, 0)"
+            >
+              Shop 2
+            </text>
+          </g>
+          <g
+            transform="translate(0, 320.8333333333333)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-2, 0)"
+            >
+              Shop 3
+            </text>
+          </g>
+          <g
+            transform="translate(0, 229.16666666666666)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-2, 0)"
+            >
+              Shop 4
+            </text>
+          </g>
+          <g
+            transform="translate(0, 137.5)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-2, 0)"
+            >
+              Shop 5
+            </text>
+          </g>
+          <g
+            transform="translate(0, 45.83333333333336)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-2, 0)"
+            >
+              Shop 6
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="cursor-s-resize"
+        fill="#0000"
+        height="550"
+        width="80"
+        x="0"
+        y="10"
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`BarSeries example render > BarSeriesExample5 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__series--bars"
+        transform="translate(80,10)"
+      >
+        <rect
+          color="blue"
+          height="45.833333333333314"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="202.5"
+          x="0"
+          y="481.25"
+        />
+        <rect
+          color="blue"
+          height="45.833333333333314"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="101.25"
+          x="0"
+          y="389.58333333333337"
+        />
+        <rect
+          color="blue"
+          height="45.833333333333314"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="303.74999999999994"
+          x="0"
+          y="297.91666666666663"
+        />
+        <rect
+          color="blue"
+          height="45.833333333333314"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="101.25"
+          x="0"
+          y="206.25"
+        />
+        <rect
+          color="blue"
+          height="45.833333333333314"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="303.74999999999994"
+          x="0"
+          y="114.58333333333334"
+        />
+        <rect
+          color="blue"
+          height="45.833333333333314"
+          style="stroke: blue; fill: blue; stroke-width: 1;"
+          width="101.25"
+          x="0"
+          y="22.9166666666667"
+        />
+      </g>
+      <g
+        class="plot__series--bars"
+        transform="translate(80,10)"
+      >
+        <rect
+          color="red"
+          height="45.833333333333314"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="405.0000000000001"
+          x="202.5"
+          y="481.25"
+        />
+        <rect
+          color="red"
+          height="45.833333333333314"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="303.75"
+          x="101.25"
+          y="389.58333333333337"
+        />
+        <rect
+          color="red"
+          height="45.833333333333314"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="253.12500000000006"
+          x="303.74999999999994"
+          y="297.91666666666663"
+        />
+        <rect
+          color="red"
+          height="45.833333333333314"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="303.75"
+          x="101.25"
+          y="206.25"
+        />
+        <rect
+          color="red"
+          height="45.833333333333314"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="404.99999999999994"
+          x="303.74999999999994"
+          y="114.58333333333334"
+        />
+        <rect
+          color="red"
+          height="45.833333333333314"
+          style="stroke: red; fill: red; stroke-width: 1;"
+          width="455.625"
+          x="101.25"
+          y="22.9166666666667"
+        />
+      </g>
+      <g
+        class="plot__x-axis"
+        transform="translate(80, 10)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="810"
+          y1="550"
+          y2="550"
+        />
+        <g
+          transform="translate(0, 550)"
+        >
+          <g
+            transform="translate(0, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              0.0
+            </text>
+          </g>
+          <g
+            transform="translate(253.125, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              0.5
+            </text>
+          </g>
+          <g
+            transform="translate(506.25, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              1.0
+            </text>
+          </g>
+          <g
+            transform="translate(759.375, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              1.5
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="cursor-e-resize"
+        fill="#0000"
+        height="40"
+        width="810"
+        x="80"
+        y="560"
+      />
+      <g
+        class="plot__y-axis"
+        transform="translate(80, 10)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="550"
+        />
+        <g
+          transform="translate(0, 0)"
+        >
+          <g
+            transform="translate(0, 504.16666666666663)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-2, 0)"
+            >
+              Shop 1
+            </text>
+          </g>
+          <g
+            transform="translate(0, 412.5)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-2, 0)"
+            >
+              Shop 2
+            </text>
+          </g>
+          <g
+            transform="translate(0, 320.8333333333333)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-2, 0)"
+            >
+              Shop 3
+            </text>
+          </g>
+          <g
+            transform="translate(0, 229.16666666666666)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-2, 0)"
+            >
+              Shop 4
+            </text>
+          </g>
+          <g
+            transform="translate(0, 137.5)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-2, 0)"
+            >
+              Shop 5
+            </text>
+          </g>
+          <g
+            transform="translate(0, 45.83333333333336)"
+          >
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-2, 0)"
+            >
+              Shop 6
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="cursor-s-resize"
+        fill="#0000"
+        height="550"
+        width="80"
+        x="0"
+        y="10"
+      />
+    </g>
+  </svg>
+</div>
+`;

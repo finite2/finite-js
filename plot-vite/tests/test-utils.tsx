@@ -9,6 +9,16 @@ function render(ui: ReactElement, renderOptions: RenderOptions = {}) {
   return { userEvent: user, ...rtlRender(ui, { ...renderOptions }) };
 }
 
+export const renderTest = (renderObject: { [key: string]: () => JSX.Element }) => {
+  Object.entries(renderObject).forEach(([name, Example]) => {
+    test(`${name} renders`, () => {
+      const { container } = render(<Example />);
+
+      expect(container.firstChild).toMatchSnapshot();
+    });
+  });
+};
+
 // We re-export everything
 export * from "@testing-library/react";
 // And override the `render` method

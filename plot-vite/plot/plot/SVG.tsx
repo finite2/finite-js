@@ -13,7 +13,7 @@ import {
 
 import { SVGContext } from "./plot-utils";
 import { PlotContainer } from "./menu/PlotContainer";
-import { getId } from "../utils";
+import { getID } from "plot/utils/getID";
 
 const SVGstyled = ({
   children,
@@ -80,7 +80,7 @@ export const SVG = ({
 }: MySVGProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const idRef = useRef<string>(getId());
+  const idRef = useRef<string>(getID());
 
   const [{ width, height }, setSize, resetSize] = useSVGsize(propWidth, propHeight);
 

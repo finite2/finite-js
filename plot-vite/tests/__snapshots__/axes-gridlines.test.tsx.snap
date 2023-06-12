@@ -1,0 +1,541 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Gridlines example render > AxisGridlinesExample0 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher"
+          fill="var(--color-background-alt)"
+          height="550"
+          width="840"
+          x="50"
+          y="10"
+        />
+      </g>
+      <g
+        class="plot__grid-lines"
+        transform="translate(50,10)"
+      >
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="550"
+          y2="550"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="440"
+          y2="440"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="330"
+          y2="330"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="220"
+          y2="220"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="109.99999999999997"
+          y2="109.99999999999997"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="0"
+          y2="0"
+        />
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`Gridlines example render > AxisGridlinesExample1 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher"
+          fill="var(--color-background-alt)"
+          height="550"
+          width="840"
+          x="50"
+          y="10"
+        />
+      </g>
+      <g
+        class="plot__grid-lines"
+        transform="translate(50,10)"
+      >
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="550"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="168"
+          x2="168"
+          y1="0"
+          y2="550"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="336"
+          x2="336"
+          y1="0"
+          y2="550"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="504"
+          x2="504"
+          y1="0"
+          y2="550"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="672"
+          x2="672"
+          y1="0"
+          y2="550"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="840"
+          x2="840"
+          y1="0"
+          y2="550"
+        />
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`Gridlines example render > AxisGridlinesExample2 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher"
+          fill="var(--color-background-alt)"
+          height="550"
+          width="840"
+          x="50"
+          y="10"
+        />
+      </g>
+      <g
+        class="plot__grid-lines"
+        transform="translate(50,10)"
+      >
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="550"
+          y2="550"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="508.60837559620256"
+          y2="508.60837559620256"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="484.39582747604646"
+          y2="484.39582747604646"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="467.2167511924051"
+          y2="467.2167511924051"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="453.89162440379744"
+          y2="453.89162440379744"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="443.004203072249"
+          y2="443.004203072249"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="433.7990194980397"
+          y2="433.7990194980397"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="425.8251267886078"
+          y2="425.8251267886078"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="418.79165495209287"
+          y2="418.79165495209287"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="412.5"
+          y2="412.5"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="371.10837559620256"
+          y2="371.10837559620256"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="346.8958274760464"
+          y2="346.8958274760464"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="329.7167511924051"
+          y2="329.7167511924051"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="316.39162440379744"
+          y2="316.39162440379744"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="305.504203072249"
+          y2="305.504203072249"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="296.2990194980397"
+          y2="296.2990194980397"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="288.3251267886078"
+          y2="288.3251267886078"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="281.29165495209287"
+          y2="281.29165495209287"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="275"
+          y2="275"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="233.60837559620265"
+          y2="233.60837559620265"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="209.39582747604646"
+          y2="209.39582747604646"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="192.2167511924052"
+          y2="192.2167511924052"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="178.8916244037975"
+          y2="178.8916244037975"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="168.00420307224903"
+          y2="168.00420307224903"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="158.79901949803974"
+          y2="158.79901949803974"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="150.8251267886078"
+          y2="150.8251267886078"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="143.79165495209284"
+          y2="143.79165495209284"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="137.50000000000006"
+          y2="137.50000000000006"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="96.10837559620263"
+          y2="96.10837559620263"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="71.89582747604652"
+          y2="71.89582747604652"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="54.71675119240522"
+          y2="54.71675119240522"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="41.39162440379742"
+          y2="41.39162440379742"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="30.50420307224909"
+          y2="30.50420307224909"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="21.299019498039733"
+          y2="21.299019498039733"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="13.325126788607793"
+          y2="13.325126788607793"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="6.291654952092846"
+          y2="6.291654952092846"
+        />
+        <line
+          class="plot__grid-lines__line"
+          stroke="#c8d6dd"
+          style="pointer-events: none;"
+          x1="0"
+          x2="840"
+          y1="0"
+          y2="0"
+        />
+      </g>
+    </g>
+  </svg>
+</div>
+`;

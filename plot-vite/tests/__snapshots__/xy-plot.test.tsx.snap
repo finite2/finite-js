@@ -1,0 +1,209 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`XYPlot example render > XYPlotExample0 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher"
+          fill="var(--color-background-alt)"
+          height="550"
+          width="840"
+          x="50"
+          y="10"
+        />
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`XYPlot example render > XYPlotExample1 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher"
+          fill="var(--color-background-alt)"
+          height="250"
+          width="390"
+          x="50"
+          y="10"
+        />
+      </g>
+    </g>
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher"
+          fill="var(--color-background-alt)"
+          height="250"
+          width="390"
+          x="50"
+          y="310"
+        />
+      </g>
+    </g>
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher"
+          fill="var(--color-background-alt)"
+          height="250"
+          width="390"
+          x="500"
+          y="10"
+        />
+      </g>
+    </g>
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher"
+          fill="var(--color-background-alt)"
+          height="250"
+          width="390"
+          x="500"
+          y="310"
+        />
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`XYPlot example render > XYPlotExample2 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher"
+          fill="var(--color-background-alt)"
+          height="250"
+          width="540"
+          x="50"
+          y="10"
+        />
+      </g>
+    </g>
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher"
+          fill="var(--color-background-alt)"
+          height="250"
+          width="240"
+          x="650"
+          y="10"
+        />
+      </g>
+    </g>
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher"
+          fill="var(--color-background-alt)"
+          height="250"
+          width="240"
+          x="50"
+          y="310"
+        />
+      </g>
+    </g>
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher"
+          fill="var(--color-background-alt)"
+          height="250"
+          width="540"
+          x="350"
+          y="310"
+        />
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`XYPlot example render > XYPlotExample3 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher"
+          fill="var(--color-background-alt)"
+          height="510"
+          width="810"
+          x="80"
+          y="10"
+        />
+      </g>
+    </g>
+  </svg>
+</div>
+`;
