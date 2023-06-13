@@ -20,3 +20,6 @@ This is a react plotting library inspired by react-vis and d3.
 - decide what to do with /menu folder
 - axes titles
 - chart titles
+
+- make the dev/docs navigatable
+- documentation

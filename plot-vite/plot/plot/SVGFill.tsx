@@ -1,4 +1,5 @@
-import { useElementSize } from "plot/utils";
+
+import { useElementSize } from "plot/utils/useElementSize";
 import { MySVGProps, SVG } from "./SVG";
 
 export const SVGFill = ({ children, ...rest }: Omit<MySVGProps, "width" | "height">) => {

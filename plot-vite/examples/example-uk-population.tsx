@@ -11,7 +11,7 @@ import {
 } from "plot/index";
 import { XYPlotProps } from "plot/plot/XYPlot";
 import { PosPointerEvent } from "plot/plot/types";
-import { useCallback, useRef, useReducer } from "react";
+import { useCallback, useReducer, useRef } from "react";
 
 const ukPopulation = {
   year: 2020,
@@ -93,13 +93,9 @@ export const ExampleUKPopulation = () => {
     selectedRange: false,
   });
 
-  console.log(dataRef.current);
-
   const onPointerMove = useCallback(
     (e: PosPointerEvent) => {
       const age = e.xPosition;
-
-      // console.log(dataRef.current.pointerDown);
 
       if (dataRef.current.pointerDown) {
         if (age >= dataRef.current.indexMax) {
@@ -121,8 +117,6 @@ export const ExampleUKPopulation = () => {
   const onPointerDown = useCallback(
     (e: PosPointerEvent) => {
       const age = parseInt(e.xPosition);
-
-      console.log(age);
 
       dataRef.current.selectedRange = true;
       dataRef.current.indexMin = age;

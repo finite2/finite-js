@@ -1,86 +1,72 @@
-import {
-  AxisExample0,
-  AxisExample1,
-  AxisExample2,
-  AxisExample3,
-  AxisExample4,
-  AxisExample5,
-  AxisExample6,
-} from "examples/axes";
-import { LineSeriesExample0, LineSeriesExample1 } from "examples/series-line";
-import {
-  BarSeriesExample0,
-  BarSeriesExample1,
-  BarSeriesExample2,
-  BarSeriesExample3,
-  BarSeriesExample4,
-  BarSeriesExample5,
-} from "examples/series-bar";
-import { PolygonSeriesExample0, PolygonSeriesExample1 } from "examples/series-polygon";
 import { EventExamples0 } from "examples/events-series";
-import {
-  MarkSeriesExample0,
-  MarkSeriesExample1,
-  MarkSeriesExample2,
-  MarkSeriesExample3,
-  MarkSeriesExample4,
-  MarkSeriesExample5,
-} from "examples/series-mark";
-import { ExampleUKPopulation } from "examples/example-uk-population";
-import {
-  AxisGridlinesExample0,
-  AxisGridlinesExample1,
-  AxisGridlinesExample2,
-} from "examples/axes-gridlines";
-import { XYPlotExample0, XYPlotExample1, XYPlotExample2, XYPlotExample3 } from "examples/xy-plot";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+import { Layout } from "./Layout";
+import { AxesPage } from "./pages/axes";
+import { ExampleUkPopulationPage } from "./pages/example-uk-population";
+import { GridlinesPage } from "./pages/gridlines";
+import { BarSeriesPage } from "./pages/series-bar";
+import { LineSeriesPage } from "./pages/series-line";
+import { MarkSeriesPage } from "./pages/series-mark";
+import { PolygonSeriesPage } from "./pages/series-polygon";
+import { XYPlotPage } from "./pages/xyplot";
+import { routes } from "./routes";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: routes.xyPlot,
+        element: <XYPlotPage />,
+      },
+      {
+        path: routes.axes,
+        element: <AxesPage />,
+      },
+      {
+        path: routes.gridLines,
+        element: <GridlinesPage />,
+      },
+      {
+        path: routes.barSeries,
+        element: <BarSeriesPage />,
+      },
+      {
+        path: routes.polygonSeries,
+        element: <PolygonSeriesPage />,
+      },
+      {
+        path: routes.markSeries,
+        element: <MarkSeriesPage />,
+      },
+      {
+        path: routes.lineSeries,
+        element: <LineSeriesPage />,
+      },
+      {
+        path: routes.events,
+        element: <EventExamples0 />,
+      },
+      {
+        path: routes.examples.ukPopulation,
+        element: <ExampleUkPopulationPage />,
+      },
+      {
+        path: routes.base,
+        element: <div>Home</div>,
+      },
+      {
+        path: "*",
+        element: <h2 className="my-auto text-center">404 Page Not Found</h2>,
+      },
+    ],
+  },
+]);
 
 function App() {
-  return (
-    <>
-      <div className="max-w-[800px]">
-        <XYPlotExample0 />
-        <XYPlotExample1 />
-        <XYPlotExample2 />
-        <XYPlotExample3 />
-
-        <AxisExample0 />
-        <AxisExample1 />
-        <AxisExample2 />
-        <AxisExample3 />
-        <AxisExample4 />
-        <AxisExample5 />
-        <AxisExample6 />
-
-        <AxisGridlinesExample0 />
-        <AxisGridlinesExample1 />
-        <AxisGridlinesExample2 />
-
-        <LineSeriesExample0 />
-        <LineSeriesExample1 />
-
-        <BarSeriesExample0 />
-        <BarSeriesExample1 />
-        <BarSeriesExample2 />
-        <BarSeriesExample3 />
-        <BarSeriesExample4 />
-        <BarSeriesExample5 />
-
-        <PolygonSeriesExample0 />
-        <PolygonSeriesExample1 />
-
-        <MarkSeriesExample0 />
-        <MarkSeriesExample1 />
-        <MarkSeriesExample2 />
-        <MarkSeriesExample3 />
-        <MarkSeriesExample4 />
-        <MarkSeriesExample5 />
-
-        <EventExamples0 />
-
-        <ExampleUKPopulation />
-      </div>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

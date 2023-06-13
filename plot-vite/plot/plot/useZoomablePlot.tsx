@@ -333,9 +333,6 @@ export const useZoomablePlot = (
       },
       onPointerEnter: () => {
         // disable document scroll
-
-        console.log(scrollEnabled.current.enabled);
-
         scrollEnabled.current.counter++;
         if (scrollEnabled.current.enabled) {
           scrollEnabled.current.enabled = false;
