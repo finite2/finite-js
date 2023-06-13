@@ -17,9 +17,10 @@ This is a react plotting library inspired by react-vis and d3.
 - handle forwarding refs.
 - twMerge to be easily replaced.
 - update prettier to sort imports.
-- decide what to do with /menu folder
 - axes titles
 - chart titles
 
-- make the dev/docs navigatable
+- (done) make the dev/docs navigatable
+- render the example code under each example
 - documentation
+- add coverage
