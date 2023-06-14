@@ -7,6 +7,7 @@ export const routes = {
   markSeries: "/mark-series",
   polygonSeries: "/polygon-series",
   axes: "/axes",
+  axesTitles: "/axes-titles",
   gridLines: "/grid-lines",
   titles: "/titles",
   events: "/events",

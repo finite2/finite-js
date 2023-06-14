@@ -4,23 +4,24 @@ This is a react plotting library inspired by react-vis and d3.
 
 # TODO
 
+- (done) remaining use of type any
+- (done) impliments prop AxisTitle inside.
+- (done) axes titles
 - data event handlers (to manually test and review)
 - data event handlers for LineSeries and LineAreaSeries
 - event tests
-- (done) remaining use of type any
 - example for date axis
 - example for realtime data updating
 - example for histogram data
 - standardise prop types between similar element
 - standardise prop exports.
-- impliments prop Axis inside.
 - handle forwarding refs.
 - twMerge to be easily replaced.
 - update prettier to sort imports.
-- axes titles
 - chart titles
 
 - (done) make the dev/docs navigatable
 - render the example code under each example
 - documentation
 - add coverage
+- dark mode support?
