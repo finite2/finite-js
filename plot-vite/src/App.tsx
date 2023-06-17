@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Layout } from "./Layout";
 import { AxesPage } from "./pages/axes";
 import { AxesTitlesPage } from "./pages/axes-titles";
+import { ChartTitlesPage } from "./pages/chart-tiles";
 import { ExampleUkPopulationPage } from "./pages/example-uk-population";
 import { GridlinesPage } from "./pages/gridlines";
 import { BarSeriesPage } from "./pages/series-bar";
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: routes.axesTitles,
         element: <AxesTitlesPage />,
+      },
+      {
+        path: routes.chartTitles,
+        element: <ChartTitlesPage />,
       },
       {
         path: routes.gridLines,

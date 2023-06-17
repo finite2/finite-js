@@ -8,6 +8,7 @@ export const routes = {
   polygonSeries: "/polygon-series",
   axes: "/axes",
   axesTitles: "/axes-titles",
+  chartTitles: "/chart-titles",
   gridLines: "/grid-lines",
   titles: "/titles",
   events: "/events",
@@ -15,4 +16,4 @@ export const routes = {
     base: "/examples",
     ukPopulation: "/examples/uk-population",
   },
-};
+} as const;

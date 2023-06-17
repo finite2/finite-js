@@ -174,7 +174,7 @@ export const ExampleUKPopulation = () => {
             UK population by age in 2020 (total = {tickFormat(totalPopulation)})
             <br />
             {dataRef.current.selectedRange ? (
-              <span style={{ color: "var(--color-primary" }}>
+              <span style={{ color: "var(--color-primary)" }}>
                 Selected age {getAgeRange(dataRef.current.indexMin, dataRef.current.indexMax)} ={" "}
                 {tickFormat(countedRange)} ({((100 * countedRange) / totalPopulation).toFixed(1)}
                 %)

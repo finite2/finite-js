@@ -10,6 +10,7 @@ export const Layout = () => {
         <Link to={routes.xyPlot}>XY Plot</Link>
         <Link to={routes.axes}>Axes</Link>
         <Link to={routes.axesTitles}>Axes titles</Link>
+        <Link to={routes.chartTitles}>Chart titles</Link>
         <Link to={routes.gridLines}>Gridlines</Link>
         <Link to={routes.barSeries}>Bar Series</Link>
         <Link to={routes.polygonSeries}>Polygon Series</Link>

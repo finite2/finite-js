@@ -7,10 +7,11 @@ This is a react plotting library inspired by react-vis and d3.
 - (done) remaining use of type any
 - (done) impliments prop AxisTitle inside.
 - (done) axes titles
-- data event handlers (to manually test and review)
+
+- (to manually test and review) data event handlers
 - data event handlers for LineSeries and LineAreaSeries
 - event tests
-- example for date axis
+- work out how to do date axis and example for date axis
 - example for realtime data updating
 - example for histogram data
 - standardise prop types between similar element
@@ -21,7 +22,10 @@ This is a react plotting library inspired by react-vis and d3.
 - chart titles
 
 - (done) make the dev/docs navigatable
+
 - render the example code under each example
+- favicon
+- decent name
 - documentation
 - add coverage
 - dark mode support?

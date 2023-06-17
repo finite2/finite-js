@@ -1,0 +1,337 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ChartTitle example render > ChartTitleExample0 renders 1`] = `
+<div
+  id="test-id"
+>
+  <svg
+    class="user-select-none relative"
+    viewBox="0 0 900 600"
+  >
+    <g
+      class="plot__xyplot"
+    >
+      <g
+        class="plot__region"
+      >
+        <rect
+          class="plot__region-dragcatcher cursor-move"
+          fill="var(--color-background-alt)"
+          height="510"
+          width="850"
+          x="40"
+          y="50"
+        />
+      </g>
+      <g
+        class="plot__x-axis"
+        transform="translate(40, 50)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="850"
+          y1="510"
+          y2="510"
+        />
+        <g
+          transform="translate(0, 510)"
+        >
+          <g
+            transform="translate(0, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              0.0
+            </text>
+          </g>
+          <g
+            transform="translate(170, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              0.2
+            </text>
+          </g>
+          <g
+            transform="translate(340, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              0.4
+            </text>
+          </g>
+          <g
+            transform="translate(510, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              0.6
+            </text>
+          </g>
+          <g
+            transform="translate(680, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              0.8
+            </text>
+          </g>
+          <g
+            transform="translate(850, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="0"
+              x2="0"
+              y1="-6"
+              y2="6"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.72em"
+              text-anchor="middle"
+              transform="translate(0, 14)"
+            >
+              1.0
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="plot__draggable-axis cursor-e-resize"
+        fill="#0000"
+        height="40"
+        width="850"
+        x="40"
+        y="560"
+      />
+      <g
+        class="plot__y-axis"
+        transform="translate(40, 50)"
+      >
+        <line
+          class="plot__axis-line"
+          fill="var(--color-font)"
+          stroke="var(--color-font)"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="510"
+        />
+        <g
+          transform="translate(0, 0)"
+        >
+          <g
+            transform="translate(0, 510)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.0
+            </text>
+          </g>
+          <g
+            transform="translate(0, 408)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.2
+            </text>
+          </g>
+          <g
+            transform="translate(0, 306)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.4
+            </text>
+          </g>
+          <g
+            transform="translate(0, 204)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.6
+            </text>
+          </g>
+          <g
+            transform="translate(0, 101.99999999999997)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              0.8
+            </text>
+          </g>
+          <g
+            transform="translate(0, 0)"
+          >
+            <line
+              stroke="var(--color-font)"
+              x1="6"
+              x2="-6"
+              y1="0"
+              y2="0"
+            />
+            <text
+              class="plot__tick-label select-none"
+              dy="0.32em"
+              text-anchor="end"
+              transform="translate(-14, 0)"
+            >
+              1.0
+            </text>
+          </g>
+        </g>
+      </g>
+      <rect
+        class="plot__draggable-axis cursor-s-resize"
+        fill="#0000"
+        height="510"
+        width="40"
+        x="0"
+        y="50"
+      />
+      <foreignobject
+        class="plot__title"
+        height="45"
+        width="850"
+        x="40"
+        y="0"
+      >
+        <div
+          class="plot__title-container absolute bottom-0 w-full"
+        >
+          <div
+            class="plot__title-title relative h-full w-full text-2xl font-semibold text-center"
+          >
+            <span
+              class="text-blue-500"
+            >
+              Charts
+            </span>
+             are
+             
+            <span
+              class="text-orange-500"
+            >
+              fun
+            </span>
+          </div>
+        </div>
+      </foreignobject>
+    </g>
+  </svg>
+</div>
+`;
